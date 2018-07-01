@@ -1,0 +1,19 @@
+extends ../layout
+
+block content 
+  h1= animal.name
+    if user
+      a.btn.btn-outline-danger.delete-animal.float-right(
+        href='#' 
+        data-animal-id=animal._id 
+        data-proprietar-id=proprietar._id) Delete
+      a.btn.btn-dark.float-right(href='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id) Edit
+
+  p Proprietar 
+    a(href='/proprietari/'+proprietar._id)
+      strong #{proprietar.surname} #{proprietar.name}
+  hr
+  p= animal.type
+  p= animal.age
+
+  

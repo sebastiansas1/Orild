@@ -1,0 +1,16 @@
+extends ../layout
+
+block content 
+  h1 #{title}
+  form(method='POST', action='/proprietari/'+proprietar_id+'/animals/add')
+    #form-group 
+      label Name
+      input.form-control(name='name', type='text') 
+    #form-group 
+      label Type
+      input.form-control(name='type', type='text') 
+    #form-group 
+      label Age
+      input.form-control(name='age', type='number') 
+    br
+    input.btn.btn-primary(type='submit', value='Submit')

@@ -1,0 +1,40 @@
+extends ../layout
+
+block content 
+  h1 #{proprietar.name} #{proprietar.surname}
+    if user
+      a.btn.btn-outline-danger.delete-proprietar.float-right(href='#' data-id=proprietar._id) Delete
+      a.btn.btn-dark.float-right(href='/proprietari/edit/'+proprietar._id) Edit
+
+  br 
+  h4 Detalii
+  hr
+  br
+  p 
+    strong Adresa: 
+    span #{proprietar.address}
+  p 
+    strong Email: 
+    span #{proprietar.email}
+
+  br
+
+  h4 Animale
+    if user
+      a.btn.btn-success.float-right(href='/proprietari/'+proprietar._id+'/animals/add/') Adaugati
+  hr
+  ul.list-group
+    each animal, i in animals
+      h4
+        li.list-group-item
+          a(href='/proprietari/'+proprietar._id+'/animals/' + animal._id)= animal.name 
+          if user
+            a.btn.btn-outline-danger.delete-animal.float-right(
+              href='#' 
+              data-animal-id=animal._id 
+              data-proprietar-id=proprietar._id) Delete
+              
+            a.btn.btn-outline-secondary.float-right(href='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id role='button') Edit
+
+
+  

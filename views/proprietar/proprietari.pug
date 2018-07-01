@@ -1,0 +1,15 @@
+extends ../layout
+
+block content 
+  h1 Proprietari
+    if user
+      a.btn.btn-success.float-right(href='/proprietari/add/') Adaugati
+  br
+  ul.list-group
+    each proprietar, i in proprietari
+      h4
+        li.list-group-item
+          a(href="/proprietari/" + proprietar._id) #{proprietar.surname} #{proprietar.name}
+          if user
+            a.btn.btn-outline-danger.delete-proprietar.float-right(href='#' data-id=proprietar._id) Delete
+            a.btn.btn-outline-secondary.float-right(href='/proprietari/edit/'+proprietar._id role='button') Edit

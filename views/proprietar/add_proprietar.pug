@@ -1,0 +1,19 @@
+extends ../layout
+
+block content 
+  h1 Add Proprietar
+  form(method='POST', action='/proprietari/add')
+    #form-group 
+      label Name:
+      input.form-control(name='name', type='text') 
+    #form-group 
+      label Surname:
+      input.form-control(name='surname', type='text') 
+    #form-group 
+      label Address:
+      input.form-control(name='address', type='text') 
+    #form-group 
+      label Email:
+      input.form-control(name='email', type='text') 
+    br
+    input.btn.btn-primary(type='submit', value='Submit')

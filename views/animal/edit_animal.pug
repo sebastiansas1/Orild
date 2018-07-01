@@ -1,0 +1,17 @@
+extends ../layout
+
+block content 
+  h1 Edit 
+    a(href='/proprietari/'+proprietar_id+'/animals/'+animal._id)= animal.name
+  form(method='POST', action='/proprietari/'+proprietar_id+'/animals/edit/'+animal._id)
+    #form-group 
+      label Name
+      input.form-control(name='name', type='text', value=animal.name) 
+    #form-group 
+      label Type
+      input.form-control(name='type', type='text', value=animal.type) 
+    #form-group 
+      label Age
+      input.form-control(name='age', type='number', value=animal.age) 
+    br
+    input.btn.btn-primary(type='submit', value='Submit')

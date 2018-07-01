@@ -1,0 +1,10 @@
+extends ../layout
+
+block content 
+  h1 Toate Animalele
+  br
+  ul.list-group
+    each animal, i in animals
+      h4
+        li.list-group-item
+          a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.name 
