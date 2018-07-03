@@ -1,0 +1,37 @@
+extends ../layout
+
+block content 
+  h1 Edit Tratament
+  form(method='POST' action='/animals/'+animal_id+'/tratamente/edit/'+tratament._id)
+    #form-group 
+      label Name:
+      input.form-control(name='name' type='text' value=tratament.name) 
+    #form-group 
+      label Series:
+      input.form-control(name='series' type='text' value=tratament.series) 
+    #form-group 
+      label Dose:
+      input.form-control(name='dose' type='number' value=tratament.dose) 
+    #form-group 
+      label Waiting Time:
+      input.form-control(name='waiting_time' type='text' value=tratament.waiting_time) 
+    #form-group 
+      label Duration:
+      input.form-control(name='duration' type='text' value=tratament.duration) 
+    #form-group 
+      label Result:
+      input.form-control(name='result' type='text' value=tratament.result) 
+    #form-group 
+      label Signature:
+      input.form-control(name='signature' type='text' value=tratament.signature) 
+    #form-group 
+      label Observations:
+      input.form-control(name='observations' type='text' value=tratament.observations) 
+    #form-group 
+      label Date:
+      input.form-control(name='date' type='text' value=tratament.date) 
+    #form-group 
+      label Animal ID is: #{animal_id}
+      input.form-control(name='animal_id' type='text' value=tratament.animal_id disabled)  
+    br
+    input.btn.btn-primary(type='submit' value='Submit')

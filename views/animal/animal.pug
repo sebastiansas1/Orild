@@ -13,7 +13,19 @@ block content
     a(href='/proprietari/'+proprietar._id)
       strong #{proprietar.surname} #{proprietar.name}
   hr
-  p= animal.type
-  p= animal.age
+  p Tipologie: 
+    strong= animal.type
+  p Age: 
+    strong= animal.age
+  hr
+
+  h3 Tratamente 
+    if user
+        a.btn.btn-dark.float-right(href='/animals/'+animal._id+'/tratamente/add/') Adaugati
+  ul.list-group
+    each tratament, i in tratamente
+      h4
+        li.list-group-item
+          a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}, #{tratament.date}
 
   

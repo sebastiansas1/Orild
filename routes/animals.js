@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-// Bring in Animal and User model
+// Bring in models
 let Animal = require('../models/animal');
 let Proprietar = require('../models/proprietar');
 let User = require('../models/user');
+const Tratament = require('../models/tratament');
 
 // Add Route
 router.get('/add', ensureAuthenticated, function(req, res) {
@@ -94,15 +95,26 @@ router.delete('/:id', ensureAuthenticated, function(req, res) {
 
 // Single Animal Route
 router.get('/:id', function(req, res) {
-  Animal.findById(req.params.id, function(err, animal) {
-    if(err) {
-      console.log(err);
+  Animal.findById(req.params.id, function(errA, animal) {
+    if(errA) {
+      console.log(errA);
     } else {
-      Proprietar.findById(animal.proprietar_id, function(err, proprietar) {
-        res.render('animal/animal', {
-          animal:animal,
-          proprietar: proprietar
-        });
+      Proprietar.findById(animal.proprietar_id, function(errP, proprietar) {
+        if(errP) {
+          console.log(errP);
+        } else {
+          Tratament.find({ animal_id: animal._id }, function(errT, tratamente) {
+            if(errT) {
+              console.log(errT);
+            } else {
+              res.render('animal/animal', {
+                animal:animal,
+                proprietar: proprietar,
+                tratamente: tratamente
+              });
+            }
+          });
+        }
       });
     }
   });

@@ -27,6 +27,10 @@ let tratamentSchema = mongoose.Schema({
   observations:{
     type: String
   },
+  date:{ 
+    type: Date, 
+    default: Date.now 
+  },
   animal_id:{
     type: String
   }

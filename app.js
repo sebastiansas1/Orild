@@ -93,10 +93,15 @@ app.get('/animals/', function(req, res) {
 
 let proprietari = require('./routes/proprietari');
 let animals = require('./routes/animals', {mergeParams: true});
+let tratamente = require('./routes/tratamente', {mergeParams: true});
 let users = require('./routes/users');
 
 app.use('/proprietari', proprietari);
 proprietari.use('/:proprietar_id/animals', animals);
+
+app.use('/animals', animals);
+animals.use('/:animal_id/tratamente', tratamente);
+
 app.use('/users', users);
 
 // Start Server

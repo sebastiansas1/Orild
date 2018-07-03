@@ -2,6 +2,7 @@ extends ../layout
 
 block content 
   h1 #{title}
+  p Your proprietar is #{proprietar_id}
   form(method='POST', action='/proprietari/'+proprietar_id+'/animals/add')
     #form-group 
       label Name
