@@ -19,9 +19,11 @@ router.get('/add', ensureAuthenticated, function(req, res) {
 router.post('/add', function(req, res) {
 
   // Check Fields
-  req.checkBody('name', 'Name is required').notEmpty();
-  req.checkBody('type', 'Type is required').notEmpty();
-  req.checkBody('age', 'Age is required').notEmpty() ;
+  req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
+  req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
+  req.checkBody('quantity', 'Qantitatea de animale este obligatorie.').notEmpty();
+  req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
+  req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
 
   // Get Errors
   let errors = req.validationErrors();
@@ -33,10 +35,11 @@ router.post('/add', function(req, res) {
   } else {
     // Create Animal
     let animal = new Animal();
-    animal.name = req.body.name;
-    animal.type = req.body.type;
-    animal.age = req.body.age;
-    animal.created_by = req.user._id;
+    animal.registration_nr = req.body.registration_nr;
+    animal.species = req.body.species;
+    animal.quantity = req.body.quantity;
+    animal.simptomatologie = req.body.simptomatologie;
+    animal.diagnostic = req.body.diagnostic;
     animal.proprietar_id = req.params.proprietar_id;
 
     animal.save(function(err) {
@@ -63,22 +66,42 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res) {
 
 // Edit Route POST
 router.post('/edit/:id', function(req, res) {
-  let animal = {};
-  animal.name = req.body.name;
-  animal.type = req.body.type;
-  animal.age = req.body.age;
 
-  let query = {_id:req.params.id};
+  // Check all required fields
+  req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
+  req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
+  req.checkBody('quantity', 'Qantitatea de animale este obligatorie.').notEmpty();
+  req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
+  req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
+  
+  // Get Errors
+  let errors = req.validationErrors();
 
-  Animal.update(query, animal, function(err) {
-    if(err){
-      console.log(err);
-      return;
-    } else {
-      req.flash('success', 'Animal updated!');
-      res.redirect('/proprietari/'+req.params.proprietar_id+'/animals/'+req.params.id);
-    }
-  });
+  if(errors) {
+    res.render('animal/add_animal', {
+      errors: errors
+    });
+  } else {
+    // Update Animal
+    let animal = {};
+    animal.registration_nr = req.body.registration_nr;
+    animal.species = req.body.species;
+    animal.quantity = req.body.quantity;
+    animal.simptomatologie = req.body.simptomatologie;
+    animal.diagnostic = req.body.diagnostic;
+    
+    let query = {_id:req.params.id};
+  
+    Animal.update(query, animal, function(err) {
+      if(err){
+        console.log(err);
+        return;
+      } else {
+        req.flash('success', 'Date actualizate.');
+        res.redirect('/proprietari/'+req.params.proprietar_id+'/animals/'+req.params.id);
+      }
+    });
+  }
 });
 
 // Delete Animal Route

@@ -51,13 +51,13 @@ router.post("/add", function(req, res) {
     proprietar.email = req.body.email;
     proprietar.created_by = req.user._id;
 
-    proprietar.save(function(err) {
+    proprietar.save(function(err, object) {
       if (err) {
         console.log(err);
         return;
       } else {
         req.flash("success", "Proprietar added!");
-        res.redirect("/proprietari");
+        res.redirect("/proprietari/"+object._id+'/animals/add');
       }
     });
   }

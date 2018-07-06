@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 
 const AnimalSchema = mongoose.Schema({
-  name:{
+  registration_nr: {
     type: String,
     required: true
   },
-  type:{
+  species: {
     type: String,
     required: true
   },
-  age:{
+  quantity: {
     type: Number,
     required: true
   },
-  created_by:{
+  simptomatologie: {
+    type: String
+  },
+  diagnostic: {
     type: String
   },
   proprietar_id:{

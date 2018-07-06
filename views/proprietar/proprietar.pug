@@ -23,26 +23,56 @@ block content
     if user
       a.btn.btn-success.float-right(href='/proprietari/'+proprietar._id+'/animals/add/') Adaugati
   hr
-
-
-  ul.list-group
+  table.table
+    thead
+      tr
+        th Nr. Matricol
+        th Specie
+        th Qantitate
+        th Simptomatologie
+        th Diagnosticul
     each animal, i in animals
-      h4
-        li.list-group-item
-          a(href='/proprietari/'+proprietar._id+'/animals/' + animal._id)= animal.name 
-          if user
-            a.btn.btn-outline-danger.delete-animal.float-right(
-              href='#' 
-              data-animal-id=animal._id 
-              data-proprietar-id=proprietar._id) Delete
-              
-            a.btn.btn-outline-secondary.float-right(href='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id role='button') Edit
+      tbody
+        tr
+          td.align-middle
+            a(href='/proprietari/'+proprietar._id+'/animals/' + animal._id)= animal.registration_nr
+          td.align-middle= animal.species
+          td.text-center.align-middle= animal.quantity
+          td= animal.simptomatologie
+          td= animal.diagnostic
             
-          hr
-          each tratament, i in tratamente
-            if tratament.animal_id == animal._id
-              h6
-                li.list-group-item
-                  a(href='/animals/'+animal._id+'/tratamente/edit/'+tratament._id)= tratament.name 
+          
+  //- ul.list-group
+  //-   each animal, i in animals
+  //-     li.list-group-item
+  //-       h5
+  //-         a(href='/proprietari/'+proprietar._id+'/animals/' + animal._id)= animal.registration_nr
+  //-         if user
+  //-           a.btn.btn-outline-danger.delete-animal.float-right(
+  //-             href='#' 
+  //-             data-animal-id=animal._id 
+  //-             data-proprietar-id=proprietar._id) Delete
+              
+  //-           a.btn.btn-outline-secondary.float-right(href='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id role='button') Edit
+            
+  //-       p 
+  //-       | Specie: 
+  //-       strong #{animal.species}
+  //-       |, Qnt: 
+  //-       strong #{animal.quantity} 
+  //-       |, Simptomatologie: 
+  //-       strong #{animal.simptomatologie}
+  //-       |, Diagnosticul: 
+  //-       strong #{animal.diagnostic}
+          
+  //-         hr
+  //-         each tratament, i in tratamente
+  //-           if tratament.animal_id == animal._id
+  //-             h6
+  //-               li.list-group-item
+  //-                 a(href='/animals/'+animal._id+'/tratamente/edit/'+tratament._id)= tratament.name 
+  //-           h6
+  //-             li.list-group-item
+  //-               a(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') +
         
 

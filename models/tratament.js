@@ -12,6 +12,9 @@ let tratamentSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  expiry_date:{
+    type: Date
+  },
   waiting_time:{
     type: String
   },
@@ -27,7 +30,7 @@ let tratamentSchema = mongoose.Schema({
   observations:{
     type: String
   },
-  date:{ 
+  administration_date:{ 
     type: Date, 
     default: Date.now 
   },

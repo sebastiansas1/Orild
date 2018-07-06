@@ -1,7 +1,7 @@
 extends ../layout
 
 block content 
-  h1= animal.name
+  h1= animal.registration_nr
     if user
       a.btn.btn-outline-danger.delete-animal.float-right(
         href='#' 
@@ -13,19 +13,52 @@ block content
     a(href='/proprietari/'+proprietar._id)
       strong #{proprietar.surname} #{proprietar.name}
   hr
-  p Tipologie: 
-    strong= animal.type
-  p Age: 
-    strong= animal.age
-  hr
+  p Specia: 
+    strong= animal.species
+  p Qantitate: 
+    strong= animal.quantity
+  p Simpomatologie: 
+    strong= animal.simptomatologie
+  p Diagnosticul: 
+    strong= animal.diagnostic
+  
+  br
+  br
+  br
 
-  h3 Tratamente 
-    if user
-        a.btn.btn-dark.float-right(href='/animals/'+animal._id+'/tratamente/add/') Adaugati
-  ul.list-group
+  h3 Tratamente
+    a.btn.btn-dark.float-right(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga
+  hr
+  table.table
+    thead
+      tr
+        th Data
+        th Denumirea medicament
+        th Doza
+        th Timpul de asteptare
+        th Durata tratamentului
     each tratament, i in tratamente
-      h4
-        li.list-group-item
-          a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}, #{tratament.date}
+      tbody
+        tr
+        
+          td= moment(tratament.administration_date).format("DD-MM-YYYY")
+
+          td.align-middle
+            a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}
+          td.align-middle= tratament.dose
+          td.text-center.align-middle= tratament.waiting_time
+          td= tratament.duration 
+    
+  //- ul.list-group
+  //-   each tratament, i in tratamente
+  //-     h4
+  //-       li.list-group-item
+  //-         a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}, #{tratament.date}
+
+  br
+
+  h6(style='font-size:14px;')
+    li.list-group-item
+      a(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga tratament
 
   

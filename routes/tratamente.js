@@ -7,8 +7,14 @@ const Animal = require('../models/animal');
 
 // Add Route
 router.get('/add', ensureAuthenticated, function (req, res) { 
-  res.render('tratament/add_tratament', {
-    animal_id: req.params.animal_id
+  Animal.findById(req.params.animal_id, function(err, animal) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('tratament/add_tratament', {
+        animal:animal
+      });
+    }
   });
 });
 
@@ -31,12 +37,13 @@ router.post('/add', function (req, res) {
     tratament.name = req.body.name;
     tratament.series = req.body.series;
     tratament.dose = req.body.dose;
+    tratament.expiry_date = req.body.expiry_date;
     tratament.waiting_time = req.body.waiting_time;
     tratament.duration = req.body.duration;
     tratament.result = req.body.result;
     tratament.signature = req.body.signature;
     tratament.observations = req.body.observations;
-    tratament.date = req.body.date;
+    tratament.administration_date = req.body.administration_date;
     tratament.animal_id = req.params.animal_id;
 
     tratament.save(function(err) {

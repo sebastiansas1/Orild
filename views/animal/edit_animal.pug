@@ -1,24 +1,39 @@
 extends ../layout
 
 block content 
-  h1 Edit 
-    a(href='/proprietari/'+proprietar_id+'/animals/'+animal._id)= animal.name
+  h1 Editati 
+    a(href='/proprietari/'+proprietar_id+'/animals/'+animal._id)= animal.registration_nr
+  br
+
   form(method='POST', action='/proprietari/'+proprietar_id+'/animals/edit/'+animal._id)
     #form-group 
-      label Name
-      input.form-control(name='name', type='text', value=animal.name) 
+      label Nr. Matricol
+      input.form-control(name='registration_nr', type='text', value=animal.registration_nr) 
+    
+    br
+    
     #form-group 
-      label Type
-      //- input.form-control(name='type', type='text', value=animal.type) 
-      select.form-control#animal-type(name='type', type='text') 
-        option(value='' selected hidden)= animal.type
+      label Specia
+      select.form-control#animal-type(name='species', type='text') 
+        option(value=animal.species selected hidden)= animal.species
         option(value='Caine') Caine
         option(value='Pisica') Pisica
         option(value='Bovin') Bovin
         option(value='Cal') Cal
         option(value='Other') Other
+
+    hr
+
     #form-group 
-      label Age
-      input.form-control(name='age', type='number', value=animal.age) 
+      label Animale Tratate
+      input.form-control(name='quantity', type='number', value=animal.quantity) 
+    #form-group 
+      label Simptomatologie
+      input.form-control(name='simptomatologie', type='text' value=animal.simptomatologie) 
+    #form-group 
+      label Diagnoticul
+      input.form-control(name='diagnostic', type='text' value=animal.diagnostic)
+
     br
+    
     input.btn.btn-primary(type='submit', value='Submit')

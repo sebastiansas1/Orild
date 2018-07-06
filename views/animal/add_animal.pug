@@ -1,16 +1,20 @@
 extends ../layout
 
 block content 
-  h1 #{title}
+  h1 Animal nou
+  br
   p Your proprietar is #{proprietar_id}
+  br
   form(method='POST', action='/proprietari/'+proprietar_id+'/animals/add')
     #form-group 
-      label Name
-      input.form-control(name='name', type='text') 
+      label Nr. Matricol
+      input.form-control(name='registration_nr', type='text') 
+
+    br
+
     #form-group 
-      label Type
-      //- input.form-control(name='type', type='text') 
-      select.form-control(name='type', type='text') 
+      label Specia
+      select.form-control(name='species', type='text') 
         option(value='', selected='', disabled='', hidden='') Choose here
         option(value='Caine') Caine
         option(value='Pisica') Pisica
@@ -18,8 +22,20 @@ block content
         option(value='Cal') Cal
         option(value='Other') Other
 
+    hr
+
     #form-group 
-      label Age
-      input.form-control(name='age', type='number') 
+      label Animale Tratate
+      input.form-control(name='quantity', type='number') 
     br
+    #form-group 
+      label Simptomatologie
+      input.form-control(name='simptomatologie', type='text') 
+    br
+    #form-group 
+      label Diagnoticul
+      input.form-control(name='diagnostic', type='text') 
+
+    br
+    
     input.btn.btn-primary(type='submit', value='Submit')

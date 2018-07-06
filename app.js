@@ -56,6 +56,9 @@ require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// MomentJS Middleware
+app.locals.moment = require('moment');
+
 // Global User Variable
 app.get('*', function(req, res, next) {
   res.locals.user = req.user || null;
