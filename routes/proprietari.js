@@ -101,6 +101,7 @@ router.post('/edit/:id', function(req, res) {
 router.delete('/:id', ensureAuthenticated, function(req, res) {
   let query = {_id:req.params.id};
   let query2 = {proprietar_id:req.params.id};
+  let query3 = {animal_id:req.params.id};
   Proprietar.remove(query, function(err) {
     if(err){
       console.log(err);

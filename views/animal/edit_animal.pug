@@ -9,7 +9,14 @@ block content
       input.form-control(name='name', type='text', value=animal.name) 
     #form-group 
       label Type
-      input.form-control(name='type', type='text', value=animal.type) 
+      //- input.form-control(name='type', type='text', value=animal.type) 
+      select.form-control#animal-type(name='type', type='text') 
+        option(value='' selected hidden)= animal.type
+        option(value='Caine') Caine
+        option(value='Pisica') Pisica
+        option(value='Bovin') Bovin
+        option(value='Cal') Cal
+        option(value='Other') Other
     #form-group 
       label Age
       input.form-control(name='age', type='number', value=animal.age) 
