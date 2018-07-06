@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Bring in Proprietar and User model
 let Proprietar = require('../models/proprietar');
+let Tratament = require('../models/tratament');
 let Animal = require('../models/animal');
 let User = require('../models/user');
 
@@ -120,12 +121,20 @@ router.get('/:id', function(req, res) {
     if(err) {
       console.log(err);
     } else {
-      Animal.find({proprietar_id: req.params.id}, function(err, animals) {
-        res.render('proprietar/proprietar', {
-          animals: animals,
-          proprietar: proprietar
-        });
-      });  
+
+      Tratament.find({}, function(err, tratamente) { 
+        if(err) {
+          console.log(err);
+        } else {
+          Animal.find({proprietar_id: req.params.id}, function(err, animals) {
+            res.render('proprietar/proprietar', {
+              animals: animals,
+              proprietar: proprietar,
+              tratamente: tratamente
+            });
+          });  
+        }
+      });
     }
   });
 });

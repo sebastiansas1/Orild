@@ -23,6 +23,8 @@ block content
     if user
       a.btn.btn-success.float-right(href='/proprietari/'+proprietar._id+'/animals/add/') Adaugati
   hr
+
+
   ul.list-group
     each animal, i in animals
       h4
@@ -35,6 +37,12 @@ block content
               data-proprietar-id=proprietar._id) Delete
               
             a.btn.btn-outline-secondary.float-right(href='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id role='button') Edit
+            
+          hr
+          each tratament, i in tratamente
+            if tratament.animal_id == animal._id
+              h6
+                li.list-group-item
+                  a(href='/animals/'+animal._id+'/tratamente/edit/'+tratament._id)= tratament.name 
+        
 
-
-  
