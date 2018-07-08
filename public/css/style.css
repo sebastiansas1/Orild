@@ -4,8 +4,26 @@
   border: #ebccd1;
 }
 
-.alert-success_msg{
+.alert-success_msg {
   color: #3c763d;
   background-color: #dff0d8;
   border: #d6e9c6;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  height: 60px; /* Height of the footer */
+  background: lightgray;
+}
+
+.container-lg {
+  min-width: 80%;
 }

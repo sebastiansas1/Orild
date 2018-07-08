@@ -5,13 +5,12 @@ const ProprietarSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  surname:{
-    type: String,
-    required: true
-  },
   address:{
     type: String,
     required: true
+  },
+  phone:{
+    type: String
   },
   email:{
     type: String

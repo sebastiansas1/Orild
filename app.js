@@ -75,9 +75,7 @@ app.set('view engine', 'pug');
 
 // Home Route
 app.get('/', function(req, res) {
-  res.render('home', {
-    title: 'Homepage'
-  });
+  res.redirect('/proprietari/');
 }); 
 
 // Bring in Animal model

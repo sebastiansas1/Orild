@@ -4,50 +4,56 @@ block content
   h1 Add Tratament
   br
   form(method='POST' action='/animals/'+animal._id+'/tratamente/add')
-    #form-group 
-      label Denumirea produsului medicinal administrat:
-      input.form-control(name='name' type='text') 
+    .row 
+      .col-md-4
+        #form-group 
+          label Denumirea produsului:
+          input.form-control(name='name' type='text') 
+      .col-md-2
+        #form-group 
+          label Seria:
+          input.form-control(name='series' type='text') 
+      .col-md-2.offset-md-2
+        #form-group 
+          label Valabilitatea:
+          input.form-control#expiry(name='expiry_date' type='text')  
+      .col-md-2
+        #form-group 
+          label Data:
+          input.form-control#administration_date(name='administration_date' type='text') 
     br
-    #form-group 
-      label Seria:
-      input.form-control(name='series' type='text') 
+    .row
+      .col-md-2  
+        #form-group 
+          label Doza administrata:
+          input.form-control(name='dose' type='number') 
+      .col-md-2
+        #form-group 
+          label Timpul de asteptare:
+          input.form-control(name='waiting_time' type='text') 
+      .col-md-2
+        #form-group 
+          label Durata tratamentului:
+          input.form-control(name='duration' type='text') 
+      .col-md-4.offset-md-2
+        #form-group 
+          label Rezultatul tratamentului:
+          select.form-control#animal-type(name='result', type='text') 
+            option(value='' selected hidden disabled) Alegeti din acestea optiuni
+            option(value='Caine') Vindecat
+            option(value='Pisica') Mort
+            option(value='Bovin') Sacrificat
     br
-    #form-group 
-      label Valabilitatea produsului medicinal administrat:
-      input.form-control#expiry(name='expiry_date' type='text') 
-    br
-    #form-group 
-      label Doza de administrare:
-      input.form-control(name='dose' type='number') 
-    br
-    #form-group 
-      label Timpul de asteptare:
-      input.form-control(name='waiting_time' type='text') 
-    br
-    #form-group 
-      label Durata tratamentului:
-      input.form-control(name='duration' type='text') 
-    br
-    #form-group 
-      label Rezultatul tratamentului:
-      select.form-control#animal-type(name='result', type='text') 
-        option(value='' selected hidden disabled) Alegeti din acestea optiuni
-        option(value='Caine') Vindecat
-        option(value='Pisica') Mort
-        option(value='Bovin') Sacrificat
-    br
-    #form-group 
-      .form-check
-        input#semnatura.form-check-input(type='checkbox')
-        label.form-check-label(for='semnatura') Semnatura proprietar
-    br
-    #form-group 
-      label Observatii:
-      input.form-control(name='observations' type='text') 
-    br
-    #form-group 
-      label Data de administrare:
-      input.form-control#administration_date(name='administration_date' type='text') 
+    .row
+      .col-md-6
+        #form-group 
+          label Observatii:
+          textarea.form-control(name='observations') 
+      .col-md-4.offset-md-2
+        #form-group
+          .form-check(style='padding: 0px; margin-top: 40px;')
+            input#semnatura.form-check-input(type='checkbox' style='height: 30px; width: 30px; margin: 0px;')
+            label.form-check-label(for='semnatura' style='margin: 0px 0px 0px 40px; font-size: 20px;') Semnatura
     br
     #form-group 
       label Number de Matricol:

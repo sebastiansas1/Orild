@@ -11,7 +11,7 @@ block content
 
   p Proprietar 
     a(href='/proprietari/'+proprietar._id)
-      strong #{proprietar.surname} #{proprietar.name}
+      strong #{proprietar.name}
   hr
   p Specia: 
     strong= animal.species
@@ -36,6 +36,12 @@ block content
       a.btn.btn-dark.float-right(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga
 
   br
+
+  h6(style='font-size:14px; width: 180px')
+    li.list-group-item
+      a(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga tratament
+
+  br
   table.table#results-tratamente
     thead
       tr
@@ -58,8 +64,6 @@ block content
 
   br
 
-  h6(style='font-size:14px;')
-    li.list-group-item
-      a(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga tratament
+
 
   

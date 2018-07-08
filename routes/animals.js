@@ -16,7 +16,7 @@ router.get('/add', ensureAuthenticated, function(req, res) {
 });
 
 // Add Route POST
-router.post('/add', function(req, res) {
+router.post('/add', ensureAuthenticated, function(req, res) {
 
   // Check Fields
   req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
@@ -65,7 +65,7 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res) {
 });
 
 // Edit Route POST
-router.post('/edit/:id', function(req, res) {
+router.post('/edit/:id', ensureAuthenticated, function(req, res) {
 
   // Check all required fields
   req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
@@ -117,7 +117,7 @@ router.delete('/:id', ensureAuthenticated, function(req, res) {
 });
 
 // Single Animal Route
-router.get('/:id', function(req, res) {
+router.get('/:id', ensureAuthenticated, function(req, res) {
   Animal.findById(req.params.id, function(errA, animal) {
     if(errA) {
       console.log(errA);

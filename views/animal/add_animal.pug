@@ -3,8 +3,6 @@ extends ../layout
 block content 
   h1 Animal nou
   br
-  p Your proprietar is #{proprietar_id}
-  br
   form(method='POST', action='/proprietari/'+proprietar_id+'/animals/add')
     #form-group 
       label Nr. Matricol

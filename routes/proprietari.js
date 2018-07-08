@@ -8,7 +8,7 @@ let Animal = require("../models/animal");
 let User = require("../models/user");
 
 // All Proprietar Route
-router.get("/", function(req, res) {
+router.get("/", ensureAuthenticated, function(req, res) {
   Proprietar.find({})
     .sort({ surname: 1 })
     .exec(function(err, proprietari) {
@@ -29,11 +29,10 @@ router.get("/add", ensureAuthenticated, function(req, res) {
 });
 
 // Add Route POST
-router.post("/add", function(req, res) {
+router.post("/add", ensureAuthenticated, function(req, res) {
   // Check Fields
-  req.checkBody("name", "Name is required").notEmpty();
-  req.checkBody("surname", "Surname is required").notEmpty();
-  req.checkBody("address", "Address is required").notEmpty();
+  req.checkBody("name", "Numule este obligatoriu").notEmpty();
+  req.checkBody("address", "Adresa este obligatorie").notEmpty();
 
   // Get Errors
   let errors = req.validationErrors();
@@ -46,10 +45,9 @@ router.post("/add", function(req, res) {
     // Create Proprietar
     let proprietar = new Proprietar();
     proprietar.name = req.body.name;
-    proprietar.surname = req.body.surname;
     proprietar.address = req.body.address;
     proprietar.email = req.body.email;
-    proprietar.created_by = req.user._id;
+    proprietar.phone = req.body.phone;
 
     proprietar.save(function(err, object) {
       if (err) {
@@ -77,11 +75,11 @@ router.get("/edit/:id", ensureAuthenticated, function(req, res) {
 });
 
 // Edit Route POST
-router.post("/edit/:id", function(req, res) {
+router.post("/edit/:id", ensureAuthenticated, function(req, res) {
   let proprietar = {};
   proprietar.name = req.body.name;
-  proprietar.surname = req.body.surname;
   proprietar.address = req.body.address;
+  proprietar.phone = req.body.phone;
   proprietar.email = req.body.email;
 
   let query = { _id: req.params.id };
@@ -123,7 +121,7 @@ router.delete("/:id", ensureAuthenticated, function(req, res) {
 });
 
 // Single Proprietar Route
-router.get("/:id", function(req, res) {
+router.get("/:id", ensureAuthenticated, function(req, res) {
   Proprietar.findById(req.params.id, function(err, proprietar) {
     if (err) {
       console.log(err);
@@ -151,7 +149,6 @@ function ensureAuthenticated(req, res, next) {
     return next();
   } else {
     req.flash("info", "Please login");
-    req.session.returnTo = req.path;
     res.redirect("/users/login");
   }
 }

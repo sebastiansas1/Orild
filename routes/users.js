@@ -68,32 +68,16 @@ router.get('/login', function(req, res) {
 // Login Process POST
 router.post('/login', function(req, res, next) {
 
-  if (req.session.returnTo == undefined) {
-    var path = "/";
-  } else {
-    var path = req.session.returnTo;
-  }
-
   passport.authenticate('local', {
-    successRedirect: path,
+    successRedirect: '/',
     failureRedirect: '/users/login', 
     failureFlash: true
   })(req, res, next);
 });
 
-// router.get('/logout', function(req, res) {
-//   req.logout();
-//   req.flash('success', 'You are logged out');
-//   res.redirect('/users/login');
-// });
-
-router.get('/logout', function (req, res) {
+router.get('/logout', function(req, res) {
   req.logout();
-  delete req.session.returnTo;
-  req.flash('success', "See you soon!");
-  // Clear user.id from cookies
-  res.clearCookie('userid');
-  res.clearCookie('username');
+  req.flash('success', 'You are logged out');
   res.redirect('/users/login');
 });
 

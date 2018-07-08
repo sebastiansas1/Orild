@@ -1,20 +1,28 @@
 extends ../layout
 
 block content 
-  h1 Edit 
+  h1 Modificati 
     a(href='/proprietari/'+proprietar._id)= proprietar.name
-  form(method='POST', action='/proprietari/edit/'+proprietar._id)
-    #form-group 
-      label Name:
-      input.form-control(name='name', type='text', value=proprietar.name)  
-    #form-group 
-      label Surname:
-      input.form-control(name='surname', type='text', value=proprietar.surname) 
-    #form-group 
-      label Address:
-      input.form-control(name='address', type='text', value=proprietar.address) 
-    #form-group 
-      label Email:
-      input.form-control(name='email', type='text', value=proprietar.email) 
-    br
-    input.btn.btn-primary(type='submit', value='Submit')
+  br
+  br
+  .col-md-8.offset-md-2
+    form(method='POST', action='/proprietari/edit/'+proprietar._id)
+      #form-group 
+        label Nume:
+        input.form-control(name='name', type='text', value=proprietar.name)  
+      br
+      .row 
+        .col-md-4
+          #form-group 
+            label Adresa:
+            input.form-control(name='address', type='text', value=proprietar.address) 
+        .col-md-4
+          #form-group 
+            label Nr Tel:
+            input.form-control(name='phone', type='text', value=proprietar.phone) 
+        .col-md-4
+          #form-group 
+            label Email:
+            input.form-control(name='email', type='text', value=proprietar.email) 
+      br
+      input.btn.btn-primary(type='submit', value='Salveaza')

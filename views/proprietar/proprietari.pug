@@ -2,16 +2,49 @@ extends ../layout
 
 block content 
   h1 Proprietari
-    if user
-      a.btn.btn-success.float-right(href='/proprietari/add/') Adaugati
   br
   .row
     .col-md-6
       .input-form.form-search
         input.form-control.search-item(type='text', placeholder='Gaseste proprietar ...')
   br
+  hr
   ul.list-group
+    button.btn.btn-primary(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:16px; width: 180px; height: 50px;') + Adauga Proprietar
+
+    #proprietarModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='proprietarModalLabel', aria-hidden='true', style='margin-top: 10%;')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#proprietarModalLabel.modal-title Proprietar Nou
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            form(method='POST', action='/proprietari/add')
+              #form-group
+                label Nume:
+                input.form-control(name='name', type='text') 
+              br
+              #form-group 
+                label Adresa:
+                input.form-control(name='address', type='text') 
+              br
+              #form-group 
+                label Nr Tel:
+                input.form-control(name='phone', type='text') 
+              br
+              #form-group 
+                label Email:
+                input.form-control(name='email', type='text') 
+              br
+              input.btn.btn-primary(type='submit', value='Adauga')
+
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
+
+
+    br
     each proprietar, i in proprietari
-      h4.item(data-search=proprietar.surname+proprietar.name)
+      h4.item(data-search=proprietar.name)
         li.list-group-item
-          a(href="/proprietari/" + proprietar._id) #{proprietar.surname}, #{proprietar.name}
+          a(href="/proprietari/" + proprietar._id) #{proprietar.name}

@@ -1,7 +1,7 @@
 extends ../layout
 
 block content 
-  h1 #{proprietar.name} #{proprietar.surname}
+  h1 #{proprietar.name}
     if user
       a.btn.btn-outline-danger.delete-proprietar.float-right(href='#' data-id=proprietar._id) Delete
       a.btn.btn-dark.float-right(href='/proprietari/edit/'+proprietar._id) Edit
