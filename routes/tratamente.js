@@ -5,6 +5,8 @@ const router = express.Router({ mergeParams: true });
 const Tratament = require('../models/tratament');
 const Animal = require('../models/animal');
 
+let moment = require('moment');
+
 // Add Route
 router.get('/add', ensureAuthenticated, function (req, res) { 
   Animal.findById(req.params.animal_id, function(err, animal) {
@@ -37,21 +39,27 @@ router.post('/add', function (req, res) {
     tratament.name = req.body.name;
     tratament.series = req.body.series;
     tratament.dose = req.body.dose;
-    tratament.expiry_date = req.body.expiry_date;
+    tratament.expiry_date =  moment(req.body.expiry_date, 'DD-MM-YYYY').toDate();
     tratament.waiting_time = req.body.waiting_time;
     tratament.duration = req.body.duration;
     tratament.result = req.body.result;
     tratament.signature = req.body.signature;
     tratament.observations = req.body.observations;
-    tratament.administration_date = req.body.administration_date;
+    tratament.administration_date = moment(req.body.administration_date, 'DD-MM-YYYY').toDate();
     tratament.animal_id = req.params.animal_id;
 
     tratament.save(function(err) {
       if(err) {
         console.log(err);
       } else {
-        req.flash('success', 'Tratament adaugat!');
-        res.redirect('/proprietari/');
+        Animal.findById(req.params.animal_id, function(err2, animal) {
+          if(err2) {
+            console.log(err2);
+          } else {
+            req.flash('success', 'Tratament adaugat!');
+            res.redirect('/proprietari/'+animal.proprietar_id+'/animals/'+animal._id);
+          }
+        });
       }
     });
   }
