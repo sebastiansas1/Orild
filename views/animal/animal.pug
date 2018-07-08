@@ -26,10 +26,17 @@ block content
   br
   br
 
-  h3 Tratamente
-    a.btn.btn-dark.float-right(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga
-  hr
-  table.table
+  .row
+    .col-md-3
+      h3 Tratamente
+    .col-md-6
+      .input-form.form-search
+        input.form-control.search-item(type='text', placeholder='Gaseste tratamente ...')
+    .col-md-3
+      a.btn.btn-dark.float-right(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga
+
+  br
+  table.table#results-tratamente
     thead
       tr
         th Data
@@ -37,23 +44,17 @@ block content
         th Doza
         th Timpul de asteptare
         th Durata tratamentului
-    each tratament, i in tratamente
-      tbody
-        tr
-        
-          td= moment(tratament.administration_date).format("DD-MM-YYYY")
 
+    each tratament, i in tratamente
+      tbody.containerItems
+        tr.item(data-search=tratament.name)
+    
+          td.date= moment(tratament.administration_date).format("DD-MM-YYYY")
           td.align-middle
             a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}
           td.align-middle= tratament.dose
           td.text-center.align-middle= tratament.waiting_time
           td= tratament.duration 
-    
-  //- ul.list-group
-  //-   each tratament, i in tratamente
-  //-     h4
-  //-       li.list-group-item
-  //-         a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}, #{tratament.date}
 
   br
 

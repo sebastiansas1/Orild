@@ -151,6 +151,7 @@ function ensureAuthenticated(req, res, next) {
     return next();
   } else {
     req.flash("info", "Please login");
+    req.session.returnTo = req.path;
     res.redirect("/users/login");
   }
 }

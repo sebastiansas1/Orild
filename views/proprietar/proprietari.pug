@@ -5,8 +5,13 @@ block content
     if user
       a.btn.btn-success.float-right(href='/proprietari/add/') Adaugati
   br
+  .row
+    .col-md-6
+      .input-form.form-search
+        input.form-control.search-item(type='text', placeholder='Gaseste proprietar ...')
+  br
   ul.list-group
     each proprietar, i in proprietari
-      h4
+      h4.item(data-search=proprietar.surname+proprietar.name)
         li.list-group-item
           a(href="/proprietari/" + proprietar._id) #{proprietar.surname}, #{proprietar.name}

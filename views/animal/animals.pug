@@ -3,11 +3,21 @@ extends ../layout
 block content 
   h1 Toate Animalele
   br
-  //- ul.list-group
-  //-   each animal, i in animals
-  //-     h4
-  //-       li.list-group-item
-  //-         a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.name 
+  .row
+    .col-md-6
+      .input-form.form-search
+        input.form-control.search-item(type='text', placeholder='Gaseste animale ...')
+    .col-md-4.offset-md-1
+      #form-group 
+        select.form-control.filter-item(name='species', type='text') 
+          option(value='', selected='', disabled='', hidden='') Specie
+          option(value='') Toate
+          option(value='Caine') Caine
+          option(value='Pisica') Pisica
+          option(value='Bovin') Bovin
+          option(value='Cal') Cal
+          option(value='Other') Other
+  br
   table.table
     thead
       tr
@@ -16,7 +26,7 @@ block content
         th.text-center Qantitate
     each animal, i in animals
       tbody
-        tr
+        tr.item(data-search=animal.registration_nr filter-search=animal.species)
           td.align-middle
             a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
           td.text-center.align-middle= animal.species
