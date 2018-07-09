@@ -9,27 +9,27 @@ let User = require("../models/user");
 
 // All Proprietar Route
 router.get("/", ensureAuthenticated, function(req, res) {
-  Proprietar.find({})
-    .sort({ surname: 1 })
-    .exec(function(err, proprietari) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("proprietar/proprietari", {
-          title: "Toti Proprietarii",
-          proprietari: proprietari
-        });
-      }
-    });
-});
-
-// Add Route
-router.get("/add", ensureAuthenticated, function(req, res) {
-  res.render("proprietar/add_proprietar");
+  Proprietar.find({}).sort({ name: 1 }).exec(function(err, proprietari) {
+    if (err) {
+      console.log(err);
+    } else {
+      Animal.find({}).sort({ registration_nr: 1 }).exec(function(err2, animals) {
+        if(err2) {
+          console.log(err2);
+        } else {
+          res.render("proprietar/proprietari", {
+            title: "Toti Proprietarii",
+            proprietari: proprietari,
+            animals:animals
+          });
+        }
+      });
+    }
+  });
 });
 
 // Add Route POST
-router.post("/add", ensureAuthenticated, function(req, res) {
+router.post("/", ensureAuthenticated, function(req, res) {
   // Check Fields
   req.checkBody("name", "Numule este obligatoriu").notEmpty();
   req.checkBody("address", "Adresa este obligatorie").notEmpty();
@@ -38,9 +38,26 @@ router.post("/add", ensureAuthenticated, function(req, res) {
   let errors = req.validationErrors();
 
   if (errors) {
-    res.render("proprietar/add_proprietar", {
-      errors: errors
+    Proprietar.find({})
+    .sort({ surname: 1 })
+    .exec(function(err, proprietari) {
+      if (err) {
+        console.log(err);
+      } else {
+        Animal.find({}).sort({ registration_nr: 1 }).exec(function(err2, animals) {
+          if(err2) {
+            console.log(err2);
+          } else {
+            res.render("proprietar/proprietari", {
+              proprietari: proprietari,
+              animals: animals,
+              errors: errors
+            });
+          }
+        });
+      }
     });
+
   } else {
     // Create Proprietar
     let proprietar = new Proprietar();
@@ -54,8 +71,8 @@ router.post("/add", ensureAuthenticated, function(req, res) {
         console.log(err);
         return;
       } else {
-        req.flash("success", "Proprietar added!");
-        res.redirect("/proprietari/"+object._id+'/animals/add');
+        req.flash("success", "Proprietarul "+object.name+" adaugat!");
+        res.redirect("/proprietari/");
       }
     });
   }

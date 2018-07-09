@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+  // Delete Method
   $('.delete-proprietar').on('click', function(e) {
     if (confirm('Esti sigur?')) {
       $target = $(e.target);

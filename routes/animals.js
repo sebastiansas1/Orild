@@ -16,6 +16,68 @@ router.get('/add', ensureAuthenticated, function(req, res) {
 });
 
 // Add Route POST
+router.post('/', ensureAuthenticated, function(req, res) {
+
+  // Check Fields
+  req.checkBody('proprietar', 'Trebe sa alegeti un proprietar din lista.').notEmpty();
+  req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
+  req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
+  req.checkBody('quantity', 'Qantitatea de animale este obligatorie.').notEmpty();
+  req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
+  req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
+
+  // Get Errors
+  let errors = req.validationErrors();
+
+  if(errors) {
+    Proprietar.find({})
+    .sort({ surname: 1 })
+    .exec(function(err, proprietari) {
+      if (err) {
+        console.log(err);
+      } else {
+        Animal.find({}).sort({ registration_nr: 1 }).exec(function(err2, animals) {
+          if(err2) {
+            console.log(err2);
+          } else {
+            res.render("proprietar/proprietari", {
+              proprietari: proprietari,
+              animals: animals,
+              errors: errors
+            });
+          }
+        });
+      }
+    });
+  } else {
+    // Create Animal
+    let animal = new Animal();
+    animal.registration_nr = req.body.registration_nr;
+    animal.species = req.body.species;
+    animal.quantity = req.body.quantity;
+    animal.simptomatologie = req.body.simptomatologie;
+    animal.diagnostic = req.body.diagnostic;
+    animal.proprietar_id = req.body.proprietar;
+
+    animal.save(function(err) {
+      if(err) {
+        console.log(err);
+        return;
+      } else {
+        Proprietar.findById(req.body.proprietar, function(err2, proprietar) {
+          if(err2) {
+            console.log(err2);
+          } else {
+            req.flash('success', 'Animal adaugat! Il puteti accessa la animalele alui ' +proprietar.name+ '.');
+            res.redirect('/proprietari/');
+          }
+        });
+      }
+    })
+  }
+});
+
+// Add Route POST
 router.post('/add', ensureAuthenticated, function(req, res) {
 
   // Check Fields
@@ -29,8 +91,24 @@ router.post('/add', ensureAuthenticated, function(req, res) {
   let errors = req.validationErrors();
 
   if(errors) {
-    res.render('animal/add_animal', {
-      errors: errors
+    Proprietar.findById(req.params.proprietar_id)
+    .sort({ surname: 1 })
+    .exec(function(err, proprietari) {
+      if (err) {
+        console.log(err);
+      } else {
+        Animal.find({}).sort({ registration_nr: 1 }).exec(function(err2, animals) {
+          if(err2) {
+            console.log(err2);
+          } else {
+            res.render("proprietar/proprietar", {
+              proprietari: proprietari,
+              animals: animals,
+              errors: errors
+            });
+          }
+        });
+      }
     });
   } else {
     // Create Animal
@@ -47,8 +125,14 @@ router.post('/add', ensureAuthenticated, function(req, res) {
         console.log(err);
         return;
       } else {
-        req.flash('success', 'Animal added!');
-        res.redirect('/proprietari/'+req.params.proprietar_id);
+        Proprietar.findById(req.params.proprietar_id, function(err2, proprietar) {
+          if(err2) {
+            console.log(err2);
+          } else {
+            req.flash('success', 'Animal adaugat!');
+            res.redirect('/proprietari/'+req.params.proprietar_id);
+          }
+        });
       }
     })
   }
