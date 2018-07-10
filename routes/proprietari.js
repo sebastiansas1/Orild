@@ -71,7 +71,7 @@ router.post("/", ensureAuthenticated, function(req, res) {
         return;
       } else {
         req.flash("success", "Proprietarul "+object.name+" a fost adaugat!");
-        res.redirect("/proprietari/");
+        res.redirect("/proprietari/"+object._id);
       }
     });
   }

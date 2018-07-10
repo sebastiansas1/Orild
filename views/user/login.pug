@@ -1,24 +1,30 @@
 extends ../layout
 
 block content 
-  h1.text-center Login
-  br
-  form(method='POST', action='/users/login')
-    .row 
-      .col-md-4.offset-md-4
-        #form-group 
-          label Username:
-          input.form-control(name='username', type='text') 
+
+  .row 
+    .col-md-6.offset-md-3
+      .card-lg-light
+        .card-header-primary 
+          h3.text-center Login
         br
-        #form-group 
-          label Password:
-          input.form-control(name='password', type='password') 
-        br
-        input.btn.btn-primary(type='submit', value='Logativa')
-        br
-        hr
-        br
-    .row
-      .col-md-4.offset-md-4
-        p Nu aveti cont?
-        a.btn.btn-secondary(href='/users/register') Inregistrativa
+        .padding-sm
+          form(method='POST', action='/users/login')
+            .row 
+              .col-md-8.offset-md-2
+                #form-group 
+                  label Username:
+                  input.form-control(name='username', type='text') 
+                br
+                #form-group 
+                  label Password:
+                  input.form-control(name='password', type='password') 
+                br
+                input.btn.btn-primary(type='submit', value='Logativa')
+                br
+                hr
+                br
+            .row
+              .col-md-4.offset-md-4
+                p Nu aveti cont?
+                a.btn.btn-secondary(href='/users/register') Inregistrativa

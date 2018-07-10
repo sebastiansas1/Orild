@@ -1,36 +1,42 @@
 extends ../layout
 
 block content 
-  h1.text-center Registrare
-  br
-  form(method='POST', action='/users/register')
-    .row 
-      .col-md-4.offset-md-4
-        #form-group 
-          label Nume:
-          input.form-control(name='name', type='text') 
+
+  .row 
+    .col-md-6.offset-md-3
+      .card-lg-light
+        .card-header-primary 
+          h3.text-center Registrare
         br
-        #form-group 
-          label Email:
-          input.form-control(name='email', type='text') 
-        br
-        #form-group 
-          label Username:
-          input.form-control(name='username', type='text') 
-        br
-        #form-group 
-          label Password:
-          input.form-control(name='password', type='password') 
-        br
-        #form-group 
-          label Confirmati password:
-          input.form-control(name='password2', type='password') 
-        br
-        input.btn.btn-primary(type='submit', value='Registrasate')
-        br
-        hr
-        br
-    .row
-      .col-md-4.offset-md-4
-        p Aveti cont?
-        a.btn.btn-secondary(href='/users/login') Logativa
+        .padding-sm
+          form(method='POST', action='/users/register')
+            .row 
+              .col-md-8.offset-md-2
+                #form-group 
+                  label Nume:
+                  input.form-control(name='name', type='text') 
+                br
+                #form-group 
+                  label Email:
+                  input.form-control(name='email', type='text') 
+                br
+                #form-group 
+                  label Username:
+                  input.form-control(name='username', type='text') 
+                br
+                #form-group 
+                  label Password:
+                  input.form-control(name='password', type='password') 
+                br
+                #form-group 
+                  label Confirmati password:
+                  input.form-control(name='password2', type='password') 
+                br
+                input.btn.btn-primary(type='submit', value='Registreazate')
+                br
+                hr
+                br
+            .row
+              .col-md-8.offset-md-2
+                p Aveti cont?
+                a.btn.btn-secondary(href='/users/login') Logativa

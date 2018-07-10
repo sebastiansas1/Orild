@@ -121,7 +121,7 @@ router.post('/add', ensureAuthenticated, function(req, res) {
     animal.diagnostic = req.body.diagnostic;
     animal.proprietar_id = req.params.proprietar_id;
 
-    animal.save(function(err) {
+    animal.save(function(err, object) {
       if(err) {
         console.log(err);
         return;
@@ -131,7 +131,7 @@ router.post('/add', ensureAuthenticated, function(req, res) {
             console.log(err2);
           } else {
             req.flash('success', 'Animal adaugat!');
-            res.redirect('/proprietari/'+req.params.proprietar_id);
+            res.redirect('/animals/'+object._id+'/tratamente/add');
           }
         });
       }
@@ -216,7 +216,7 @@ router.delete('/:id', ensureAuthenticated, function(req, res) {
     if(err){
       console.log(err);
     } 
-    req.flash('success', 'Animal deleted!');
+    req.flash('success', 'Matricol sters cu succes.');
     res.send('Success');
   });
 });

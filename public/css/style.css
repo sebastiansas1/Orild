@@ -6,86 +6,85 @@
 
 .alert-success_msg {
   color: #3c763d;
-  background-color: #dff0d8;
-  border: #d6e9c6;
+  background-color: #f9fcf8;
+  border: #c2c2c2;
 }
 
 .modal-header-success {
-  color:#fff;
-  padding:9px 15px;
-  border-bottom:1px solid #eee;
+  color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
   background-color: #5cb85c;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .modal-header-warning {
-  color:#fff;
-  padding:9px 15px;
-  border-bottom:1px solid #eee;
+  color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
   background-color: #f0ad4e;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .modal-header-danger {
-  color:#fff;
-  padding:9px 15px;
-  border-bottom:1px solid #eee;
+  color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
   background-color: #d9534f;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .modal-header-info {
-  color:#fff;
-  padding:9px 15px;
-  border-bottom:1px solid #eee;
+  color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
   background-color: #5bc0de;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .modal-header-primary {
-  color:#fff;
-  padding:9px 15px;
-  border-bottom:1px solid #eee;
-  background-color: #428bca;
+  color: #fff;
+  padding: 9px 14px;
+  background-color: #0062cc;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .modal-header-dark {
-  color:#fff;
-  padding:9px 15px;
-  border-bottom:1px solid #eee;
+  color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
   background-color: #2b2b2b;
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-radius-topleft: 5px;
   -moz-border-radius-topright: 5px;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .ui-widget-overlay {
-  opacity: .50 !important; /* Make sure to change both of these, as IE only sees the second one */
+  opacity: 0.5 !important; /* Make sure to change both of these, as IE only sees the second one */
   filter: Alpha(Opacity=50) !important;
 
   background: rgb(41, 41, 41) !important; /* This will make it darker */
@@ -95,10 +94,15 @@
   display: none;
 }
 
+h6 {
+  font-size: 14px; 
+}
+
 body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: rgb(232, 232, 232);
 }
 
 footer {
@@ -109,6 +113,68 @@ footer {
   background: lightgray;
 }
 
+a {
+  color: #2b2b2b;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #506ed0;
+}
+
 .container-lg {
   min-width: 80%;
+}
+
+.card-lg-light {
+  background-color: #eee;
+  border-radius: 3px;
+  box-shadow: 3px 5px 5px #2b2b2b5f; 
+}
+
+.padding-sm {
+  padding: 4%;
+}
+
+.card-header-primary {
+  padding: 2%;
+  border-radius: 3px 3px 0px 0px;
+  background-color: #0062cc;
+  color: #eee;
+}
+
+.navbar {
+  border-bottom: 1.4px solid rgba(95, 95, 95, 0.433);
+  padding-top: 0px;
+  padding-bottom: 1px;
+}
+
+.nav-link {
+  border-bottom: 3px solid transparent;
+  transition: 0.1s;
+}
+
+.nav-link:hover {
+  border-bottom: 3px solid #0062cc;
+  transition: 0.1s;
+}
+
+@media only screen and (max-width: 769px) {
+  .responsive-margin-top {
+    margin-top: 15px;
+  }
+}
+
+.search {
+  font-size: 15px;
+}
+
+.btn {
+  border-radius: 35px;
+  padding: 10px 20px;
+}
+
+.modal-backdrop
+{
+    opacity:0.7 !important;
 }

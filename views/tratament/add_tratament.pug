@@ -1,66 +1,71 @@
 extends ../layout
 
 block content 
-  h1 Add Tratament
-  br
-  form(method='POST' action='/animals/'+animal._id+'/tratamente/add')
-    .row 
-      .col-md-4
+  .card-lg-light
+    .card-header-primary 
+      h3.text-center Tratament:  
+        a(href='/proprietari/'+animal.proprietar_id+'/animals/'+animal._id style='color: white;')
+          strong #{animal.registration_nr}
+
+    .padding-sm
+      form(method='POST' action='/animals/'+animal._id+'/tratamente/add')
+        .row 
+          .col-md-4
+            #form-group 
+              label Denumirea produsului:
+              input.form-control(name='name' type='text') 
+          .col-md-2
+            #form-group 
+              label Seria:
+              input.form-control(name='series' type='text') 
+          .col-md-2.offset-md-2
+            #form-group 
+              label Valabilitatea:
+              input.form-control#expiry(name='expiry_date' type='text')  
+          .col-md-2
+            #form-group 
+              label Data:
+              input.form-control#administration_date(name='administration_date' type='text') 
+        br
+        .row
+          .col-md-2  
+            #form-group 
+              label Doza:
+              input.form-control(name='dose' type='number') 
+          .col-md-2
+            #form-group 
+              label Asteptare:
+              input.form-control(name='waiting_time' type='text') 
+          .col-md-2
+            #form-group 
+              label Durata:
+              input.form-control(name='duration' type='text') 
+          .col-md-4.offset-md-2
+            #form-group 
+              label Rezultatul:
+              select.form-control#animal-type(name='result', type='text') 
+                option(value='' selected hidden disabled) Alegeti din acestea optiuni
+                option(value='Caine') Vindecat
+                option(value='Pisica') Mort
+                option(value='Bovin') Sacrificat
+        br
+        .row
+          .col-md-6
+            #form-group 
+              label Observatii:
+              textarea.form-control(name='observations') 
+          .col-md-4.offset-md-2
+            #form-group
+              .form-check(style='padding: 0px; margin-top: 40px;')
+                input#semnatura.form-check-input(type='checkbox' style='height: 30px; width: 30px; margin: 0px;')
+                label.form-check-label(for='semnatura' style='margin: 0px 0px 0px 40px; font-size: 20px;') Semnatura
+        br
         #form-group 
-          label Denumirea produsului:
-          input.form-control(name='name' type='text') 
-      .col-md-2
-        #form-group 
-          label Seria:
-          input.form-control(name='series' type='text') 
-      .col-md-2.offset-md-2
-        #form-group 
-          label Valabilitatea:
-          input.form-control#expiry(name='expiry_date' type='text')  
-      .col-md-2
-        #form-group 
-          label Data:
-          input.form-control#administration_date(name='administration_date' type='text') 
-    br
-    .row
-      .col-md-2  
-        #form-group 
-          label Doza administrata:
-          input.form-control(name='dose' type='number') 
-      .col-md-2
-        #form-group 
-          label Timpul de asteptare:
-          input.form-control(name='waiting_time' type='text') 
-      .col-md-2
-        #form-group 
-          label Durata tratamentului:
-          input.form-control(name='duration' type='text') 
-      .col-md-4.offset-md-2
-        #form-group 
-          label Rezultatul tratamentului:
-          select.form-control#animal-type(name='result', type='text') 
-            option(value='' selected hidden disabled) Alegeti din acestea optiuni
-            option(value='Caine') Vindecat
-            option(value='Pisica') Mort
-            option(value='Bovin') Sacrificat
-    br
-    .row
-      .col-md-6
-        #form-group 
-          label Observatii:
-          textarea.form-control(name='observations') 
-      .col-md-4.offset-md-2
-        #form-group
-          .form-check(style='padding: 0px; margin-top: 40px;')
-            input#semnatura.form-check-input(type='checkbox' style='height: 30px; width: 30px; margin: 0px;')
-            label.form-check-label(for='semnatura' style='margin: 0px 0px 0px 40px; font-size: 20px;') Semnatura
-    br
-    #form-group 
-      label Number de Matricol:
-      input.form-control(name='animal_id' type='text' value=animal.registration_nr disabled) 
-    br
-    input.btn.btn-primary(type='submit' value='Creati')
+          label Number de Matricol:
+          input.form-control(name='animal_id' type='text' value=animal.registration_nr disabled) 
+        br
+        input.btn.btn-primary(type='submit' value='Creati')
 
 
-  
+      
 

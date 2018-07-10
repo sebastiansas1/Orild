@@ -10,16 +10,10 @@ html(lang="en")
     link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
 
   body
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-      .container.container-lg
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .container.container-lg(style='padding: 5px;')
         .navbar-header
-          a.navbar-brand(href='/proprietari/') OrildAPP
-          button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbar.collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li.nav-item
-              a.nav-link(href='/proprietari/') Proprietari
+          a.navbar-brand(href='/proprietari/' style='margin-right: 45px;') Dyor Vet
         ul.nav.navbar-nav.navbar-right(style='width:140px; height: 40px;')
           if user 
             li.nav-item
@@ -31,7 +25,6 @@ html(lang="en")
               a.nav-link(href='/users/login') Login
 
     br
-    br
 
     .container(style='min-height:900px;')
       != messages('message', locals)
@@ -41,10 +34,10 @@ html(lang="en")
       block content 
       br 
     
-    footer
-      .container.container-lg
-        p Copyright 2018 
-          span.float-right Sas Creations&trade; 
+    //- footer
+    //-   .container.container-lg
+    //-     p Copyright 2018 
+    //-       span.float-right Sas Creations&trade; 
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')

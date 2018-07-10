@@ -2,151 +2,154 @@ extends ../layout
 
 block content 
 
-  h1 Dashboard
-  br
-  br
-  .row
-    .col-md-6
-      h3 Proprietarii
-      br
-      .row
-        .col-md-8
-          .input-form.form-search
-            input.form-control.search-proprietar(type='text', placeholder='Cauta proprietar ...')
-      hr
-      br
-      .row
-        .col-md-8
-          button.btn.btn-primary.active(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:13px; width: 180px; height: 40px;') + Adauga Proprietar
+  .card-lg-light
+    .card-header-primary 
+      h2.text-center Dashboard
 
-          #proprietarModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='proprietarModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
-            .modal-dialog(role='document')
-              .modal-content(style='border-radius: 8px;')
-                .modal-header.modal-header-primary
-                  h5#proprietarModalLabel.modal-title Proprietar Nou
-                  button.close(type='button', data-dismiss='modal', aria-label='Close')
-                    span(aria-hidden='true') ×
-                .modal-body
-                  .row 
-                    .col-md-10.offset-md-1
-                      form#proprietar-form(method='POST', action='/proprietari/')
-                        #form-group
-                          label Nume:
-                          input#name.form-control(name='name', type='text') 
-                        br
-                        #form-group 
-                          label Adresa:
-                          input.form-control(name='address', type='text') 
-                        br
-                        #form-group 
-                          label Nr Tel:
-                          input.form-control(name='phone', type='text') 
-                        br
-                        #form-group 
-                          label Email:
-                          input.form-control(name='email', type='text') 
-                        br
-                        .modal-footer
-                          button#save-proprietar.btn.btn-primary(type='submit') Salveaza
-                          button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
-
+    .padding-sm
+      .row
+        .col-md-5
+          h4 Proprietarii
           br
+          .row
+            .col-md-8
+              .input-form.form-search
+                input.form-control.search.search-proprietar(type='text', placeholder='Cauta proprietar ...')
+          hr
           br
-          ul.list-group(style='min-height: 400px; max-height: 400px; overflow-y:scroll;')
-            br
-            each proprietar, i in proprietari
-              h6.proprietar(proprietar-search=proprietar.name style='padding-right: 40px;')
-                li.list-group-item
-                  a(href="/proprietari/" + proprietar._id) #{proprietar.name}
-                
-    .col-md-6
-      h3 Animalele
-      br
-      .row
-        .col-md-8
-          .input-form.form-search
-            input.form-control.search-animal(type='text', placeholder='Cauta animal ...')
-        .col-md-4
-          #form-group 
-            select.form-control.filter-animal(name='species', type='text') 
-              option(value='', selected='', disabled='', hidden='') Specie
-              option(value='') Toate
-              option(value='Caine') Caine
-              option(value='Pisica') Pisica
-              option(value='Bovin') Bovin
-              option(value='Cal') Cal
-              option(value='Other') Other
-      hr
-      br
-      .row
-        .col-md-10
-          button.btn.btn-dark.active(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 150px; height: 40px;') + Adauga Animal
+          .row
+            .col-md-10
+              button.btn.btn-primary.active(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:13px; width: 180px; height: 40px;') + Adauga Proprietar
 
-          #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
-            .modal-dialog(role='document')
-              .modal-content(style='border-radius: 8px;')
-                .modal-header.modal-header-dark
-                  h5#animalModalLabel.modal-title Animal Nou
-                  button.close(type='button', data-dismiss='modal', aria-label='Close')
-                    span(aria-hidden='true' style='color: white;') ×
-                .modal-body
-                  .row 
-                    .col-md-10.offset-md-1
-                      form#animal-form(method='POST', action='/animals/')
-                        #form-group 
-                          label Proprietar
-                          select.form-control(name='proprietar', type='text')
-                            option(value='', selected='', disabled='', hidden='') Alegeti
-                            each proprietar, i in proprietari                               
-                              option(value=proprietar._id)= proprietar.name
-                        br
-                        .row 
-                          .col-md-7
+              #proprietarModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='proprietarModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
+                .modal-dialog(role='document')
+                  .modal-content(style='border-radius: 8px;')
+                    .modal-header.modal-header-primary
+                      h5#proprietarModalLabel.modal-title Proprietar Nou
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    .modal-body
+                      .row 
+                        .col-md-10.offset-md-1
+                          form#proprietar-form(method='POST', action='/proprietari/')
+                            #form-group
+                              label Nume:
+                              input#name.form-control(name='name', type='text') 
+                            br
                             #form-group 
-                              label Nr. Matricol
-                              input.form-control(name='registration_nr', type='text') 
-                          .col-md-5
+                              label Adresa:
+                              input.form-control(name='address', type='text') 
+                            br
                             #form-group 
-                              label Specia
-                              select.form-control(name='species', type='text') 
+                              label Nr Tel:
+                              input.form-control(name='phone', type='text') 
+                            br
+                            #form-group 
+                              label Email:
+                              input.form-control(name='email', type='text') 
+                            br
+                            .modal-footer
+                              button#save-proprietar.btn.btn-primary(type='submit') Salveaza
+                              button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
+          
+          br
+          .col-md-12
+            ul.list-group(style='min-height: 400px; max-height: 400px; overflow-y:scroll;')
+              br
+              each proprietar, i in proprietari
+                h6.proprietar(proprietar-search=proprietar.name style='padding-right: 40px;')
+                  li.list-group-item
+                    a(href="/proprietari/" + proprietar._id) #{proprietar.name}
+                  
+        .col-md-7
+          h4 Animalele
+          br
+          .row
+            .col-md-8
+              .input-form.form-search
+                input.form-control.search.search-animal(type='text', placeholder='Cauta animal ...')
+            .col-md-4.responsive-margin-top
+              #form-group 
+                select.form-control.filter-animal.search(name='species', type='text') 
+                  option(value='', selected='', disabled='', hidden='') Specie
+                  option(value='') Toate
+                  option(value='Caine') Caine
+                  option(value='Pisica') Pisica
+                  option(value='Bovin') Bovin
+                  option(value='Cal') Cal
+                  option(value='Other') Other
+          hr
+          br
+          .row
+            .col-md-10
+              button.btn.btn-dark.active(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 150px; height: 40px;') + Adauga Animal
+
+              #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
+                .modal-dialog(role='document')
+                  .modal-content(style='border-radius: 8px;')
+                    .modal-header.modal-header-dark
+                      h5#animalModalLabel.modal-title Animal Nou
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true' style='color: white;') ×
+                    .modal-body
+                      .row 
+                        .col-md-10.offset-md-1
+                          form#animal-form(method='POST', action='/animals/')
+                            #form-group 
+                              label Proprietar
+                              select.form-control(name='proprietar', type='text')
                                 option(value='', selected='', disabled='', hidden='') Alegeti
-                                option(value='Caine') Caine
-                                option(value='Pisica') Pisica
-                                option(value='Bovin') Bovin
-                                option(value='Cal') Cal
-                                option(value='Other') Other
-                        br
-                        .row
-                          .col-md-4
+                                each proprietar, i in proprietari                               
+                                  option(value=proprietar._id)= proprietar.name
+                            br
+                            .row 
+                              .col-md-7
+                                #form-group 
+                                  label Nr. Matricol
+                                  input.form-control(name='registration_nr', type='text') 
+                              .col-md-5
+                                #form-group 
+                                  label Specia
+                                  select.form-control(name='species', type='text') 
+                                    option(value='', selected='', disabled='', hidden='') Alegeti
+                                    option(value='Caine') Caine
+                                    option(value='Pisica') Pisica
+                                    option(value='Bovin') Bovin
+                                    option(value='Cal') Cal
+                                    option(value='Other') Other
+                            br
+                            .row
+                              .col-md-4
+                                #form-group 
+                                  label Animale Tratate
+                                  input.form-control(name='quantity', type='number') 
+                            hr
+                            br
                             #form-group 
-                              label Animale Tratate
-                              input.form-control(name='quantity', type='number') 
-                        hr
-                        br
-                        #form-group 
-                          label Simptomatologie
-                          input.form-control(name='simptomatologie') 
-                        br
-                        #form-group 
-                          label Diagnoticul
-                          input.form-control(name='diagnostic') 
-                        br
-                        .modal-footer
-                          button#save-animal.btn.btn-primary(type='submit') Salveaza
-                          button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
+                              label Simptomatologie
+                              input.form-control(name='simptomatologie') 
+                            br
+                            #form-group 
+                              label Diagnoticul
+                              input.form-control(name='diagnostic') 
+                            br
+                            .modal-footer
+                              button#save-animal.btn.btn-primary(type='submit') Salveaza
+                              button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
 
-      br
-
-      table.table
-        thead
-          tr
-            th Nr. Matricol
-            th.text-center Specie
-            th.text-center Qantitate
-        each animal, i in animals
-          tbody
-            tr.animal(animal-search=animal.registration_nr filter-animal=animal.species)
-              td.align-middle
-                a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
-              td.text-center.align-middle= animal.species
-              td.text-center.align-middle= animal.quantity
+          br
+          br
+          .col-md-12(style='min-height: 400px; max-height: 400px; overflow-y:scroll;')
+            table.table
+              thead
+                tr
+                  th Nr. Matricol
+                  th.text-center Specie
+                  th.text-center Qantitate
+              each animal, i in animals
+                tbody(style='font-size: 14px;')
+                  tr.animal(animal-search=animal.registration_nr filter-animal=animal.species)
+                    td.align-middle
+                      a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
+                    td.text-center.align-middle= animal.species
+                    td.text-center.align-middle= animal.quantity
