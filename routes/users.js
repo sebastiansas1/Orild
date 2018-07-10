@@ -19,12 +19,12 @@ router.post('/register', function (req, res) {
   const password = req.body.password;
   const password2 = req.body.password2;
 
-  req.checkBody('name', 'Name is required!').notEmpty();
-  req.checkBody('email', 'Email is required!').notEmpty();
-  req.checkBody('email', 'Email is not valid!').isEmail();
-  req.checkBody('username', 'Username is required!').notEmpty();
-  req.checkBody('password', 'Password is required!').notEmpty();
-  req.checkBody('password2', 'Passwords do not mathc!').equals(req.body.password);
+  req.checkBody('name', 'Numele este obligatoriu.').notEmpty();
+  req.checkBody('email', 'Email-ul este obligatoriu.').notEmpty();
+  req.checkBody('email', 'Email-ul nu a fost scris intre un format corect.').isEmail();
+  req.checkBody('username', 'Alegeti un username.').notEmpty();
+  req.checkBody('password', 'Password-ul este obligatoriu').notEmpty();
+  req.checkBody('password2', 'Password-ul nu a fost confirmat corect. Trebe sa scrieti acelasi parola in ambele sectii.').equals(req.body.password);
 
   let errors = req.validationErrors();
 
@@ -51,7 +51,7 @@ router.post('/register', function (req, res) {
             console.log(err);
             return;
           } else {
-            req.flash('success', 'You are now registered. You may now log in');
+            req.flash('success', 'Sunteti inregistrati. Acum puteti efectua login-ul.');
             res.redirect('/users/login');
           }
         });
@@ -77,7 +77,7 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res) {
   req.logout();
-  req.flash('success', 'You are logged out');
+  req.flash('success', 'V-ati delogat cu succes. Va dorim o ziua placuta.');
   res.redirect('/users/login');
 });
 

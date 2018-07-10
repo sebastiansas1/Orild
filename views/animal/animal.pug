@@ -2,12 +2,12 @@ extends ../layout
 
 block content 
   h1= animal.registration_nr
-    if user
-      a.btn.btn-outline-danger.delete-animal.float-right(
-        href='#' 
-        data-animal-id=animal._id 
-        data-proprietar-id=proprietar._id) Delete
-      a.btn.btn-dark.float-right(href='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id) Edit
+    //- a.btn.btn-outline-danger.delete-animal.float-right(
+    //-   href='#' 
+    //-   data-animal-id=animal._id 
+    //-   data-proprietar-id=proprietar._id) Delete
+    //- a.btn.btn-dark.float-right(href='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id) Edit
+    button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 180px; height: 40px;') Modificati
 
   p Proprietar 
     a(href='/proprietari/'+proprietar._id)
@@ -26,14 +26,66 @@ block content
   br
   br
 
+  #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
+    .modal-dialog(role='document')
+      .modal-content(style='border-radius: 8px;')
+        .modal-header.modal-header-dark
+          h5#animalModalLabel.modal-title= animal.registration_nr
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true' style='color: white;') ×
+        .modal-body
+          .row 
+            .col-md-10.offset-md-1
+              form#animal-form(method='POST', action='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id)
+                #form-group 
+                  label Proprietar                       
+                  input.form-control(name='proprietar', type='text', value=proprietar.name, disabled)
+                br
+                .row 
+                  .col-md-7
+                    #form-group 
+                      label Nr. Matricol
+                      input.form-control(name='registration_nr', type='text', value=animal.registration_nr) 
+                  .col-md-5
+                    #form-group 
+                      label Specia
+                      select.form-control(name='species', type='text') 
+                        option(value=animal.species, selected hidden)= animal.species
+                        option(value='Caine') Caine
+                        option(value='Pisica') Pisica
+                        option(value='Bovin') Bovin
+                        option(value='Cal') Cal
+                        option(value='Other') Other
+                br
+                .row
+                  .col-md-4
+                    #form-group 
+                      label Animale Tratate
+                      input.form-control(name='quantity', type='number', value=animal.quantity) 
+                hr
+                br
+                #form-group 
+                  label Simptomatologie
+                  textarea.form-control(name='simptomatologie')=animal.simptomatologie 
+                br
+                #form-group 
+                  label Diagnoticul
+                  textarea.form-control(name='diagnostic')=animal.diagnostic
+                br
+                .modal-footer
+                  button#save-animal.btn.btn-primary(type='submit') Salveaza
+                  button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
+
+            br
+            hr
+            a.btn.btn-outline-danger.delete-proprietar(href='#' style= 'margin-left: 25%;' data-animal-id=animal._id data-proprietar-id=proprietar._id) Stergeti Acest Matricol
+
   .row
     .col-md-3
       h3 Tratamente
     .col-md-6
       .input-form.form-search
         input.form-control.search-item(type='text', placeholder='Gaseste tratamente ...')
-    .col-md-3
-      a.btn.btn-dark.float-right(href='/animals/'+animal._id+'/tratamente/add/' style='text-decoration:none;') + Adauga
 
   br
 

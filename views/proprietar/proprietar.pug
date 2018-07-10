@@ -2,9 +2,7 @@ extends ../layout
 
 block content 
   h1 #{proprietar.name}
-    if user
-      a.btn.btn-outline-danger.delete-proprietar.float-right(href='#' data-id=proprietar._id) Delete
-      a.btn.btn-dark.float-right(href='/proprietari/edit/'+proprietar._id) Edit
+    button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:13px; width: 180px; height: 40px;') Modificati
 
   br 
   h4 Detalii
@@ -18,6 +16,12 @@ block content
     span #{proprietar.email}
 
   br
+
+  #dialog-confirm(title='Sunteti siguri?')
+    p#dialog-message(style='display: none;')
+      span.ui-icon.ui-icon-alert(style='float:left; margin:12px 12px 20px 0; z-index: 7;')
+      | Stergerea acest proprietar este permanenta, si toate animalele si tratamentele asociate vor fii sterse in mod permanent.
+
 
   h4 Animale
   hr
@@ -75,6 +79,44 @@ block content
                     .modal-footer
                       button#save-animal.btn.btn-primary(type='submit') Salveaza
                       button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
+    
+
+      #proprietarModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='proprietarModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
+        .modal-dialog(role='document')
+          .modal-content(style='border-radius: 8px;')
+            .modal-header.modal-header-primary
+              h5#proprietarModalLabel.modal-title= proprietar.name
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+            .modal-body
+              .row 
+                .col-md-10.offset-md-1
+                  form#proprietar-form(method='POST', action='/proprietari/edit/'+proprietar._id)
+                    #form-group
+                      label Nume:
+                      input#name.form-control(name='name', type='text', value=proprietar.name) 
+                    br
+                    #form-group 
+                      label Adresa:
+                      input.form-control(name='address', type='text', value=proprietar.address)
+                    br
+                    #form-group 
+                      label Nr Tel:
+                      input.form-control(name='phone', type='text', value=proprietar.phone)
+                    br
+                    #form-group 
+                      label Email:
+                      input.form-control(name='email', type='text', value=proprietar.email)
+                    br
+                    .modal-footer
+                      button#save-proprietar.btn.btn-primary.float-right(type='submit') Salveaza
+                      button.btn.btn-secondary.float-right(type='button', data-dismiss='modal') Inchide
+
+                  br
+                  hr
+                  a.btn.btn-outline-danger.delete-proprietar(href='#' style= 'margin-left: 25%;' data-id=proprietar._id) Stergeti Acest Proprietar
+
+
   br
   table.table
     thead

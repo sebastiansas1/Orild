@@ -18,7 +18,6 @@ router.get("/", ensureAuthenticated, function(req, res) {
           console.log(err2);
         } else {
           res.render("proprietar/proprietari", {
-            title: "Toti Proprietarii",
             proprietari: proprietari,
             animals:animals
           });
@@ -71,7 +70,7 @@ router.post("/", ensureAuthenticated, function(req, res) {
         console.log(err);
         return;
       } else {
-        req.flash("success", "Proprietarul "+object.name+" adaugat!");
+        req.flash("success", "Proprietarul "+object.name+" a fost adaugat!");
         res.redirect("/proprietari/");
       }
     });
@@ -106,7 +105,7 @@ router.post("/edit/:id", ensureAuthenticated, function(req, res) {
       console.log(err);
       return;
     } else {
-      req.flash("success", "Proprietar updated!");
+      req.flash("success", "Proprietarul a fost actualizat!");
       res.redirect("/proprietari/" + req.params.id);
     }
   });
@@ -122,14 +121,12 @@ router.delete("/:id", ensureAuthenticated, function(req, res) {
     } else {
       Animal.find(proprietar_id, function(errX, animals) {
         animals.forEach(function(animal) {
-          console.log("Got in here: " + animal.name);
           Tratament.deleteMany({ animal_id: animal._id }, function(err3) {
             if (err3) throw err3;
-            console.log("Deleting Tratament");
           });
         });
         Animal.deleteMany(proprietar_id, function(err2) {
-          req.flash("success", "Proprietar with its animals deleted!");
+          req.flash("success", "Proprietarul si animalele asociate ar fost sterse.");
           res.send("Success");
         });
       });
@@ -165,7 +162,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    req.flash("info", "Please login");
+    req.flash("info", "Va rugam sa va autentificati inainte de a proceda.");
     res.redirect("/users/login");
   }
 }

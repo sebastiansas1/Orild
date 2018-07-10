@@ -87,22 +87,23 @@ router.post('/add', ensureAuthenticated, function(req, res) {
   req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
   req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
 
+  let proprietar_id = req.params.proprietar_id;
+
   // Get Errors
   let errors = req.validationErrors();
 
   if(errors) {
-    Proprietar.findById(req.params.proprietar_id)
-    .sort({ surname: 1 })
-    .exec(function(err, proprietari) {
+    Proprietar.findById(proprietar_id, function(err, proprietar) {
       if (err) {
         console.log(err);
       } else {
-        Animal.find({}).sort({ registration_nr: 1 }).exec(function(err2, animals) {
+        let query = { proprietar_id: proprietar_id }
+        Animal.find(query).sort({ registration_nr: 1 }).exec(function(err2, animals) {
           if(err2) {
             console.log(err2);
           } else {
             res.render("proprietar/proprietar", {
-              proprietari: proprietari,
+              proprietar: proprietar,
               animals: animals,
               errors: errors
             });
@@ -157,13 +158,33 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
   req.checkBody('quantity', 'Qantitatea de animale este obligatorie.').notEmpty();
   req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
   req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
+
+  let proprietar_id = req.params.proprietar_id;
   
   // Get Errors
   let errors = req.validationErrors();
 
   if(errors) {
-    res.render('animal/add_animal', {
-      errors: errors
+    Proprietar.findById(proprietar_id, function(err, proprietar) {
+      if (err) {
+        console.log(err);
+      } else {
+        Animal.findById(req.params.id, function(err2, animal) {
+          if(err2) {
+            console.log(err2);
+          } else {
+            let query = { animal_id: animal._id };
+            Tratament.find(query, function(err3, tratamente) {
+              res.render("animal/animal", {
+                proprietar: proprietar,
+                animal: animal,
+                tratamente: tratamente,
+                errors: errors
+              });
+            });
+          }
+        });
+      }
     });
   } else {
     // Update Animal
@@ -232,7 +253,7 @@ function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
     return next();
   } else {
-    req.flash('info', 'Please login');
+    req.flash('info', 'Va rugam sa va autentificati inainte de a proceda.');
     req.session.returnTo = req.path; 
     res.redirect('/users/login');
   }
