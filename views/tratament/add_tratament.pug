@@ -45,9 +45,9 @@ block content
               label Rezultatul:
               select.form-control#animal-type(name='result', type='text') 
                 option(value='' selected hidden disabled) Alegeti din acestea optiuni
-                option(value='Caine') Vindecat
-                option(value='Pisica') Mort
-                option(value='Bovin') Sacrificat
+                option(value='Vindecat') Vindecat
+                option(value='Mort') Mort
+                option(value='Sacrificat') Sacrificat
         br
         .row
           .col-md-6
@@ -61,7 +61,7 @@ block content
                 label.form-check-label(for='semnatura' style='margin: 0px 0px 0px 40px; font-size: 20px;') Semnatura
         br
         #form-group 
-          label Number de Matricol:
+          label Numar de Matricol:
           input.form-control(name='animal_id' type='text' value=animal.registration_nr disabled) 
         br
         input.btn.btn-primary(type='submit' value='Creati')

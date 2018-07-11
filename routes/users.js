@@ -77,7 +77,7 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res) {
   req.logout();
-  req.flash('success', 'V-ati delogat cu succes. Va dorim o ziua placuta.');
+  req.flash('success', 'V-ati delogat cu succes.');
   res.redirect('/users/login');
 });
 

@@ -3,11 +3,14 @@ extends ../layout
 block content 
   .card-lg-light
     .card-header-primary 
-      h3.text-center= animal.registration_nr
+      h3.text-center
+        i.fab.fa-earlybirds(style='margin-right: 15px;')
+        | #{animal.registration_nr}
 
     .padding-sm
       h4 Detalii
-        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 180px; height: 40px;') Modificati
+        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 130px; height: 40px;') Modificati 
+          i.far.fa-edit(style='margin-left: 5px;')
       hr
       br
       p Proprietar 
@@ -15,7 +18,7 @@ block content
           strong #{proprietar.name}
       p Specia: 
         strong= animal.species
-      p Qantitate: 
+      p Cantitate: 
         strong= animal.quantity
       p Simpomatologie: 
         strong= animal.simptomatologie
@@ -34,18 +37,19 @@ block content
         .modal-dialog(role='document')
           .modal-content(style='border-radius: 8px;')
             .modal-header.modal-header-dark
-              h5#animalModalLabel.modal-title= animal.registration_nr
+              h5#animalModalLabel.modal-title= animal.registration_nr 
+                i.fab.fa-earlybirds(style='margin-left: 5px;')
               button.close(type='button', data-dismiss='modal', aria-label='Close')
                 span(aria-hidden='true' style='color: white;') ×
             .modal-body
-              .row 
+              .row(style='font-size: 14px;') 
                 .col-md-10.offset-md-1
                   form#animal-form(method='POST', action='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id)
                     #form-group 
                       label Proprietar                       
                       input.form-control(name='proprietar', type='text', value=proprietar.name, disabled)
                     br
-                    .row 
+                    .row(style='font-size: 14px;') 
                       .col-md-7
                         #form-group 
                           label Nr. Matricol
@@ -53,28 +57,28 @@ block content
                       .col-md-5
                         #form-group 
                           label Specia
-                          select.form-control(name='species', type='text') 
-                            option(value=animal.species, selected hidden)= animal.species
+                          select.form-control(name='species', type='text', style='font-size: 14px;') 
+                            option(value=animal.species, selected hidden, style='font-size: 14px;')= animal.species
                             option(value='Caine') Caine
                             option(value='Pisica') Pisica
                             option(value='Bovin') Bovin
                             option(value='Cal') Cal
                             option(value='Other') Other
                     br
-                    .row
-                      .col-md-4
+                    .row(style='font-size: 14px;')
+                      .col-md-6
                         #form-group 
                           label Animale Tratate
-                          input.form-control(name='quantity', type='number', value=animal.quantity) 
+                          input.form-control(name='quantity', type='number', value=animal.quantity, style='font-size: 14px;') 
                     hr
                     br
                     #form-group 
                       label Simptomatologie
-                      textarea.form-control(name='simptomatologie')=animal.simptomatologie 
+                      textarea.form-control(name='simptomatologie', style='font-size: 14px;')=animal.simptomatologie 
                     br
                     #form-group 
                       label Diagnoticul
-                      textarea.form-control(name='diagnostic')=animal.diagnostic
+                      textarea.form-control(name='diagnostic', style='font-size: 14px;')=animal.diagnostic
                     br
                     .modal-footer
                       button#save-animal.btn.btn-primary(type='submit') Salveaza
@@ -93,32 +97,109 @@ block content
 
       br
 
-      h6(style='font-size:14px; width: 180px;')
-        a.btn.btn-outline-primary(href='/animals/'+animal._id+'/tratamente/add/') + Adauga tratament
+      button.btn.btn-outline-primary(type='button', data-toggle='modal', data-target='#tratamentModal' style='font-size:14px; width: 180px; height: 40px;') Adauga tratament
+        i.fas.fa-syringe(style='margin-left: 5px;')
+      br
+      br
+      #tratamentModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='tratamentModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
+        .modal-dialog.modal-lg(role='document')
+          .modal-content(style='border-radius: 8px;')
+            .modal-header.modal-header-primary
+              h5#tratamentModalLabel.modal-title Tratament Nou 
+                i.fas.fa-syringe(style='margin-left: 5px;')
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+            .modal-body
+              .row 
+                .padding-sm
+                  form(method='POST' action='/animals/'+animal._id+'/tratamente/add')
+                    h5.text-muted Detalii Produs 
+                    hr
+                    .row(style='font-size: 14px;')
+                      .col-md-5
+                        #form-group 
+                          label Denumirea produsului:
+                          input.form-control(name='name' type='text' style='font-size: 14px;') 
+                      .col-md-3
+                        #form-group 
+                          label Seria:
+                          input.form-control(name='series' type='text' style='font-size: 14px;') 
+                      .col-md-3.offset-md-1
+                        #form-group 
+                          label Valabilitatea:
+                          input.form-control#expiry(name='expiry_date' type='text') 
+                    br
+                    br
+                    h5.text-muted Detalii Tratament
+                    hr
+                    .row(style='font-size: 14px;')
+                      .col-md-2  
+                        #form-group 
+                          label Doza:
+                          input.form-control(name='dose' type='number' style='font-size: 14px;') 
+                      .col-md-3
+                        #form-group 
+                          label Timp de asteptare:
+                          input.form-control(name='waiting_time' type='text' style='font-size: 14px;') 
+                      .col-md-3
+                        #form-group 
+                          label Durata tratamentului:
+                          input.form-control(name='duration' type='text' style='font-size: 14px;') 
+                      .col-md-3.offset-md-1
+                        #form-group 
+                          label Rezultatul:
+                          select.form-control#animal-type(name='result', type='text' style='font-size: 14px;') 
+                            option(value='' selected hidden disabled) Alegeti
+                            option(value='Vindecat') Vindecat
+                            option(value='Mort') Mort
+                            option(value='Sacrificat') Sacrificat
+                    br
+                    .row(style='font-size: 14px;')
+                      .col-md-8
+                        #form-group 
+                          label Observatii:
+                          textarea.form-control(name='observations' style='font-size: 14px;') 
+                      .col-md-3.offset-md-1
+                        #form-group 
+                          label Data:
+                          input.form-control#administration_date(name='administration_date' type='text') 
+                    br
+                    hr
+                    .row(style='font-size: 14px;')
+                      .col-md-6
+                        #form-group 
+                          label Numar de Matricol:
+                          input.form-control(name='animal_id' type='text' value=animal.registration_nr disabled) 
+                      .col-md-5.offset-md-1
+                        #form-group
+                          .form-check(style='padding: 0px; margin-top: 30px;')
+                            input#semnatura.form-check-input(type='checkbox' style='height: 30px; width: 30px; margin: 0px;')
+                            label.form-check-label(for='semnatura' style='margin: 0px 0px 0px 40px; font-size: 20px;') Semnatura Proprietar
+                    br
+                    .modal-footer
+                      button#save-proprietar.btn.btn-primary(type='submit') Salveaza
+                      button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
 
       br
-      table.table#results-tratamente
-        thead
-          tr
-            th Data
-            th Denumirea medicament
-            th Doza
-            th Timpul de asteptare
-            th Durata tratamentului
+      .col-md-12(style='overflow-x:auto; min-height: 300px; max-height: 300px; overflow-y:scroll;')
+        table.table#results-tratamente(style='min-width: 500px; font-size: 14px;')
+          thead
+            tr
+              th.align-middle Data
+              th.align-middle Produsul
+              th.align-middle Doza
+              th.align-middle Asteptare
+              th.align-middle Durata
 
-        each tratament, i in tratamente
-          tbody.containerItems
-            tr.item(data-search=tratament.name)
-        
-              td.date= moment(tratament.administration_date).format("DD-MM-YYYY")
-              td.align-middle
-                a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}
-              td.align-middle= tratament.dose
-              td.text-center.align-middle= tratament.waiting_time
-              td= tratament.duration 
+          each tratament, i in tratamente
+            tbody.containerItems
+              tr.item(data-search=tratament.name)
+          
+                td.date.align-middle= moment(tratament.administration_date).format("DD-MM-YYYY")
+                td.align-middle
+                  a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}
+                td.align-middle= tratament.dose
+                td.align-middle= tratament.waiting_time
+                td.align-middle= tratament.duration 
 
       br
-
-
-
-      

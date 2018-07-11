@@ -1,7 +1,6 @@
 extends ../layout
 
 block content 
-
   .row 
     .col-md-6.offset-md-3
       .card-lg-light
@@ -20,11 +19,9 @@ block content
                   label Password:
                   input.form-control(name='password', type='password') 
                 br
-                input.btn.btn-primary(type='submit', value='Logativa')
-                br
-                hr
-                br
-            .row
-              .col-md-4.offset-md-4
-                p Nu aveti cont?
-                a.btn.btn-secondary(href='/users/register') Inregistrativa
+            br
+            .row    
+              .col-md-2.offset-md-2
+                button.btn.btn-primary(type='submit') Login
+                  i.fas.fa-sign-in-alt(style='margin-left: 7px;')
+              br

@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 
 // Set Public Folder
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(__dirname + '/images'));
 
 // Express Session Middleware
 app.use(cookieParser());

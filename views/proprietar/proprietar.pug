@@ -4,11 +4,14 @@ block content
 
   .card-lg-light
     .card-header-primary 
-      h3.text-center #{proprietar.name}
+      h3.text-center 
+        i.fas.fa-user(style='margin-right: 15px;' )
+        | #{proprietar.name}
 
     .padding-sm
-      h4 Detalii
-        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:13px; width: 180px; height: 40px;') Modificati
+      h4.align-middle Detalii
+        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:13px; width: 130px; height: 40px;') Modificati 
+          i.far.fa-edit(style='margin-left: 5px;')
       hr
       br
       p 
@@ -34,13 +37,15 @@ block content
 
       .row
         .col-md-10
-          button.btn.btn-dark.active(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 150px; height: 40px;') + Adauga Animal
+          button.btn.btn-dark.active(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:15px; width: 180px; height: 40px;') Adauga Animal 
+            i.fab.fa-earlybirds(style='margin-left: 5px;')
 
           #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
             .modal-dialog(role='document')
               .modal-content(style='border-radius: 8px;')
                 .modal-header.modal-header-dark
-                  h5#animalModalLabel.modal-title Animal Nou
+                  h5#animalModalLabel.modal-title Animal Nou 
+                    i.fab.fa-earlybirds(style='margin-left: 5px;')
                   button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true' style='color: white;') ×
                 .modal-body
@@ -125,13 +130,13 @@ block content
 
       br
       br
-      .col-md-12(style='min-height: 400px; max-height: 400px; overflow-y:scroll;')
-        table.table
+      .col-md-12(style='overflow-x:auto; min-height: 200px; max-height: 200px; overflow-y:scroll;')
+        table.table(style='min-width: 500px; font-size: 14px;')
           thead
             tr
               th Nr. Matricol
               th Specie
-              th Qantitate
+              th Cantitate
               th Simptomatologie
               th Diagnosticul
           each animal, i in animals

@@ -7,14 +7,6 @@ let Proprietar = require('../models/proprietar');
 let User = require('../models/user');
 const Tratament = require('../models/tratament');
 
-// Add Route
-router.get('/add', ensureAuthenticated, function(req, res) {
-  res.render('animal/add_animal', {
-    title: 'Add Animal',
-    proprietar_id: req.params.proprietar_id
-  });
-});
-
 // Add Route POST
 router.post('/', ensureAuthenticated, function(req, res) {
 
@@ -22,7 +14,7 @@ router.post('/', ensureAuthenticated, function(req, res) {
   req.checkBody('proprietar', 'Trebe sa alegeti un proprietar din lista.').notEmpty();
   req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
   req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
-  req.checkBody('quantity', 'Qantitatea de animale este obligatorie.').notEmpty();
+  req.checkBody('quantity', 'Cantitatea de animale este obligatorie.').notEmpty();
   req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
   req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
 
@@ -31,7 +23,7 @@ router.post('/', ensureAuthenticated, function(req, res) {
 
   if(errors) {
     Proprietar.find({})
-    .sort({ surname: 1 })
+    .sort({ name: 1 })
     .exec(function(err, proprietari) {
       if (err) {
         console.log(err);
@@ -83,7 +75,7 @@ router.post('/add', ensureAuthenticated, function(req, res) {
   // Check Fields
   req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
   req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
-  req.checkBody('quantity', 'Qantitatea de animale este obligatorie.').notEmpty();
+  req.checkBody('quantity', 'Cantitatea de animale este obligatorie.').notEmpty();
   req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
   req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
 
@@ -155,7 +147,7 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
   // Check all required fields
   req.checkBody('registration_nr', 'Numarul de matricol este obligatoriu.').notEmpty();
   req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
-  req.checkBody('quantity', 'Qantitatea de animale este obligatorie.').notEmpty();
+  req.checkBody('quantity', 'Cantitatea de animale este obligatorie.').notEmpty();
   req.checkBody('simptomatologie', 'Simptomatologia este obligatorie.').notEmpty();
   req.checkBody('diagnostic', 'Diagnosticul este obligatoriu.').notEmpty();
 
@@ -231,7 +223,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
         if(errP) {
           console.log(errP);
         } else {
-          Tratament.find({ animal_id: animal._id }, function(errT, tratamente) {
+          Tratament.find({ animal_id: animal._id }).sort({ administration_date: 'desc' }).exec(function(errT, tratamente) {
             if(errT) {
               console.log(errT);
             } else {

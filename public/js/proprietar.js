@@ -8,7 +8,7 @@ $(document).ready(function() {
     $("#dialog-confirm").dialog({
       resizable: false,
       height: "auto",
-      width: 500,
+      fluid: true, 
       modal: true,
       buttons: {
         Stergeti: function() {
