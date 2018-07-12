@@ -11,7 +11,7 @@ const config = require('./config/database');
 
 // MIDDLEWARE CONFIGURATION
 
-mongoose.connect(config.database);
+mongoose.connect(config.database_prod);
 
 let db = mongoose.connection;
 
