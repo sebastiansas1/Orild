@@ -108,8 +108,12 @@ animals.use('/:animal_id/tratamente', tratamente);
 
 app.use('/users', users);
 
+var serverPort = 8080;
+var port = process.env.PORT || serverPort;
+
 // Start Server
-app.listen(3000, function() {
-  console.log('Server started on port 3000');
+var server = app.listen(process.env.PORT || serverPort, function () {
+  var port = server.address().port;
+  console.log("Server is working on port " + port);
 });
   
