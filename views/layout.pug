@@ -26,6 +26,9 @@ html(lang="en")
             | Dyor Vet  
         if user   
           ul.nav.navbar-nav.navbar-right
+            li.nav-item.mr-5
+              a.nav-link(href='/reminders') Inbox
+                i.fas.fa-envelope(style='margin-left: 7px;')
             li.nav-item
               a.nav-link(href='/users/logout') Logout
                 i.fas.fa-sign-out-alt(style='margin-left: 7px;')
@@ -54,6 +57,7 @@ html(lang="en")
   script(src="/js/proprietar.js")
   script(src="/js/date.js")
   script(src="/js/search_t.js")
+  script(src="/js/dot.js")
   
   
   

@@ -16,14 +16,14 @@ mongoose.connect(config.database_prod);
 let db = mongoose.connection;
 
 // Check db connection
-db.once('open', function(){
+db.once('open', function() {
   console.log('Connected to mongoDB');
 });
 
 // Check for db errors
-db.on('error', function(err){
+db.on('error', function(err) {
   console.log(err);
-})
+});
 // Init App
 const app = express();
 
@@ -37,15 +37,17 @@ app.use('/images', express.static(__dirname + '/images'));
 
 // Express Session Middleware
 app.use(cookieParser());
-app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
-}))
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
@@ -61,6 +63,7 @@ app.use(passport.session());
 
 // MomentJS Middleware
 app.locals.moment = require('moment');
+app.locals.moment.locale('ro');
 
 // Global User Variable
 app.get('*', function(req, res, next) {
@@ -77,7 +80,7 @@ app.set('view engine', 'pug');
 // Home Route
 app.get('/', function(req, res) {
   res.redirect('/proprietari/');
-}); 
+});
 
 // Bring in Animal model
 let Animal = require('./models/animal');
@@ -85,20 +88,21 @@ let Animal = require('./models/animal');
 // All Animals Route
 app.get('/animals/', function(req, res) {
   Animal.find({}, function(err, animals) {
-    if(err) {
+    if (err) {
       console.log(err);
     } else {
       res.render('animal/animals', {
         animals: animals
-      });  
+      });
     }
   });
 });
 
 let proprietari = require('./routes/proprietari');
-let animals = require('./routes/animals', {mergeParams: true});
-let tratamente = require('./routes/tratamente', {mergeParams: true});
+let animals = require('./routes/animals', { mergeParams: true });
+let tratamente = require('./routes/tratamente', { mergeParams: true });
 let users = require('./routes/users');
+let reminders = require('./routes/reminders');
 
 app.use('/proprietari', proprietari);
 proprietari.use('/:proprietar_id/animals', animals);
@@ -108,12 +112,13 @@ animals.use('/:animal_id/tratamente', tratamente);
 
 app.use('/users', users);
 
+app.use('/reminders', reminders);
+
 var serverPort = 8080;
 var port = process.env.PORT || serverPort;
 
 // Start Server
-var server = app.listen(process.env.PORT || serverPort, function () {
+var server = app.listen(process.env.PORT || serverPort, function() {
   var port = server.address().port;
-  console.log("Server is working on port " + port);
+  console.log('Server is working on port ' + port);
 });
-  
