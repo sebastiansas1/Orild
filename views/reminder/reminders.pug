@@ -1,53 +1,56 @@
 extends ../layout
 
 block content 
-  h1 All Reminders
+  h1.text-center All Reminders
   br
   .row
   br
 
-  h5 Unread Messages
-  br
-  .row
+  -if(reminders.length > 0)
 
-    table.table
-      tbody
-      each reminder, i in reminders
-        -if(reminder.read == false)
-          tr.item.inbox
-            td.align-middle.pl-4
-              .dot.full-dot(reminder-id=reminder._id)
-            td.align-middle
-              p.mr-5(style="height:15px; padding-left: 10px; width: 150px;") TRATAMENT
-            td.align-middle
-              a(href='/animals/'+reminder.animal_id+'/tratamente/edit/' + reminder.tratament_id) 
-                | Tratamentul 
-                span.text-primary #{reminder.tratament_id} 
-                | trebe efectuat approx #{moment(reminder.date).fromNow()}
-            td.align-middle.mr-4
-              .delete-inbox
-                i.fas.fa-trash.text-danger(style='margin-left: 34%; margin-top: 28%;')
-    
-  br
-  hr
-  h5 Read Messages
-  br
-  .row
+    .col-md-8.offset-md-2
+      h5 Unread Messages
+      br
 
-    table.table
-      tbody
-      each reminder, i in reminders
-        -if(reminder.read == true)
-          tr.item.inbox
-            td.align-middle.pl-4
-              .dot(reminder-id=reminder._id)
-            td.align-middle
-              p.mr-5(style="height:15px; padding-left: 10px; width: 150px;") TRATAMENT
-            td.align-middle
-              a(href='/animals/'+reminder.animal_id+'/tratamente/edit/' + reminder.tratament_id) 
-                | Tratamentul 
-                span.text-primary #{reminder.tratament_id} 
-                | trebe efectuat approx #{moment(reminder.date).fromNow()}
-            td.align-middle.mr-4
-              .delete-inbox
-                i.fas.fa-trash.text-danger(style='margin-left: 34%; margin-top: 28%;')
+      table.table
+        tbody
+        each reminder, i in reminders
+          -if(reminder.read == false)
+            tr.item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
+              td.align-middle.pl-4
+                .dot.full-dot(reminder-id=reminder._id style="width:23px")
+              td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
+                p.text-small
+                  | Tratamentul pentru  
+                  span.font-weight-bold #{reminder.animal_name}  
+                  | cu #{reminder.tratament_name} 
+                  | trebuie efectuat #{moment(reminder.date).fromNow()}
+              td.align-middle
+                .delete-inbox.text-danger.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
+                  i.fas.fa-trash.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+        
+      br
+      hr
+      h5 Read Messages
+      br
+
+      table.table
+        tbody
+        each reminder, i in reminders
+          -if(reminder.read == true)
+            tr.item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
+              td.align-middle.pl-4
+                .dot(reminder-id=reminder._id style="width:21px")
+              td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
+                p.text-small
+                  | Tratamentul pentru  
+                  span.font-weight-bold #{reminder.animal_name}  
+                  | cu #{reminder.tratament_name} 
+                  | trebuie efectuat #{moment(reminder.date).fromNow()}
+              td.align-middle
+                .delete-inbox.text-danger.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
+                  i.fas.fa-trash.text-danger.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+
+  -else 
+    .col-md-6
+      h5 All caught up!

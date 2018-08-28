@@ -8,7 +8,13 @@ const ReminderSchema = mongoose.Schema({
   animal_id: {
     type: String
   },
+  animal_name: {
+    type: String
+  },
   tratament_id: {
+    type: String
+  },
+  tratament_name: {
     type: String
   },
   proprietar_id: {

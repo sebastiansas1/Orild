@@ -25,7 +25,7 @@ router.post('/read/:reminder_id', ensureAuthenticated, function(req, res) {
     } else {
       // Update Animal
       let updReminder = {};
-      updReminder.tratament_id = reminder._id;
+      updReminder.tratament_id = reminder.tratament_id;
       updReminder.animal_id = reminder.animal_id;
       updReminder.proprietar_id = reminder.proprietar_id;
 
@@ -45,6 +45,19 @@ router.post('/read/:reminder_id', ensureAuthenticated, function(req, res) {
           res.sendStatus(200);
         }
       });
+    }
+  });
+});
+
+// Delete Reminder Route
+router.delete('/:id', ensureAuthenticated, function(req, res) {
+  let query = { _id: req.params.id };
+  Reminder.remove(query, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      req.flash('danger', 'Reminder-ul a fost sters.');
+      res.send('Success');
     }
   });
 });

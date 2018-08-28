@@ -61,12 +61,14 @@ router.post('/add', function(req, res) {
           if (err2) {
             console.log(err2);
           } else {
+            reminder.animal_id = animal._id;
+            reminder.animal_name = animal.registration_nr;
+            reminder.proprietar_id = animal.proprietar_id;
+            reminder.tratament_id = object._id;
+            reminder.tratament_name = object.name;
             reminder.date = moment(req.body.administration_date, 'DD-MM-YYYY')
               .add(1, 'y')
               .toDate();
-            reminder.tratament_id = object._id;
-            reminder.animal_id = animal._id;
-            reminder.proprietar_id = animal.proprietar_id;
 
             reminder.save(function(err3) {
               if (err3) {
@@ -158,6 +160,26 @@ router.post('/edit/:tratament_id', function(req, res) {
       }
     });
   }
+});
+
+// Get Single Tratament
+router.get('/:tratament_id', ensureAuthenticated, function(req, res) {
+  Tratament.findById(req.params.tratament_id, function(err, tratament) {
+    if (err) {
+      console.log(err);
+    } else {
+      Animal.findById(req.params.animal_id, function(err2, animal) {
+        if (err2) {
+          console.log(err2);
+        } else {
+          res.render('tratament/tratament', {
+            tratament: tratament,
+            animal: animal
+          });
+        }
+      });
+    }
+  });
 });
 
 // Access Control

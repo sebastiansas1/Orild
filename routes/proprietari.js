@@ -1,62 +1,75 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 // Bring in Proprietar and User model
-let Proprietar = require("../models/proprietar");
-let Tratament = require("../models/tratament");
-let Animal = require("../models/animal");
-let User = require("../models/user");
+let Proprietar = require('../models/proprietar');
+let Tratament = require('../models/tratament');
+let Animal = require('../models/animal');
+let Reminder = require('../models/reminder');
+let User = require('../models/user');
 
 // All Proprietar Route
-router.get("/", ensureAuthenticated, function(req, res) {
-  Proprietar.find({}).sort({ name: 1 }).exec(function(err, proprietari) {
-    if (err) {
-      console.log(err);
-    } else {
-      Animal.find({}).sort({ registration_nr: 1 }).exec(function(err2, animals) {
-        if(err2) {
-          console.log(err2);
-        } else {
-          res.render("proprietar/proprietari", {
-            proprietari: proprietari,
-            animals:animals
+router.get('/', ensureAuthenticated, function(req, res) {
+  Proprietar.find({})
+    .sort({ name: 1 })
+    .exec(function(err, proprietari) {
+      if (err) {
+        console.log(err);
+      } else {
+        Animal.find({})
+          .sort({ registration_nr: 1 })
+          .exec(function(err2, animals) {
+            if (err2) {
+              console.log(err2);
+            } else {
+              Reminder.find({ read: false }, function(err3, reminders) {
+                if (err3) {
+                  console.log(err3);
+                } else {
+                  res.render('proprietar/proprietari', {
+                    proprietari: proprietari,
+                    animals: animals,
+                    notifications: reminders
+                  });
+                }
+              });
+            }
           });
-        }
-      });
-    }
-  });
+      }
+    });
 });
 
 // Add Route POST
-router.post("/", ensureAuthenticated, function(req, res) {
+router.post('/', ensureAuthenticated, function(req, res) {
   // Check Fields
-  req.checkBody("name", "Numule este obligatoriu").notEmpty();
-  req.checkBody("address", "Adresa este obligatorie").notEmpty();
+  req.checkBody('name', 'Numule este obligatoriu').notEmpty();
+  req.checkBody('address', 'Adresa este obligatorie').notEmpty();
 
   // Get Errors
   let errors = req.validationErrors();
 
   if (errors) {
     Proprietar.find({})
-    .sort({ surname: 1 })
-    .exec(function(err, proprietari) {
-      if (err) {
-        console.log(err);
-      } else {
-        Animal.find({}).sort({ registration_nr: 1 }).exec(function(err2, animals) {
-          if(err2) {
-            console.log(err2);
-          } else {
-            res.render("proprietar/proprietari", {
-              proprietari: proprietari,
-              animals: animals,
-              errors: errors
+      .sort({ surname: 1 })
+      .exec(function(err, proprietari) {
+        if (err) {
+          console.log(err);
+        } else {
+          Animal.find({})
+            .sort({ registration_nr: 1 })
+            .exec(function(err2, animals) {
+              if (err2) {
+                console.log(err2);
+              } else {
+                res.render('proprietar/proprietari', {
+                  proprietari: proprietari,
+                  animals: animals,
+                  errors: errors
+                });
+              }
             });
-          }
-        });
-      }
-    });
-
+        }
+      });
   } else {
     // Create Proprietar
     let proprietar = new Proprietar();
@@ -70,20 +83,23 @@ router.post("/", ensureAuthenticated, function(req, res) {
         console.log(err);
         return;
       } else {
-        req.flash("success", "Proprietarul "+object.name+" a fost adaugat!");
-        res.redirect("/proprietari/"+object._id);
+        req.flash(
+          'success',
+          'Proprietarul ' + object.name + ' a fost adaugat!'
+        );
+        res.redirect('/proprietari/' + object._id);
       }
     });
   }
 });
 
 // Edit Proprietar Route
-router.get("/edit/:id", ensureAuthenticated, function(req, res) {
+router.get('/edit/:id', ensureAuthenticated, function(req, res) {
   Proprietar.findById(req.params.id, function(err, proprietar) {
     if (err) {
       console.log(err);
     } else {
-      res.render("proprietar/edit_proprietar", {
+      res.render('proprietar/edit_proprietar', {
         proprietar: proprietar
       });
     }
@@ -91,7 +107,7 @@ router.get("/edit/:id", ensureAuthenticated, function(req, res) {
 });
 
 // Edit Route POST
-router.post("/edit/:id", ensureAuthenticated, function(req, res) {
+router.post('/edit/:id', ensureAuthenticated, function(req, res) {
   let proprietar = {};
   proprietar.name = req.body.name;
   proprietar.address = req.body.address;
@@ -105,14 +121,14 @@ router.post("/edit/:id", ensureAuthenticated, function(req, res) {
       console.log(err);
       return;
     } else {
-      req.flash("success", "Proprietarul a fost actualizat!");
-      res.redirect("/proprietari/" + req.params.id);
+      req.flash('success', 'Proprietarul a fost actualizat!');
+      res.redirect('/proprietari/' + req.params.id);
     }
   });
 });
 
 // Delete Proprietar Route
-router.delete("/:id", ensureAuthenticated, function(req, res) {
+router.delete('/:id', ensureAuthenticated, function(req, res) {
   let _id = { _id: req.params.id };
   let proprietar_id = { proprietar_id: req.params.id };
   Proprietar.deleteOne(_id, function(err1) {
@@ -126,8 +142,11 @@ router.delete("/:id", ensureAuthenticated, function(req, res) {
           });
         });
         Animal.deleteMany(proprietar_id, function(err2) {
-          req.flash("success", "Proprietarul si animalele asociate ar fost sterse.");
-          res.send("Success");
+          req.flash(
+            'success',
+            'Proprietarul si animalele asociate au fost sterse.'
+          );
+          res.send('Success');
         });
       });
     }
@@ -135,7 +154,7 @@ router.delete("/:id", ensureAuthenticated, function(req, res) {
 });
 
 // Single Proprietar Route
-router.get("/:id", ensureAuthenticated, function(req, res) {
+router.get('/:id', ensureAuthenticated, function(req, res) {
   Proprietar.findById(req.params.id, function(err, proprietar) {
     if (err) {
       console.log(err);
@@ -145,7 +164,7 @@ router.get("/:id", ensureAuthenticated, function(req, res) {
           console.log(err);
         } else {
           Animal.find({ proprietar_id: req.params.id }, function(err, animals) {
-            res.render("proprietar/proprietar", {
+            res.render('proprietar/proprietar', {
               animals: animals,
               proprietar: proprietar,
               tratamente: tratamente
@@ -162,8 +181,8 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    req.flash("info", "Va rugam sa va autentificati inainte de a proceda.");
-    res.redirect("/users/login");
+    req.flash('info', 'Va rugam sa va autentificati inainte de a proceda.');
+    res.redirect('/users/login');
   }
 }
 

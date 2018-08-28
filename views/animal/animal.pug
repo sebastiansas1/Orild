@@ -97,11 +97,14 @@ block content
 
       br
 
-      button.btn.btn-outline-primary(type='button', data-toggle='modal', data-target='#tratamentModal' style='font-size:14px; width: 180px; height: 40px;') Adauga tratament
+      //- button.btn.btn-outline-primary(type='button', data-toggle='modal', data-target='#tratamentModal' style='font-size:14px; width: 180px; height: 40px;') Adauga tratament
+      //-   i.fas.fa-syringe(style='margin-left: 5px;')
+      //- br
+      a.btn.btn-outline-primary(href='/animals/'+animal._id+'/tratamente/add') Adauga tratament
         i.fas.fa-syringe(style='margin-left: 5px;')
       br
       br
-      #tratamentModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='tratamentModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
+      //- #tratamentModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='tratamentModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
         .modal-dialog.modal-lg(role='document')
           .modal-content(style='border-radius: 8px;')
             .modal-header.modal-header-primary
@@ -181,7 +184,7 @@ block content
                       button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
 
       br
-      .col-md-12(style='overflow-x:auto; min-height: 200px; max-height: 200px; overflow-y:scroll;')
+      .col-md-12(style='overflow-x:auto; min-height: 300px; max-height: 300px; overflow-y:scroll;')
         table.table#results-tratamente(style='min-width: 500px; font-size: 14px;')
           thead
             tr
@@ -193,11 +196,9 @@ block content
 
           each tratament, i in tratamente
             tbody.containerItems
-              tr.item(data-search=tratament.name)
-          
-                td.date.align-middle= moment(tratament.administration_date).format("DD-MM-YYYY")
-                td.align-middle
-                  a(href="/animals/"+animal._id+'/tratamente/edit/'+tratament._id) #{tratament.name}
+              tr.item.inbox(data-search=tratament.name onclick=`window.location.href='/animals/${tratament.animal_id}/tratamente/${tratament._id}'`)
+                td.date.align-middle= moment(tratament.administration_date).format("DD-MMMM-YYYY")
+                td.align-middle= tratament.name
                 td.align-middle= tratament.dose
                 td.align-middle= tratament.waiting_time
                 td.align-middle= tratament.duration 
