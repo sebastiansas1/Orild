@@ -151,12 +151,12 @@ block content
             table.table
               thead
                 tr
-                  th Nr. Matricol
-                  th.text-center Specie
-                  th.text-center Cantitate
+                  th.align-middle Matricol
+                  th.text-center.align-middle Specia
+                  th.text-center.align-middle Cantitatea             
               each animal, i in animals
-                tbody(style='font-size: 14px;')
-                  tr.animal(animal-search=animal.registration_nr filter-animal=animal.species)
+                tbody.containerItems(style='font-size: 14px;')
+                  tr.item.inbox-list(animal-search=animal.registration_nr filter-animal=animal.species)
                     td.align-middle
                       a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
                     td.text-center.align-middle= animal.species

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 
 // Bring in Proprietar and User model
 let Proprietar = require('../models/proprietar');
@@ -22,17 +23,27 @@ router.get('/', ensureAuthenticated, function(req, res) {
             if (err2) {
               console.log(err2);
             } else {
-              Reminder.find({ read: false }, function(err3, reminders) {
-                if (err3) {
-                  console.log(err3);
-                } else {
-                  res.render('proprietar/proprietari', {
-                    proprietari: proprietari,
-                    animals: animals,
-                    notifications: reminders
-                  });
-                }
-              });
+              Reminder.find({ read: false })
+                .sort({ date: 1 })
+                .exec(function(err3, reminders) {
+                  if (err3) {
+                    console.log(err3);
+                  } else {
+                    var notifications = [];
+                    reminders.forEach(reminder => {
+                      if (
+                        moment(reminder.date).isAfter(moment().add(-4, 'days'))
+                      ) {
+                        notifications.push(reminder);
+                      }
+                    });
+                    res.render('proprietar/proprietari', {
+                      proprietari: proprietari,
+                      animals: animals,
+                      notifications: notifications
+                    });
+                  }
+                });
             }
           });
       }
@@ -61,11 +72,30 @@ router.post('/', ensureAuthenticated, function(req, res) {
               if (err2) {
                 console.log(err2);
               } else {
-                res.render('proprietar/proprietari', {
-                  proprietari: proprietari,
-                  animals: animals,
-                  errors: errors
-                });
+                Reminder.find({ read: false })
+                  .sort({ date: 1 })
+                  .exec(function(err3, reminders) {
+                    if (err3) {
+                      console.log(err3);
+                    } else {
+                      var notifications = [];
+                      reminders.forEach(reminder => {
+                        if (
+                          moment(reminder.date).isAfter(
+                            moment().add(-4, 'days')
+                          )
+                        ) {
+                          notifications.push(reminder);
+                        }
+                      });
+                      res.render('proprietar/proprietari', {
+                        proprietari: proprietari,
+                        animals: animals,
+                        errors: errors,
+                        notifications: notifications
+                      });
+                    }
+                  });
               }
             });
         }
@@ -159,16 +189,40 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      Tratament.find({}, function(err, tratamente) {
-        if (err) {
-          console.log(err);
+      Tratament.find({}, function(err2, tratamente) {
+        if (err2) {
+          console.log(err2);
         } else {
-          Animal.find({ proprietar_id: req.params.id }, function(err, animals) {
-            res.render('proprietar/proprietar', {
-              animals: animals,
-              proprietar: proprietar,
-              tratamente: tratamente
-            });
+          Animal.find({ proprietar_id: req.params.id }, function(
+            err3,
+            animals
+          ) {
+            if (err3) {
+              console.log(err3);
+            } else {
+              Reminder.find({ read: false })
+                .sort({ date: 1 })
+                .exec(function(err3, reminders) {
+                  if (err3) {
+                    console.log(err3);
+                  } else {
+                    var notifications = [];
+                    reminders.forEach(reminder => {
+                      if (
+                        moment(reminder.date).isAfter(moment().add(-4, 'days'))
+                      ) {
+                        notifications.push(reminder);
+                      }
+                    });
+                    res.render('proprietar/proprietar', {
+                      animals: animals,
+                      proprietar: proprietar,
+                      tratamente: tratamente,
+                      notifications: notifications
+                    });
+                  }
+                });
+            }
           });
         }
       });

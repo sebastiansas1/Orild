@@ -188,6 +188,7 @@ block content
         table.table#results-tratamente(style='min-width: 500px; font-size: 14px;')
           thead
             tr
+              th.align-middle Status
               th.align-middle Data
               th.align-middle Produsul
               th.align-middle Doza
@@ -196,7 +197,9 @@ block content
 
           each tratament, i in tratamente
             tbody.containerItems
-              tr.item.inbox(data-search=tratament.name onclick=`window.location.href='/animals/${tratament.animal_id}/tratamente/${tratament._id}'`)
+              tr.item.inbox-list(data-search=tratament.name onclick=`window.location.href='/animals/${tratament.animal_id}/tratamente/${tratament._id}'`)
+                td
+                  .status-success(style="width:23px")
                 td.date.align-middle= moment(tratament.administration_date).format("DD-MMMM-YYYY")
                 td.align-middle= tratament.name
                 td.align-middle= tratament.dose

@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
+const moment = require('moment');
 
 // Bring in models
 let Animal = require('../models/animal');
 let Proprietar = require('../models/proprietar');
 let User = require('../models/user');
 const Tratament = require('../models/tratament');
+let Reminder = require('../models/reminder');
 
 // Add Route POST
 router.post('/', ensureAuthenticated, function(req, res) {
@@ -41,11 +43,30 @@ router.post('/', ensureAuthenticated, function(req, res) {
               if (err2) {
                 console.log(err2);
               } else {
-                res.render('proprietar/proprietari', {
-                  proprietari: proprietari,
-                  animals: animals,
-                  errors: errors
-                });
+                Reminder.find({ read: false })
+                  .sort({ date: 1 })
+                  .exec(function(err3, reminders) {
+                    if (err3) {
+                      console.log(err3);
+                    } else {
+                      var notifications = [];
+                      reminders.forEach(reminder => {
+                        if (
+                          moment(reminder.date).isAfter(
+                            moment().add(-4, 'days')
+                          )
+                        ) {
+                          notifications.push(reminder);
+                        }
+                      });
+                      res.render('proprietar/proprietari', {
+                        proprietari: proprietari,
+                        animals: animals,
+                        errors: errors,
+                        notifications: notifications
+                      });
+                    }
+                  });
               }
             });
         }
@@ -115,11 +136,28 @@ router.post('/add', ensureAuthenticated, function(req, res) {
             if (err2) {
               console.log(err2);
             } else {
-              res.render('proprietar/proprietar', {
-                proprietar: proprietar,
-                animals: animals,
-                errors: errors
-              });
+              Reminder.find({ read: false })
+                .sort({ date: 1 })
+                .exec(function(err3, reminders) {
+                  if (err3) {
+                    console.log(err3);
+                  } else {
+                    var notifications = [];
+                    reminders.forEach(reminder => {
+                      if (
+                        moment(reminder.date).isAfter(moment().add(-4, 'days'))
+                      ) {
+                        notifications.push(reminder);
+                      }
+                    });
+                    res.render('proprietar/proprietar', {
+                      proprietar: proprietar,
+                      animals: animals,
+                      errors: errors,
+                      notifications: notifications
+                    });
+                  }
+                });
             }
           });
       }
@@ -158,10 +196,25 @@ router.post('/add', ensureAuthenticated, function(req, res) {
 // Edit Animal Route
 router.get('/edit/:id', ensureAuthenticated, function(req, res) {
   Animal.findById(req.params.id, function(err, animal) {
-    res.render('animal/edit_animal', {
-      animal: animal,
-      proprietar_id: req.params.proprietar_id
-    });
+    Reminder.find({ read: false })
+      .sort({ date: 1 })
+      .exec(function(err3, reminders) {
+        if (err3) {
+          console.log(err3);
+        } else {
+          var notifications = [];
+          reminders.forEach(reminder => {
+            if (moment(reminder.date).isAfter(moment().add(-4, 'days'))) {
+              notifications.push(reminder);
+            }
+          });
+          res.render('animal/edit_animal', {
+            animal: animal,
+            proprietar_id: req.params.proprietar_id,
+            notifications: notifications
+          });
+        }
+      });
   });
 });
 
@@ -264,11 +317,30 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
               if (errT) {
                 console.log(errT);
               } else {
-                res.render('animal/animal', {
-                  animal: animal,
-                  proprietar: proprietar,
-                  tratamente: tratamente
-                });
+                Reminder.find({ read: false })
+                  .sort({ date: 1 })
+                  .exec(function(err3, reminders) {
+                    if (err3) {
+                      console.log(err3);
+                    } else {
+                      var notifications = [];
+                      reminders.forEach(reminder => {
+                        if (
+                          moment(reminder.date).isAfter(
+                            moment().add(-4, 'days')
+                          )
+                        ) {
+                          notifications.push(reminder);
+                        }
+                      });
+                      res.render('animal/animal', {
+                        animal: animal,
+                        proprietar: proprietar,
+                        tratamente: tratamente,
+                        notifications: notifications
+                      });
+                    }
+                  });
               }
             });
         }

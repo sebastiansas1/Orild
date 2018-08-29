@@ -29,22 +29,41 @@ html(lang="en")
             li.nav-item.mr-5
               -if (notifications != null && notifications.length > 0)
                 .dropdown.nav-link
-                  span.fa-stack.has-badge(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false' data-count=notifications.length)
+                  span.fa-stack.has-badge(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false' data-count=notifications.length style="cursor: pointer;")
                     i.fa.fa-bell.fa-stack-1x.honey-badger
                   .dropdown-menu.dropdown-menu-right(aria-labelledby='dropdownMenuButton')
                     h5.text-center.font-weight-light.droptop Reminders
-                    table.table
-                      tbody
-                        each reminder, i in notifications
-                          -if(reminder)
-                            .item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id style="padding: 15px;")
-                              span.text-small.reminder(style="margin-left: 5px;") 
-                                | Tratamentul pentru 
-                                span.font-weight-bold #{reminder.animal_name} 
-                                | cu #{reminder.tratament_name} 
-                                | trebuie efectuat #{moment(reminder.date).fromNow()}
-                              .delete-dropdown-item.delete-reminder-mini(reminder-id=reminder._id style='z-index: 5')
-                                i.fas.fa-times.text-muted.delete-reminder-mini(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+                    hr
+                    .table.reminders-table
+                      each reminder, i in notifications
+                        -if(!moment(reminder.date).isBefore(moment()))
+                          .item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id style="padding: 15px;")
+                            span.text-small.reminder(style="margin-left: 5px;") 
+                              | Tratamentul pentru 
+                              span.font-weight-bold #{reminder.animal_name} 
+                              | cu #{reminder.tratament_name} 
+                              | trebuie efectuat 
+                              -if(moment(reminder.date).isBetween(moment().add(3, 'days'), moment().add(4, 'days')))
+                                span.text-success #{moment(reminder.date).fromNow()}
+                              -if(moment(reminder.date).isBetween(moment().add(2, 'days'), moment().add(3, 'days')))
+                                span.text-warning #{moment(reminder.date).fromNow()}
+                              -if(moment(reminder.date).isBetween(moment().add(1, 'days'), moment().add(2, 'days')))
+                                span.text-danger #{moment(reminder.date).fromNow()}
+                              -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
+                                span.text-danger #{moment(reminder.date).fromNow()}
+                            .delete-dropdown-item.delete-reminder-mini(reminder-id=reminder._id style='z-index: 5')
+                              i.fas.fa-times.text-muted.delete-reminder-mini(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+                        -else 
+                          .item.inbox-danger(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id style="padding: 15px;")
+                            span.text-small.reminder(style="margin-left: 5px;") 
+                              | Tratamentul pentru 
+                              span.font-weight-bold #{reminder.animal_name} 
+                              | cu #{reminder.tratament_name} 
+                              | trebuia efectuat 
+                              span.font-weight-bold #{moment(reminder.date).fromNow()}
+                            .delete-dropdown-item.delete-reminder-mini(reminder-id=reminder._id style='z-index: 5')
+                              i.fas.fa-times.fa-inverse.delete-reminder-mini(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+
               -else 
                 .dropdown.nav-link
                   span.fa-stack(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')

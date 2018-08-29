@@ -194,18 +194,107 @@ a:hover {
   border-radius: 15px;
   cursor: pointer;
   border: 1px solid #6d6d6d;
+  transition: ease-in 200ms;
+  transition: 1ms ease-in;
+}
+
+.dot-danger {
+  margin: 10px 15px 10px 10px;
+  width: 35px;
+  height: 22px;
+  font-size: 22px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: ease-in 200ms;
+  border: 1px solid #ffffff;
   transition: 1ms ease-in;
 }
 
 .full-dot {
   border: 1px solid royalblue;
   background-color: royalblue;
-  transition: 100ms ease-in;
+  transition: 200ms ease-in;
 }
 
 .full-dot:hover {
   border: 1px solid #2651cf;
   background-color: #2651cf;
+  transition: 200ms ease-in;
+}
+
+.status-primary {
+  margin: 10px 15px 10px 10px;
+  width: 35px;
+  height: 22px;
+  font-size: 22px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  transition: 100ms ease-in;
+  transition: 1ms ease-in;
+}
+
+.status-primary :hover {
+  border: 1px solid #026bdb;
+  background-color: #026bdb;
+  transition: 100ms ease-in;
+}
+
+.status-success {
+  margin: 10px 15px 10px 10px;
+  width: 35px;
+  height: 22px;
+  font-size: 22px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #28a745;
+  background-color: #28a745;
+  transition: 100ms ease-in;
+  transition: 1ms ease-in;
+}
+
+.status-success :hover {
+  border: 1px solid #208b39;
+  background-color: #208b39;
+  transition: 100ms ease-in;
+}
+
+.status-danger {
+  margin: 10px 15px 10px 10px;
+  width: 35px;
+  height: 22px;
+  font-size: 22px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #dc3545;
+  background-color: #dc3545;
+  transition: 100ms ease-in;
+  transition: 1ms ease-in;
+}
+
+.status-danger :hover {
+  border: 1px solid #be2a39;
+  background-color: #be2a39;
+  transition: 100ms ease-in;
+}
+
+.status-warning {
+  margin: 10px 15px 10px 10px;
+  width: 35px;
+  height: 22px;
+  font-size: 22px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #ffc107;
+  background-color: #ffc107;
+  transition: 100ms ease-in;
+  transition: 1ms ease-in;
+}
+
+.status-warning :hover {
+  border: 1px solid #daa405;
+  background-color: #daa405;
   transition: 100ms ease-in;
 }
 
@@ -220,6 +309,36 @@ a:hover {
     0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
   margin: 10px !important;
   transition: 100ms ease-in;
+}
+
+.inbox-danger {
+  background-image: linear-gradient(to bottom right, #e92539, #af1322);
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  z-index: 0;
+  display: flex;
+  box-shadow: inset 1px 0 0 #dc354654, inset -1px 0 0 #dc354654,
+    0 1px 2px 0 rgba(148, 35, 35, 0.3), 0 1px 3px 1px rgba(163, 30, 30, 0.15);
+  margin: 10px !important;
+  transition: 100ms ease-in;
+}
+
+.inbox-danger:hover {
+  background-color: #be2a39;
+  z-index: 1;
+  transition: 100ms ease-in;
+}
+
+.inbox-list {
+  background-color: whitesmoke;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 10px !important;
+  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
+    0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 }
 
 .inbox:hover {
@@ -277,10 +396,13 @@ a:hover {
 .honey-badger {
   background-color: white !important;
   border: 1px solid white !important;
+  cursor: pointer;
 }
 
 .dropdown-menu {
   width: 400px;
+  max-height: 400px;
+  overflow: hidden;
   background-color: #ebebeb;
 }
 
@@ -295,4 +417,17 @@ a:hover {
 
 .droptop:hover {
   color: #a1a1a1;
+}
+
+.fa-bell {
+  cursor: pointer;
+}
+
+.reminders-table {
+  overflow: scroll;
+  max-height: 335px;
+}
+
+.table td {
+  border-top: 0px;
 }

@@ -41,7 +41,6 @@ router.post('/read/:reminder_id', ensureAuthenticated, function(req, res) {
         if (err2) {
           console.log(err2);
         } else {
-          console.log('Reminder updated!');
           res.sendStatus(200);
         }
       });
