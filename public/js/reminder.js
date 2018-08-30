@@ -15,8 +15,34 @@ $(document).ready(function() {
     });
   });
 
-  $('.droptop').on('click', function(e) {
+  $('.fa-calendar-alt').on('click', function(e) {
     window.location.href = '/reminders';
+  });
+
+  $('.dropdown-top-bar').hover(function(e) {
+    $('.nav-icon').toggleClass('focused-top-bar', 100);
+  });
+
+  $('.inbox').each(function(e) {
+    $(this).hover(function() {
+      $(this)
+        .children('.delete-dropdown-item')
+        .toggleClass('show-delete', 100);
+      $(this)
+        .find('.fa-times')
+        .toggleClass('rotate-icon', 100);
+    });
+  });
+
+  $('.inbox-danger').each(function(e) {
+    $(this).hover(function() {
+      $(this)
+        .children('.delete-dropdown-item')
+        .toggleClass('show-delete', 100);
+      $(this)
+        .find('.fa-times')
+        .toggleClass('rotate-icon', 100);
+    });
   });
 
   $('.delete-reminder-mini').on('click', function(e) {

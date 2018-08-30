@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 
 // Bring in Proprietar and User model
 let Reminder = require('../models/reminder');
@@ -11,8 +12,23 @@ router.get('/', ensureAuthenticated, function(req, res) {
       if (err) {
         console.log(err);
       } else {
+        var notifications = [];
+        reminders.forEach(reminder => {
+          if (moment(reminder.date).isBefore(moment().add(+4, 'days'))) {
+            notifications.push(reminder);
+          }
+        });
+        var notifications2 = [];
+        reminders.forEach(reminder => {
+          if (moment(reminder.date).isBefore(moment().add(+4, 'days'))) {
+            if (reminder.read == false) {
+              notifications2.push(reminder);
+            }
+          }
+        });
         res.render('reminder/reminders', {
-          reminders: reminders
+          reminders: notifications,
+          notifications: notifications2
         });
       }
     });

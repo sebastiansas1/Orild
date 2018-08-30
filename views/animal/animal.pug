@@ -13,7 +13,7 @@ block content
           i.far.fa-edit(style='margin-left: 5px;')
       hr
       br
-      p Proprietar 
+      p Proprietar: 
         a(href='/proprietari/'+proprietar._id)
           strong #{proprietar.name}
       p Specia: 
@@ -97,92 +97,10 @@ block content
 
       br
 
-      //- button.btn.btn-outline-primary(type='button', data-toggle='modal', data-target='#tratamentModal' style='font-size:14px; width: 180px; height: 40px;') Adauga tratament
-      //-   i.fas.fa-syringe(style='margin-left: 5px;')
-      //- br
       a.btn.btn-outline-primary(href='/animals/'+animal._id+'/tratamente/add') Adauga tratament
         i.fas.fa-syringe(style='margin-left: 5px;')
       br
       br
-      //- #tratamentModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='tratamentModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
-        .modal-dialog.modal-lg(role='document')
-          .modal-content(style='border-radius: 8px;')
-            .modal-header.modal-header-primary
-              h5#tratamentModalLabel.modal-title Tratament Nou 
-                i.fas.fa-syringe(style='margin-left: 5px;')
-              button.close(type='button', data-dismiss='modal', aria-label='Close')
-                span(aria-hidden='true') ×
-            .modal-body
-              .row 
-                .padding-sm
-                  form(method='POST' action='/animals/'+animal._id+'/tratamente/add')
-                    h5.text-muted Detalii Produs 
-                    hr
-                    .row(style='font-size: 14px;')
-                      .col-md-5
-                        #form-group 
-                          label Denumirea produsului:
-                          input.form-control(name='name' type='text' style='font-size: 14px;') 
-                      .col-md-3
-                        #form-group 
-                          label Seria:
-                          input.form-control(name='series' type='text' style='font-size: 14px;') 
-                      .col-md-3.offset-md-1
-                        #form-group 
-                          label Valabilitatea:
-                          input.form-control#expiry(name='expiry_date' type='text') 
-                    br
-                    br
-                    h5.text-muted Detalii Tratament
-                    hr
-                    .row(style='font-size: 14px;')
-                      .col-md-2  
-                        #form-group 
-                          label Doza:
-                          input.form-control(name='dose' type='number' style='font-size: 14px;') 
-                      .col-md-3
-                        #form-group 
-                          label Timp de asteptare:
-                          input.form-control(name='waiting_time' type='text' style='font-size: 14px;') 
-                      .col-md-3
-                        #form-group 
-                          label Durata tratamentului:
-                          input.form-control(name='duration' type='text' style='font-size: 14px;') 
-                      .col-md-3.offset-md-1
-                        #form-group 
-                          label Rezultatul:
-                          select.form-control#animal-type(name='result', type='text' style='font-size: 14px;') 
-                            option(value='' selected hidden disabled) Alegeti
-                            option(value='Vindecat') Vindecat
-                            option(value='Mort') Mort
-                            option(value='Sacrificat') Sacrificat
-                    br
-                    .row(style='font-size: 14px;')
-                      .col-md-8
-                        #form-group 
-                          label Observatii:
-                          textarea.form-control(name='observations' style='font-size: 14px;') 
-                      .col-md-3.offset-md-1
-                        #form-group 
-                          label Data:
-                          input.form-control#administration_date(name='administration_date' type='text') 
-                    br
-                    hr
-                    .row(style='font-size: 14px;')
-                      .col-md-6
-                        #form-group 
-                          label Numar de Matricol:
-                          input.form-control(name='animal_id' type='text' value=animal.registration_nr disabled) 
-                      .col-md-5.offset-md-1
-                        #form-group
-                          .form-check(style='padding: 0px; margin-top: 30px;')
-                            input#semnatura.form-check-input(type='checkbox' style='height: 30px; width: 30px; margin: 0px;')
-                            label.form-check-label(for='semnatura' style='margin: 0px 0px 0px 40px; font-size: 20px;') Semnatura Proprietar
-                    br
-                    .modal-footer
-                      button#save-proprietar.btn.btn-primary(type='submit') Salveaza
-                      button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
-
       br
       .col-md-12(style='overflow-x:auto; min-height: 300px; max-height: 300px; overflow-y:scroll;')
         table.table#results-tratamente(style='min-width: 500px; font-size: 14px;')

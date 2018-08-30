@@ -52,8 +52,8 @@ router.post('/', ensureAuthenticated, function(req, res) {
                       var notifications = [];
                       reminders.forEach(reminder => {
                         if (
-                          moment(reminder.date).isAfter(
-                            moment().add(-4, 'days')
+                          moment(reminder.date).isBefore(
+                            moment().add(+4, 'days')
                           )
                         ) {
                           notifications.push(reminder);
@@ -145,7 +145,7 @@ router.post('/add', ensureAuthenticated, function(req, res) {
                     var notifications = [];
                     reminders.forEach(reminder => {
                       if (
-                        moment(reminder.date).isAfter(moment().add(-4, 'days'))
+                        moment(reminder.date).isBefore(moment().add(+4, 'days'))
                       ) {
                         notifications.push(reminder);
                       }
@@ -204,7 +204,7 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res) {
         } else {
           var notifications = [];
           reminders.forEach(reminder => {
-            if (moment(reminder.date).isAfter(moment().add(-4, 'days'))) {
+            if (moment(reminder.date).isBefore(moment().add(+4, 'days'))) {
               notifications.push(reminder);
             }
           });
@@ -295,7 +295,13 @@ router.delete('/:id', ensureAuthenticated, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      req.flash('success', 'Matricol sters cu succes.');
+      Tratament.deleteMany({ animal_id: req.params.id }, function(err3) {
+        if (err3) throw err3;
+      });
+      Reminder.deleteMany({ animal_id: req.params.id }, function(err4) {
+        if (err4) throw err4;
+      });
+      req.flash('success', 'Animal sters cu succes.');
       res.send('Success');
     }
   });
@@ -326,8 +332,8 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
                       var notifications = [];
                       reminders.forEach(reminder => {
                         if (
-                          moment(reminder.date).isAfter(
-                            moment().add(-4, 'days')
+                          moment(reminder.date).isBefore(
+                            moment().add(+4, 'days')
                           )
                         ) {
                           notifications.push(reminder);

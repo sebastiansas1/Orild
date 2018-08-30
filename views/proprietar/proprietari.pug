@@ -57,8 +57,8 @@ block content
                               button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
           
           br
-          .col-md-12
-            ul.list-group(style='min-height: 400px; max-height: 400px; overflow-y:scroll;')
+          .col-md-10
+            ul.list-group
               br
               each proprietar, i in proprietari
                 h6.proprietar(proprietar-search=proprietar.name style='padding-right: 40px;')
@@ -147,7 +147,7 @@ block content
 
           br
           br
-          .col-md-12(style='min-height: 400px; max-height: 400px; overflow-y:scroll;')
+          .col-md-12.list-group
             table.table
               thead
                 tr
@@ -156,7 +156,7 @@ block content
                   th.text-center.align-middle Cantitatea             
               each animal, i in animals
                 tbody.containerItems(style='font-size: 14px;')
-                  tr.item.inbox-list(animal-search=animal.registration_nr filter-animal=animal.species)
+                  tr.item.inbox-list.animal(animal-search=animal.registration_nr filter-animal=animal.species)
                     td.align-middle
                       a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
                     td.text-center.align-middle= animal.species

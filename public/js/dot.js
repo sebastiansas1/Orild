@@ -3,7 +3,9 @@ $(document).ready(function() {
   $('.dot').each(function() {
     $(this).on('click', function(e) {
       $target = $(e.target);
-      $target.toggleClass('full-dot', 130);
+
+      $target.toggleClass('full-dot', 100);
+
       const reminder_id = $target.attr('reminder-id');
 
       $.ajax({

@@ -1,114 +1,105 @@
 extends ../layout
 
 block content 
-  h1.text-center All Reminders
-  br
-  .row
-  br
 
-  -if(reminders.length > 0)
+  .card-lg-light
+    .card-header-danger 
+      h2.text-center 
+        i.fas.fa-bell(style='margin-right: 15px;' )
+        | Reminders
 
-    .col-md-8.offset-md-2
-      h5 Unread Messages
+    .padding-sm
+      .row
       br
+      -if(reminders.length > 0)
 
-      table.table
-        tbody
-        each reminder, i in reminders
-          -if(reminder.read == false && !moment(reminder.date).isBefore(moment()))
-            tr.item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
-              td.align-middle.pl-4
-                .dot.full-dot(reminder-id=reminder._id style="width:23px")
-              td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
-                p.text-small
-                  | Tratamentul pentru  
-                  span.font-weight-bold #{reminder.animal_name}  
-                  | cu #{reminder.tratament_name} 
-                  | trebuie efectuat 
-                  -if(moment(reminder.date).isBetween(moment().add(3, 'days'), moment().add(4, 'days')))
-                    span.text-success #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(2, 'days'), moment().add(3, 'days')))
-                    span.text-warning #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(1, 'days'), moment().add(2, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-              td.align-middle
-                .delete-inbox.text-danger.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
-                  i.fas.fa-trash.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
-          -if(reminder.read == false && moment(reminder.date).isBefore(moment()))
-            tr.item.inbox-danger(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
-              td.align-middle.pl-4
-                .dot.dot-danger.full-dot(reminder-id=reminder._id style="width:23px")
-              td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
-                p.text-small
-                  | Tratamentul pentru  
-                  span.font-weight-bold #{reminder.animal_name}  
-                  | cu #{reminder.tratament_name} 
-                  | trebuia efectuat  
-                  -if(moment(reminder.date).isBetween(moment().add(3, 'days'), moment().add(4, 'days')))
-                    span.text-success #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(2, 'days'), moment().add(3, 'days')))
-                    span.text-warning #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(1, 'days'), moment().add(2, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-              td.align-middle
-                .delete-inbox.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
-                  i.fas.fa-trash.fa-inverse.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
-        
-      br
-      hr
-      h5 Read Messages
-      br
+        .col-md-8.offset-md-2
+          h5 Unread Messages
+          hr
 
-      table.table
-        tbody
-        each reminder, i in reminders
-          -if(reminder.read == true && !moment(reminder.date).isBefore(moment()))
-            tr.item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
-              td.align-middle.pl-4
-                .dot(reminder-id=reminder._id style="width:21px")
-              td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
-                p.text-small
-                  | Tratamentul pentru  
-                  span.font-weight-bold #{reminder.animal_name}  
-                  | cu #{reminder.tratament_name} 
-                  | trebuie efectuat 
-                  -if(moment(reminder.date).isBetween(moment().add(3, 'days'), moment().add(4, 'days')))
-                    span.text-success #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(2, 'days'), moment().add(3, 'days')))
-                    span.text-warning #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(1, 'days'), moment().add(2, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBefore(moment()))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-              td.align-middle
-                .delete-inbox.text-danger.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
-                  i.fas.fa-trash.text-danger.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
-          -if(reminder.read == true && moment(reminder.date).isBefore(moment()))
-            tr.item.inbox-danger(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
-              td.align-middle.pl-4
-                .dot.dot-danger(reminder-id=reminder._id style="width:23px")
-              td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
-                p.text-small
-                  | Tratamentul pentru  
-                  span.font-weight-bold #{reminder.animal_name}  
-                  | cu #{reminder.tratament_name} 
-                  | trebuia efectuat  
-                  -if(moment(reminder.date).isBetween(moment().add(3, 'days'), moment().add(4, 'days')))
-                    span.text-success #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(2, 'days'), moment().add(3, 'days')))
-                    span.text-warning #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment().add(1, 'days'), moment().add(2, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-                  -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
-                    span.text-danger #{moment(reminder.date).fromNow()}
-              td.align-middle
-                .delete-inbox.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
-                  i.fas.fa-trash.fa-inverse.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
-  -else 
-    h5.text-center All caught up!
+          table.table
+            tbody
+            each reminder, i in reminders
+              -if(reminder.read == false && !moment(reminder.date).isBefore(moment()))
+                tr.item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
+                  td.align-middle.pl-4
+                    .dot.full-dot(reminder-id=reminder._id style="width:23px")
+                  td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
+                    p.text-small
+                      | Tratamentul pentru  
+                      span.font-weight-bold #{reminder.animal_name}  
+                      | cu #{reminder.tratament_name} 
+                      | trebuie efectuat 
+                      -if(moment(reminder.date).isBetween(moment().add(3, 'days'), moment().add(4, 'days')))
+                        span.text-success #{moment(reminder.date).fromNow()}
+                      -if(moment(reminder.date).isBetween(moment().add(2, 'days'), moment().add(3, 'days')))
+                        span.text-warning #{moment(reminder.date).fromNow()}
+                      -if(moment(reminder.date).isBetween(moment().add(1, 'days'), moment().add(2, 'days')))
+                        span.text-danger #{moment(reminder.date).fromNow()}
+                      -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
+                        span.text-danger #{moment(reminder.date).fromNow()}
+                  td.align-middle
+                    .delete-inbox.text-danger.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
+                      i.fas.fa-trash.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+              -if(reminder.read == false && moment(reminder.date).isBefore(moment()))
+                tr.item.inbox-danger(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
+                  td.align-middle.pl-4
+                    .dot.dot-danger.full-dot(reminder-id=reminder._id style="width:23px")
+                  td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
+                    p.text-small
+                      | Tratamentul pentru  
+                      span.font-weight-bold #{reminder.animal_name}  
+                      | cu #{reminder.tratament_name} 
+                      | trebuia efectuat  
+                      span #{moment(reminder.date).fromNow()}
+                  td.align-middle
+                    .delete-inbox.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
+                      i.fas.fa-trash.fa-inverse.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+            
+          br
+          
+          h5 Read Messages
+          hr
+
+          table.table
+            tbody
+            each reminder, i in reminders
+              -if(reminder.read == true && !moment(reminder.date).isBefore(moment()))
+                tr.item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
+                  td.align-middle.pl-4
+                    .dot(reminder-id=reminder._id style="width:23px")
+                  td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
+                    p.text-small
+                      | Tratamentul pentru  
+                      span.font-weight-bold #{reminder.animal_name}  
+                      | cu #{reminder.tratament_name} 
+                      | trebuie efectuat 
+                      -if(moment(reminder.date).isBetween(moment().add(3, 'days'), moment().add(4, 'days')))
+                        span.text-success #{moment(reminder.date).fromNow()}
+                      -if(moment(reminder.date).isBetween(moment().add(2, 'days'), moment().add(3, 'days')))
+                        span.text-warning #{moment(reminder.date).fromNow()}
+                      -if(moment(reminder.date).isBetween(moment().add(1, 'days'), moment().add(2, 'days')))
+                        span.text-danger #{moment(reminder.date).fromNow()}
+                      -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
+                        span.text-danger #{moment(reminder.date).fromNow()}
+                      -if(moment(reminder.date).isBefore(moment()))
+                        span.text-danger #{moment(reminder.date).fromNow()}
+                  td.align-middle
+                    .delete-inbox.text-danger.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
+                      i.fas.fa-trash.text-danger.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+              -if(reminder.read == true && moment(reminder.date).isBefore(moment()))
+                tr.item.inbox-danger(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id)
+                  td.align-middle.pl-4
+                    .dot.dot-danger(reminder-id=reminder._id style="width:23px")
+                  td.align-middle.reminder(style="display: table; height: 67px; width: 100%")
+                    p.text-small
+                      | Tratamentul pentru  
+                      span.font-weight-bold #{reminder.animal_name}  
+                      | cu #{reminder.tratament_name} 
+                      | trebuia efectuat  
+                      span #{moment(reminder.date).fromNow()}
+                  td.align-middle
+                    .delete-inbox.delete-reminder(reminder-id=reminder._id style='z-index: 5; width:40px')
+                      i.fas.fa-trash.fa-inverse.delete-reminder(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
+      -else 
+        h5.text-center All caught up!

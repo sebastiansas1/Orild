@@ -14,9 +14,24 @@ router.get('/add', ensureAuthenticated, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render('tratament/add_tratament', {
-        animal: animal
-      });
+      Reminder.find({ read: false })
+        .sort({ date: 1 })
+        .exec(function(err3, reminders) {
+          if (err3) {
+            console.log(err3);
+          } else {
+            var notifications = [];
+            reminders.forEach(reminder => {
+              if (moment(reminder.date).isBefore(moment().add(+4, 'days'))) {
+                notifications.push(reminder);
+              }
+            });
+            res.render('tratament/add_tratament', {
+              animal: animal,
+              notifications: notifications
+            });
+          }
+        });
     }
   });
 });
@@ -100,10 +115,27 @@ router.get('/edit/:tratament_id', ensureAuthenticated, function(req, res) {
         if (err2) {
           console.log(err2);
         } else {
-          res.render('tratament/edit_tratament', {
-            tratament: tratament,
-            animal: animal
-          });
+          Reminder.find({ read: false })
+            .sort({ date: 1 })
+            .exec(function(err3, reminders) {
+              if (err3) {
+                console.log(err3);
+              } else {
+                var notifications = [];
+                reminders.forEach(reminder => {
+                  if (
+                    moment(reminder.date).isBefore(moment().add(+4, 'days'))
+                  ) {
+                    notifications.push(reminder);
+                  }
+                });
+                res.render('tratament/edit_tratament', {
+                  tratament: tratament,
+                  animal: animal,
+                  notifications: notifications
+                });
+              }
+            });
         }
       });
     }
@@ -172,10 +204,27 @@ router.get('/:tratament_id', ensureAuthenticated, function(req, res) {
         if (err2) {
           console.log(err2);
         } else {
-          res.render('tratament/tratament', {
-            tratament: tratament,
-            animal: animal
-          });
+          Reminder.find({ read: false })
+            .sort({ date: 1 })
+            .exec(function(err3, reminders) {
+              if (err3) {
+                console.log(err3);
+              } else {
+                var notifications = [];
+                reminders.forEach(reminder => {
+                  if (
+                    moment(reminder.date).isBefore(moment().add(+4, 'days'))
+                  ) {
+                    notifications.push(reminder);
+                  }
+                });
+                res.render('tratament/tratament', {
+                  tratament: tratament,
+                  animal: animal,
+                  notifications: notifications
+                });
+              }
+            });
         }
       });
     }

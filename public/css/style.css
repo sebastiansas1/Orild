@@ -103,7 +103,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: rgb(232, 232, 232);
+  background-color: #f1f1f1;
 }
 
 footer {
@@ -128,9 +128,9 @@ a:hover {
 }
 
 .card-lg-light {
-  background-color: #eee;
+  background-color: #ffffff;
   border-radius: 3px;
-  box-shadow: 3px 5px 5px #2b2b2b5f;
+  box-shadow: 1px 2px 5px #2b2b2b4d;
 }
 
 .padding-sm {
@@ -140,14 +140,28 @@ a:hover {
 .card-header-primary {
   padding: 2%;
   border-radius: 3px 3px 0px 0px;
-  background-color: #0062cc;
+  background-image: linear-gradient(to bottom right, #0178f7, #0253aa);
   color: #eee;
 }
 
 .card-header-success {
   padding: 2%;
   border-radius: 3px 3px 0px 0px;
-  background-color: #5cb85c;
+  background-image: linear-gradient(to bottom right, #55c755, #2a802a);
+  color: #eee;
+}
+
+.card-header-danger {
+  padding: 2%;
+  border-radius: 3px 3px 0px 0px;
+  background-image: linear-gradient(to bottom right, #e92539, #910d1a);
+  color: #eee;
+}
+
+.card-header-dark {
+  padding: 2%;
+  border-radius: 6px 6px 0px 0px;
+  background-image: linear-gradient(to bottom right, #eee, #eee);
   color: #eee;
 }
 
@@ -178,7 +192,7 @@ a:hover {
 }
 
 .btn {
-  border-radius: 35px;
+  border-radius: 5px;
   padding: 10px 20px;
 }
 
@@ -195,7 +209,7 @@ a:hover {
   cursor: pointer;
   border: 1px solid #6d6d6d;
   transition: ease-in 200ms;
-  transition: 1ms ease-in;
+  transition: 100ms ease-in;
 }
 
 .dot-danger {
@@ -208,18 +222,29 @@ a:hover {
   transition: ease-in 200ms;
   border: 1px solid #ffffff;
   transition: 1ms ease-in;
+  transition: 100ms ease-in;
 }
 
 .full-dot {
-  border: 1px solid royalblue;
-  background-color: royalblue;
-  transition: 200ms ease-in;
+  border: 1px solid #222222;
+  background-color: #222222;
+  transition: 100ms ease-in;
+}
+
+.full-dot-light {
+  background-color: white;
+  transition: 100ms ease-in;
+}
+
+.full-dot-light:hover {
+  background-color: #dfdfdf;
+  transition: 100ms ease-in;
 }
 
 .full-dot:hover {
-  border: 1px solid #2651cf;
-  background-color: #2651cf;
-  transition: 200ms ease-in;
+  border: 1px solid #222222;
+  background-color: #222222;
+  transition: 100ms ease-in;
 }
 
 .status-primary {
@@ -232,7 +257,6 @@ a:hover {
   border: 1px solid #007bff;
   background-color: #007bff;
   transition: 100ms ease-in;
-  transition: 1ms ease-in;
 }
 
 .status-primary :hover {
@@ -299,16 +323,21 @@ a:hover {
 }
 
 .inbox {
-  background-color: whitesmoke;
+  background-color: #fafafa;
   padding: 5px;
   cursor: pointer;
+  overflow: hidden;
   border-radius: 6px;
   z-index: 0;
   display: flex;
-  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
+  box-shadow: inset 0 1px 0 #dadce0, inset -1px 0 0 #dadce0,
     0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-  margin: 10px !important;
-  transition: 100ms ease-in;
+  margin: 20px !important;
+}
+
+.inbox:hover {
+  background-color: #e4e3e3;
+  z-index: 1;
 }
 
 .inbox-danger {
@@ -319,16 +348,15 @@ a:hover {
   border-radius: 6px;
   z-index: 0;
   display: flex;
+  overflow: hidden;
   box-shadow: inset 1px 0 0 #dc354654, inset -1px 0 0 #dc354654,
     0 1px 2px 0 rgba(148, 35, 35, 0.3), 0 1px 3px 1px rgba(163, 30, 30, 0.15);
-  margin: 10px !important;
-  transition: 100ms ease-in;
+  margin: 20px !important;
 }
 
 .inbox-danger:hover {
-  background-color: #be2a39;
+  background-image: linear-gradient(to bottom right, #c91829, #8f0b18);
   z-index: 1;
-  transition: 100ms ease-in;
 }
 
 .inbox-list {
@@ -339,12 +367,6 @@ a:hover {
   margin: 10px !important;
   box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
     0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-}
-
-.inbox:hover {
-  background-color: #e4e3e3;
-  z-index: 1;
-  transition: 100ms ease-in;
 }
 
 .delete-inbox {
@@ -407,16 +429,12 @@ a:hover {
 }
 
 .droptop {
-  margin-top: 10px;
-  width: 100px;
-  margin-left: 37%;
+  margin-top: 18px;
   margin-bottom: 20px;
-  color: #bdbdbd;
-  cursor: pointer;
-}
-
-.droptop:hover {
-  color: #a1a1a1;
+  color: #afafaf;
+  letter-spacing: 2px;
+  cursor: default;
+  font-weight: 300 !important;
 }
 
 .fa-bell {
@@ -426,8 +444,106 @@ a:hover {
 .reminders-table {
   overflow: scroll;
   max-height: 335px;
+  min-height: 300px;
+  padding-bottom: 10px;
 }
 
 .table td {
   border-top: 0px;
+}
+
+.table tbody {
+  border-top: 0px !important;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: 1.6px;
+  font-family: 'Open Sans', sans-serif;
+  cursor: default;
+}
+
+h4,
+h5 {
+  letter-spacing: 1px;
+  font-family: 'Open Sans', sans-serif;
+  cursor: default;
+}
+
+p {
+  letter-spacing: 0.5px;
+  font-family: 'Open Sans', sans-serif;
+  cursor: default;
+}
+
+th {
+  cursor: default;
+}
+
+.btn {
+  letter-spacing: 0.65px;
+  font-weight: 100;
+}
+
+.reminders-table::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-icon {
+  color: #afafaf;
+  padding: 0px;
+  position: absolute;
+  left: -63px;
+  top: 20px;
+  font-size: 10px !important;
+  vertical-align: middle !important;
+  transition: 200ms;
+}
+
+.fa-calendar-alt::before {
+  cursor: pointer;
+}
+
+.fa-calendar-alt:hover {
+  color: #838383;
+  transition: 200ms;
+}
+
+.fa-calendar-alt {
+  cursor: default !important;
+}
+
+.list-group {
+  min-height: 400px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.list-group::-webkit-scrollbar {
+  display: none;
+}
+
+.focused-top-bar {
+  left: 63px;
+  top: 20px;
+}
+
+.delete-dropdown-item {
+  position: relative;
+  left: 40px;
+  top: 2px;
+  bottom: 2px;
+  margin: auto;
+  transition: 200ms;
+}
+
+.show-delete {
+  left: 0px !important;
+  transition: 200ms;
+}
+
+.rotate-icon {
+  transform: rotate(360deg);
+  transition: 200ms;
 }

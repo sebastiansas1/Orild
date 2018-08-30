@@ -32,7 +32,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
                     var notifications = [];
                     reminders.forEach(reminder => {
                       if (
-                        moment(reminder.date).isAfter(moment().add(-4, 'days'))
+                        moment(reminder.date).isBefore(moment().add(+4, 'days'))
                       ) {
                         notifications.push(reminder);
                       }
@@ -81,8 +81,8 @@ router.post('/', ensureAuthenticated, function(req, res) {
                       var notifications = [];
                       reminders.forEach(reminder => {
                         if (
-                          moment(reminder.date).isAfter(
-                            moment().add(-4, 'days')
+                          moment(reminder.date).isBefore(
+                            moment().add(+4, 'days')
                           )
                         ) {
                           notifications.push(reminder);
@@ -170,6 +170,9 @@ router.delete('/:id', ensureAuthenticated, function(req, res) {
           Tratament.deleteMany({ animal_id: animal._id }, function(err3) {
             if (err3) throw err3;
           });
+          Reminder.deleteMany({ animal_id: animal._id }, function(err4) {
+            if (err4) throw err4;
+          });
         });
         Animal.deleteMany(proprietar_id, function(err2) {
           req.flash(
@@ -209,7 +212,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
                     var notifications = [];
                     reminders.forEach(reminder => {
                       if (
-                        moment(reminder.date).isAfter(moment().add(-4, 'days'))
+                        moment(reminder.date).isBefore(moment().add(+4, 'days'))
                       ) {
                         notifications.push(reminder);
                       }

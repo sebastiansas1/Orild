@@ -31,10 +31,16 @@ html(lang="en")
                 .dropdown.nav-link
                   span.fa-stack.has-badge(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false' data-count=notifications.length style="cursor: pointer;")
                     i.fa.fa-bell.fa-stack-1x.honey-badger
-                  .dropdown-menu.dropdown-menu-right(aria-labelledby='dropdownMenuButton')
-                    h5.text-center.font-weight-light.droptop Reminders
-                    hr
-                    .table.reminders-table
+                  .dropdown-menu.dropdown-menu-right.card-lg-light.card-header-dark(aria-labelledby='dropdownMenuButton' )
+                    .row.dropdown-top-bar
+                      .col-md-4(style="display: table; height: 62px;")
+                        .nav-icon-container.nav-icon
+                          i.fas.fa-calendar-alt.text-center.fa-2x
+                      .col-md-4
+                        h5.text-center.font-weight-light.droptop Reminders
+                      .col-md-4
+                    hr(style="margin: 0px;")
+                    .table.reminders-table(style="color: black;")
                       each reminder, i in notifications
                         -if(!moment(reminder.date).isBefore(moment()))
                           .item.inbox(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id style="padding: 15px;")
@@ -69,10 +75,11 @@ html(lang="en")
                   span.fa-stack(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                     i.fa.fa-circle.fa-stack-2x(style="background-color: white;")
                     i.fa.fa-bell.fa-stack-1x.fa-inverse(style="border: 0px solid transparent;")
-                  .dropdown-menu.dropdown-menu-right(aria-labelledby='dropdownMenuButton')
+                  .dropdown-menu.dropdown-menu-right.card-lg-light.card-header-dark(aria-labelledby='dropdownMenuButton')
                     h5.text-center.font-weight-light.droptop Reminders
-                    hr
-                    p.text-center.text-muted(style="font-size: 12px; margin-top: 25px;") All caught up!
+                    hr(style="margin: 0px;")
+                    .padding-sm.bg-light
+                      p.text-center.text-muted.bg-light(style="font-size: 12px; margin-top: 20px;") All caught up!
             li.nav-item
               a.nav-link.primary-link(href='/users/logout') Logout
                 span.fa-stack
