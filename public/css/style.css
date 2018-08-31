@@ -284,6 +284,25 @@ a:hover {
   transition: 100ms ease-in;
 }
 
+.status-purple {
+  margin: 10px 15px 10px 10px;
+  width: 35px;
+  height: 22px;
+  font-size: 22px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #8a24c5;
+  background-color: #8a24c5;
+  transition: 100ms ease-in;
+  transition: 1ms ease-in;
+}
+
+.status-purple :hover {
+  border: 1px solid #6d179e;
+  background-color: #6d179e;
+  transition: 100ms ease-in;
+}
+
 .status-danger {
   margin: 10px 15px 10px 10px;
   width: 35px;
@@ -546,4 +565,18 @@ th {
 .rotate-icon {
   transform: rotate(360deg);
   transition: 200ms;
+}
+
+.btn-group {
+  border: 1px solid #58585836;
+  border-radius: 6px;
+}
+
+.btn-group:focus {
+  outline: none;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none !important;
 }

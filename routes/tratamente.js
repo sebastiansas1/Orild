@@ -76,28 +76,38 @@ router.post('/add', function(req, res) {
           if (err2) {
             console.log(err2);
           } else {
-            reminder.animal_id = animal._id;
-            reminder.animal_name = animal.registration_nr;
-            reminder.proprietar_id = animal.proprietar_id;
-            reminder.tratament_id = object._id;
-            reminder.tratament_name = object.name;
-            reminder.date = moment(req.body.administration_date, 'DD-MM-YYYY')
-              .add(1, 'y')
-              .toDate();
+            if (object.result == 'Vindecat') {
+              reminder.animal_id = animal._id;
+              reminder.animal_name = animal.registration_nr;
+              reminder.proprietar_id = animal.proprietar_id;
+              reminder.tratament_id = object._id;
+              reminder.tratament_name = object.name;
+              reminder.date = moment(req.body.administration_date, 'DD-MM-YYYY')
+                .add(1, 'y')
+                .toDate();
 
-            reminder.save(function(err3) {
-              if (err3) {
-                console.log(err3);
-              } else {
-                req.flash('success', 'Tratament adaugat!');
-                res.redirect(
-                  '/proprietari/' +
-                    animal.proprietar_id +
-                    '/animals/' +
-                    animal._id
-                );
-              }
-            });
+              reminder.save(function(err3) {
+                if (err3) {
+                  console.log(err3);
+                } else {
+                  req.flash('success', 'Tratament adaugat!');
+                  res.redirect(
+                    '/proprietari/' +
+                      animal.proprietar_id +
+                      '/animals/' +
+                      animal._id
+                  );
+                }
+              });
+            } else {
+              req.flash('success', 'Tratament adaugat!');
+              res.redirect(
+                '/proprietari/' +
+                  animal.proprietar_id +
+                  '/animals/' +
+                  animal._id
+              );
+            }
           }
         });
       }

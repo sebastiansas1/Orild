@@ -21,7 +21,7 @@ block content
           br
           .row
             .col-md-10
-              button.btn.btn-primary.active(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:14px; width: 200px; height: 40px;') Adauga Proprietar 
+              button.btn.btn-primary(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:14px; width: 200px; height: 46px;') Adauga Proprietar 
                 i.fa.fa-user(style='margin-left: 5px;')
 
               #proprietarModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='proprietarModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
@@ -73,22 +73,23 @@ block content
           .row
             .col-md-8
               .input-form.form-search
-                input.form-control.search.search-animal(type='text', placeholder='Cauta animal ...')
+                input.form-control.search#search-animal(type='text', placeholder='Cauta animal ...')
             .col-md-4.responsive-margin-top
               #form-group 
                 select.form-control.filter-animal.search(name='species', type='text') 
-                  option(value='', selected='', disabled='', hidden='') Specie
                   option(value='') Toate
-                  option(value='Caine') Caine
-                  option(value='Pisica') Pisica
-                  option(value='Bovin') Bovin
-                  option(value='Cal') Cal
-                  option(value='Other') Other
+                  option(value='Canina') Canina
+                  option(value='Felina') Felina
+                  option(value='Bovina') Bovina
+                  option(value='Cabalina') Cabalina
+                  option(value='Suina') Suina
+                  option(value='Ovina') Ovina
+                  option(value='Pasare') Pasare
           hr
           br
           .row
             .col-md-10
-              button.btn.btn-dark.active(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:14px; width: 170px; height: 40px;') Adauga Animal
+              button.btn.btn-dark(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:14px; width: 170px; height: 46px;') Adauga Animal
                 i.fab.fa-earlybirds(style='margin-left: 5px;')
 
               #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
@@ -120,11 +121,13 @@ block content
                                   label Specia
                                   select.form-control(name='species', type='text') 
                                     option(value='', selected='', disabled='', hidden='') Alegeti
-                                    option(value='Caine') Caine
-                                    option(value='Pisica') Pisica
-                                    option(value='Bovin') Bovin
-                                    option(value='Cal') Cal
-                                    option(value='Other') Other
+                                    option(value='Canina') Canina
+                                    option(value='Felina') Felina
+                                    option(value='Bovina') Bovina
+                                    option(value='Cabalina') Cabalina
+                                    option(value='Suina') Suina
+                                    option(value='Ovina') Ovina
+                                    option(value='Pasare') Pasare
                             br
                             .row
                               .col-md-4
@@ -155,8 +158,8 @@ block content
                   th.text-center.align-middle Specia
                   th.text-center.align-middle Cantitatea             
               each animal, i in animals
-                tbody.containerItems(style='font-size: 14px;')
-                  tr.item.inbox-list.animal(animal-search=animal.registration_nr filter-animal=animal.species)
+                tbody.containerItems.animal-item-list(animal-name=animal.registration_nr animal-species=animal.species style='font-size: 14px;')
+                  tr.item.inbox-list
                     td.align-middle
                       a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
                     td.text-center.align-middle= animal.species

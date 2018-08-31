@@ -34,10 +34,10 @@ html(lang="en")
                   .dropdown-menu.dropdown-menu-right.card-lg-light.card-header-dark(aria-labelledby='dropdownMenuButton' )
                     .row.dropdown-top-bar
                       .col-md-4(style="display: table; height: 62px;")
-                        .nav-icon-container.nav-icon
+                        .nav-icon-container.nav-icon(data-toggle='tooltip', title='Toate Notificarile')
                           i.fas.fa-calendar-alt.text-center.fa-2x
                       .col-md-4
-                        h5.text-center.font-weight-light.droptop Reminders
+                        h5.text-center.font-weight-light.droptop Notificari
                       .col-md-4
                     hr(style="margin: 0px;")
                     .table.reminders-table(style="color: black;")
@@ -57,7 +57,7 @@ html(lang="en")
                                 span.text-danger #{moment(reminder.date).fromNow()}
                               -if(moment(reminder.date).isBetween(moment(), moment().add(1, 'days')))
                                 span.text-danger #{moment(reminder.date).fromNow()}
-                            .delete-dropdown-item.delete-reminder-mini(reminder-id=reminder._id style='z-index: 5')
+                            .delete-dropdown-item.delete-reminder-mini(reminder-id=reminder._id style='z-index: 5' data-toggle='tooltip', title='Elimina')
                               i.fas.fa-times.text-muted.delete-reminder-mini(reminder-id=reminder._id  style='margin-left: 34%; margin-top: 28%;')
                         -else 
                           .item.inbox-danger(reminder-id=reminder._id tratament-id=reminder.tratament_id animal-id=reminder.animal_id style="padding: 15px;")
@@ -76,10 +76,22 @@ html(lang="en")
                     i.fa.fa-circle.fa-stack-2x(style="background-color: white;")
                     i.fa.fa-bell.fa-stack-1x.fa-inverse(style="border: 0px solid transparent;")
                   .dropdown-menu.dropdown-menu-right.card-lg-light.card-header-dark(aria-labelledby='dropdownMenuButton')
-                    h5.text-center.font-weight-light.droptop Reminders
+                    .row.dropdown-top-bar
+                      .col-md-4(style="display: table; height: 62px;")
+                        .nav-icon-container.nav-icon
+                          i.fas.fa-calendar-alt.text-center.fa-2x
+                      .col-md-4
+                        h5.text-center.font-weight-light.droptop Reminders
+                      .col-md-4
                     hr(style="margin: 0px;")
-                    .padding-sm.bg-light
-                      p.text-center.text-muted.bg-light(style="font-size: 12px; margin-top: 20px;") All caught up!
+                    -if(moment().hour() < 12)
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna Dimineata. Nu aveti notificari noi.
+                    -if(moment().hour() >= 12 && moment().hour() < 17)
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna Dupamasa. Nu aveti notificari noi.
+                    -if(moment().hour() >= 17 && moment().hour() <= 24)
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna Seara. Nu aveti notificari noi.
+                    -if(moment().hour() >= 0 && moment().hour() <= 5)
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Nu aveti notificari noi.
             li.nav-item
               a.nav-link.primary-link(href='/users/logout') Logout
                 span.fa-stack
@@ -104,7 +116,9 @@ html(lang="en")
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+  script(src='https://unpkg.com/popper.js/dist/umd/popper.min.js')
   script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+  script(src='/bower_components/bootstrap-checkbox/dist/js/bootstrap-checkbox.min.js')
   script(src="/js/animal.js")
   script(src="/js/proprietar.js")
   script(src="/js/date.js")

@@ -71,7 +71,7 @@ router.delete('/:id', ensureAuthenticated, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      req.flash('danger', 'Reminder-ul a fost sters.');
+      req.flash('danger', 'Notificarea a fost stersa.');
       res.send('Success');
     }
   });
