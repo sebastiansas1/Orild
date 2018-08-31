@@ -78,10 +78,10 @@ html(lang="en")
                   .dropdown-menu.dropdown-menu-right.card-lg-light.card-header-dark(aria-labelledby='dropdownMenuButton')
                     .row.dropdown-top-bar
                       .col-md-4(style="display: table; height: 62px;")
-                        .nav-icon-container.nav-icon
+                        .nav-icon-container.nav-icon(data-toggle='tooltip', title='Toate Notificarile')
                           i.fas.fa-calendar-alt.text-center.fa-2x
                       .col-md-4
-                        h5.text-center.font-weight-light.droptop Reminders
+                        h5.text-center.font-weight-light.droptop Notificari
                       .col-md-4
                     hr(style="margin: 0px;")
                     -if(moment().hour() < 12)
