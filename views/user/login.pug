@@ -13,11 +13,11 @@ block content
               .col-md-8.offset-md-2
                 #form-group 
                   label Username:
-                  input.form-control(name='username', type='text') 
+                  input.form-control(name='username', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
                 br
                 #form-group 
-                  label Password:
-                  input.form-control(name='password', type='password') 
+                  label Parola:
+                  input.form-control(name='password', type='password' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
                 br
             br
             .row    

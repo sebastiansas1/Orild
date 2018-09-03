@@ -105,7 +105,6 @@ router.post('/', ensureAuthenticated, function(req, res) {
     let proprietar = new Proprietar();
     proprietar.name = req.body.name;
     proprietar.address = req.body.address;
-    proprietar.email = req.body.email;
     proprietar.phone = req.body.phone;
 
     proprietar.save(function(err, object) {
@@ -142,7 +141,6 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
   proprietar.name = req.body.name;
   proprietar.address = req.body.address;
   proprietar.phone = req.body.phone;
-  proprietar.email = req.body.email;
 
   let query = { _id: req.params.id };
 
@@ -238,7 +236,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    req.flash('info', 'Va rugam sa va autentificati inainte de a proceda.');
+    req.flash('info', 'Va rugam sa va autentificati.');
     res.redirect('/users/login');
   }
 }

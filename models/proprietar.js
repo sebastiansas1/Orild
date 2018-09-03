@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
 
 const ProprietarSchema = mongoose.Schema({
-  name:{
+  name: {
     type: String,
     required: true
   },
-  address:{
+  address: {
     type: String,
     required: true
   },
-  phone:{
-    type: String
-  },
-  email:{
+  phone: {
     type: String
   }
 });
 
-const Proprietar = module.exports = mongoose.model('Proprietar', ProprietarSchema);
+const Proprietar = (module.exports = mongoose.model(
+  'Proprietar',
+  ProprietarSchema
+));

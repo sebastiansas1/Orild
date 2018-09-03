@@ -12,15 +12,13 @@ let Reminder = require('../models/reminder');
 // Add Route POST
 router.post('/', ensureAuthenticated, function(req, res) {
   // Check Fields
+  req.checkBody('proprietar', 'Alegeti un proprietar din lista.').notEmpty();
   req
-    .checkBody('proprietar', 'Trebe sa alegeti un proprietar din lista.')
+    .checkBody('registration_nr', 'Nr. matricol / nume este obligatoriu.')
     .notEmpty();
+  req.checkBody('species', 'Specia este obligatorie.').notEmpty();
   req
-    .checkBody('registration_nr', 'Numarul de matricol este obligatoriu.')
-    .notEmpty();
-  req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
-  req
-    .checkBody('quantity', 'Cantitatea de animale este obligatorie.')
+    .checkBody('quantity', 'Cantitatea animalelor tratate este obligatorie.')
     .notEmpty();
   req
     .checkBody('simptomatologie', 'Simptomatologia este obligatorie.')
@@ -108,11 +106,11 @@ router.post('/', ensureAuthenticated, function(req, res) {
 router.post('/add', ensureAuthenticated, function(req, res) {
   // Check Fields
   req
-    .checkBody('registration_nr', 'Numarul de matricol este obligatoriu.')
+    .checkBody('registration_nr', 'Nr. matricol / nume este obligatoriu.')
     .notEmpty();
-  req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
+  req.checkBody('species', 'Specia este obligatorie.').notEmpty();
   req
-    .checkBody('quantity', 'Cantitatea de animale este obligatorie.')
+    .checkBody('quantity', 'Cantitatea animalelor tratate este obligatorie.')
     .notEmpty();
   req
     .checkBody('simptomatologie', 'Simptomatologia este obligatorie.')
@@ -222,7 +220,7 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res) {
 router.post('/edit/:id', ensureAuthenticated, function(req, res) {
   // Check all required fields
   req
-    .checkBody('registration_nr', 'Numarul de matricol este obligatoriu.')
+    .checkBody('registration_nr', 'Nr. matricol / nume este obligatoriu.')
     .notEmpty();
   req.checkBody('species', 'Specia animalului este obligatorie.').notEmpty();
   req
@@ -360,7 +358,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    req.flash('info', 'Va rugam sa va autentificati inainte de a proceda.');
+    req.flash('info', 'Va rugam sa va autentificati.');
     req.session.returnTo = req.path;
     res.redirect('/users/login');
   }

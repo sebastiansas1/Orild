@@ -21,17 +21,10 @@ router.post('/register', ensureIsAdmin, function(req, res) {
 
   req.checkBody('name', 'Numele este obligatoriu.').notEmpty();
   req.checkBody('email', 'Email-ul este obligatoriu.').notEmpty();
-  req
-    .checkBody('email', 'Email-ul nu a fost scris intre un format corect.')
-    .isEmail();
+  req.checkBody('email', 'Email-ul este invalid.').isEmail();
   req.checkBody('username', 'Alegeti un username.').notEmpty();
-  req.checkBody('password', 'Password-ul este obligatoriu').notEmpty();
-  req
-    .checkBody(
-      'password2',
-      'Password-ul nu a fost confirmat corect. Trebe sa scrieti acelasi parola in ambele sectii.'
-    )
-    .equals(req.body.password);
+  req.checkBody('password', 'Parola este obligatorie').notEmpty();
+  req.checkBody('password2', 'Parola nu corespunde.').equals(req.body.password);
 
   let errors = req.validationErrors();
 

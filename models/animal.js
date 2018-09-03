@@ -19,9 +19,9 @@ const AnimalSchema = mongoose.Schema({
   diagnostic: {
     type: String
   },
-  proprietar_id:{
+  proprietar_id: {
     type: String
   }
 });
 
-const Animal = module.exports = mongoose.model('Animal', AnimalSchema);
+const Animal = (module.exports = mongoose.model('Animal', AnimalSchema));

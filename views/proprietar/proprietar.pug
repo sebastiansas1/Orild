@@ -1,10 +1,11 @@
 extends ../layout
+include ../components/number_form.pug
 
 block content 
 
   .card-lg-light
     .card-header-primary 
-      h3.text-center 
+      h3.proprietar_name.text-center 
         i.fas.fa-user(style='margin-right: 15px;' )
         | #{proprietar.name}
 
@@ -14,18 +15,20 @@ block content
           i.far.fa-edit(style='margin-left: 5px;')
       hr
       br
-      p 
-        strong Adresa: 
-        span #{proprietar.address}
-      p 
-        strong Email: 
-        span #{proprietar.email}
-      p 
-        strong Nr Tel: 
-        span #{proprietar.phone}
+      .row
+        .col-md-2
+          p.font-weight-bold.p-2.m-0 Adresa: 
+        .col-md-3
+          input.form-control.p-2.m-0.pl-2(value=proprietar.address disabled)
+      br
+      .row
+        .col-md-2
+          p.font-weight-bold.p-2.m-0 Nr Tel: 
+        .col-md-2
+          input#phone_num_from_db.form-control.p-2.m-0.pl-2(value=proprietar.phone disabled)
 
       br
-
+      br
       #dialog-confirm(title='Sunteti siguri?')
         p#dialog-message(style='display: none;')
           span.ui-icon.ui-icon-alert(style='float:left; margin:12px 12px 20px 0; z-index: 7;')
@@ -52,20 +55,22 @@ block content
                   .row 
                     .col-md-10.offset-md-1
                       form#animal-form(method='POST', action='/proprietari/'+proprietar._id+'/animals/add')
-                        #form-group 
-                          label Proprietar
-                          input.form-control(name='proprietar', type='text', value=proprietar.name, disabled)
-                        br
-                        .row 
+                        .row
+                          .col-md-5
+                            #form-group 
+                              label Proprietar
+                              input#animal_proprietar_modal.proprietar_name.form-control(name='proprietar', type='text' disabled value=proprietar.name)
                           .col-md-7
                             #form-group 
-                              label Nr. Matricol
-                              input.form-control(name='registration_nr', type='text') 
+                              label Nr. Matricol / Nume
+                              input#animal_name_modal.form-control(name='registration_nr', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
+                        br
+                        .row
                           .col-md-5
                             #form-group 
                               label Specia
-                              select.form-control(name='species', type='text') 
-                                option(value='', selected='', disabled='', hidden='') Alegeti
+                              select#animal_species_modal.form-control(name='species', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
+                                option(value='', selected='', disabled='') Alegeti
                                 option(value='Canina') Canina
                                 option(value='Felina') Felina
                                 option(value='Bovina') Bovina
@@ -73,24 +78,28 @@ block content
                                 option(value='Suina') Suina
                                 option(value='Ovina') Ovina
                                 option(value='Pasare') Pasare
-                        br
-                        .row
-                          .col-md-4
+                          .col-md-7
                             #form-group 
                               label Animale Tratate
-                              input.form-control(name='quantity', type='number') 
+                              +input_num('quantity')
+                        br
                         hr
                         br
                         #form-group 
-                          label Simptomatologie
-                          textarea.form-control(name='simptomatologie') 
+                          label(style="margin-right: 30px; font-size: 13px; color: #2D2F30; text-decoration: underline;") Clinic Sanatos?
+                          input#clinicSanatos.form-check-input(type='checkbox' style='margin: 0px;' data-group-cls="btn-group-sm")
                         br
-                        #form-group 
-                          label Diagnoticul
-                          textarea.form-control(name='diagnostic') 
+                        .row
+                          .col-md-6
+                            #form-group 
+                              label Simptomatologie
+                              textarea#simptomatologie_modal.form-control(name='simptomatologie') 
+                          .col-md-6
+                            label Diagnosticul
+                            textarea#diagnosticul_modal.form-control(name='diagnostic') 
                         br
                         .modal-footer
-                          button#save-animal.btn.btn-primary(type='submit') Salveaza
+                          button#save-animal.btn.btn-primary(type='submit' disabled) Salveaza
                           button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
         
 
@@ -107,19 +116,15 @@ block content
                       form#proprietar-form(method='POST', action='/proprietari/edit/'+proprietar._id)
                         #form-group
                           label Nume:
-                          input#name.form-control(name='name', type='text', value=proprietar.name) 
+                          input#name.form-control(name='name', type='text', value=proprietar.name required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
                         br
                         #form-group 
                           label Adresa:
-                          input.form-control(name='address', type='text', value=proprietar.address)
+                          input.form-control(name='address', type='text', value=proprietar.address required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')")
                         br
                         #form-group 
                           label Nr Tel:
-                          input.form-control(name='phone', type='text', value=proprietar.phone)
-                        br
-                        #form-group 
-                          label Email:
-                          input.form-control(name='email', type='text', value=proprietar.email)
+                          input#phone_num.form-control(name='phone', type='text', value=proprietar.phone)
                         br
                         .modal-footer
                           button#save-proprietar.btn.btn-primary.float-right(type='submit') Salveaza
@@ -136,7 +141,7 @@ block content
         table.table(style='min-width: 500px; font-size: 14px;')
           thead
             tr
-              th Nr. Matricol
+              th Nr. Matricol / Nume
               th Specie
               th Cantitate
               th Simptomatologie

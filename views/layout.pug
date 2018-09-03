@@ -86,11 +86,11 @@ html(lang="en")
                       .col-md-4
                     hr(style="margin: 0px;")
                     -if(moment().hour() < 12)
-                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna Dimineata. Nu aveti notificari noi.
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna dimineata. Nu aveti notificari noi.
                     -if(moment().hour() >= 12 && moment().hour() < 17)
-                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna Dupamasa. Nu aveti notificari noi.
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna dupamasa. Nu aveti notificari noi.
                     -if(moment().hour() >= 17 && moment().hour() <= 24)
-                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna Seara. Nu aveti notificari noi.
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna seara. Nu aveti notificari noi.
                     -if(moment().hour() >= 0 && moment().hour() <= 5)
                       p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Nu aveti notificari noi.
             li.nav-item
@@ -126,6 +126,8 @@ html(lang="en")
   script(src="/js/search_t.js")
   script(src="/js/dot.js")
   script(src="/js/reminder.js")
+  script(src="/js/number_form.js")
+  script(src="/js/phone_formatter.js")
   
   
   

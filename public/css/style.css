@@ -580,3 +580,97 @@ th {
   outline: none;
   box-shadow: none !important;
 }
+
+/* Number_form Stylings */
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  width: 38px;
+  border-radius: 8px 0 0 8px;
+  display: table-cell;
+  padding: 0px;
+  transition: 200ms;
+}
+
+form #decrease:hover {
+  background-color: #d3d3d3;
+  transition: 200ms;
+}
+
+form #increase {
+  margin-left: -4px;
+  width: 38px;
+  border-radius: 0 8px 8px 0;
+  display: table-cell;
+  padding: 0px;
+  transition: 200ms;
+}
+
+form #increase:hover {
+  background-color: #d3d3d3;
+  transition: 200ms;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  padding: 0px;
+  font-size: 15px;
+  width: 38px;
+  height: 33px;
+  display: table-cell;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-control {
+  font-size: 14px;
+  padding: 5px 6px;
+}
+
+select.form-control:not([size]):not([multiple]) {
+  height: 33px;
+}
+
+#simptomatologie_modal,
+#diagnosticul_modal {
+  height: 50px;
+  min-height: 50px;
+}
+
+#save-animal {
+  cursor: not-allowed;
+}
+
+#save-proprietar {
+  cursor: not-allowed;
+}

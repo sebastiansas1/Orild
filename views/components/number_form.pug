@@ -1,0 +1,5 @@
+mixin input_num(field)
+  .number_form(style="display:table;")
+    #decrease.value-button(onclick='decreaseValue()', value='Decrease Value') -
+    input#number(name=field type='number', value='1' readonly)
+    #increase.value-button(onclick='increaseValue()', value='Increase Value') +

@@ -1,4 +1,5 @@
 extends ../layout
+include ../components/number_form.pug
 
 block content 
   .card-lg-light
@@ -20,7 +21,7 @@ block content
         strong= animal.species
       p Cantitate: 
         strong= animal.quantity
-      p Simpomatologie: 
+      p Simptomatologie: 
         strong= animal.simptomatologie
       p Diagnosticul: 
         strong= animal.diagnostic
@@ -31,7 +32,7 @@ block content
       #dialog-confirm(title='Sunteti siguri?')
         p#dialog-message(style='display: none;')
           span.ui-icon.ui-icon-alert(style='float:left; margin:12px 12px 20px 0; z-index: 7;')
-          | Stergerea acest proprietar este permanenta, si toate animalele si tratamentele asociate vor fii sterse in mod permanent.
+          | Stergerea acestui proprietar este permanenta! Toate animalele si tratamentele asociate vor fi sterse.
 
       #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
         .modal-dialog(role='document')
@@ -52,12 +53,12 @@ block content
                     .row(style='font-size: 14px;') 
                       .col-md-7
                         #form-group 
-                          label Nr. Matricol
-                          input.form-control(name='registration_nr', type='text', value=animal.registration_nr) 
+                          label Nr. Matricol / Nume
+                          input.form-control(name='registration_nr', type='text', value=animal.registration_nr required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
                       .col-md-5
                         #form-group 
                           label Specia
-                          select.form-control(name='species', type='text', style='font-size: 14px;') 
+                          select.form-control(name='species', type='text', style='font-size: 14px;' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
                             option(value=animal.species, selected hidden, style='font-size: 14px;')= animal.species
                             option(value='Canina') Canina
                             option(value='Felina') Felina
@@ -68,10 +69,11 @@ block content
                             option(value='Pasare') Pasare
                     br
                     .row(style='font-size: 14px;')
-                      .col-md-6
+                      .col-md-12
                         #form-group 
                           label Animale Tratate
-                          input.form-control(name='quantity', type='number', value=animal.quantity, style='font-size: 14px;') 
+                          //- input.form-control(name='quantity', type='number', value=animal.quantity, style='font-size: 14px;' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
+                          +input_num('quantity')
                     hr
                     br
                     #form-group 
@@ -79,7 +81,7 @@ block content
                       textarea.form-control(name='simptomatologie', style='font-size: 14px;')=animal.simptomatologie 
                     br
                     #form-group 
-                      label Diagnoticul
+                      label Diagnosticul
                       textarea.form-control(name='diagnostic', style='font-size: 14px;')=animal.diagnostic
                     br
                     .modal-footer
@@ -88,7 +90,7 @@ block content
 
                   br
                   hr
-                  a.btn.btn-outline-danger.delete-animal(href='#' style= 'margin-left: 25%;' data-animal-id=animal._id data-proprietar-id=proprietar._id) Stergeti Acest Matricol
+                  a.btn.btn-outline-danger.delete-animal(href='#' style= 'margin-left: 25%;' data-animal-id=animal._id data-proprietar-id=proprietar._id) Stergeti acest animal
 
       .row
         .col-md-3

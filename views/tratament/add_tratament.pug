@@ -13,25 +13,25 @@ block content
           .col-md-4
             #form-group 
               label Denumirea produsului:
-              input.form-control(name='name' type='text' minlength='3' maxlength='60' required) 
+              input.form-control(name='name' type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
           .col-md-2
             #form-group 
               label Seria:
-              input.form-control(name='series' type='text' minlength='1' maxlength='40' required) 
+              input.form-control(name='series' type='text' minlength='1' maxlength='40') 
           .col-md-2.offset-md-2
             #form-group 
               label Valabilitatea:
-              input.form-control#expiry(name='expiry_date' type='text' required)  
+              input.form-control#expiry(name='expiry_date' type='text')  
           .col-md-2
             #form-group 
               label Data:
-              input.form-control#administration_date(name='administration_date' type='text' required) 
+              input.form-control#administration_date(name='administration_date' type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
         br
         .row
           .col-md-2  
             #form-group 
               label Doza:
-              input.form-control(name='dose' type='number' required) 
+              input.form-control(name='dose' type='number' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
           .col-md-2
             #form-group 
               label Asteptare:
@@ -44,7 +44,7 @@ block content
             #form-group 
               label Rezultatul:
               select.form-control#animal-type(name='result', type='text' required) 
-                option(value='' selected hidden disabled) Alegeti din acestea optiuni
+                option(value='' selected disabled) Alegeti din acestea optiuni
                 option(value='Vindecat') Vindecat
                 option(value='Mort') Mort
                 option(value='Sacrificat') Sacrificat
@@ -57,11 +57,11 @@ block content
           .col-md-4.offset-md-2
             #form-group
               .form-check(style='padding: 0px; margin-top: 40px;')
-                input#semnatura.form-check-input.bigCheckbox(type='checkbox' offLabel='Nu' onLabel='Da' style='margin: 0px;' required)
+                input#semnatura.form-check-input.bigCheckbox(type='checkbox' style='margin: 0px;' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')")
                 label.form-check-label(for='semnatura' style='margin: 0px 0px 0px 40px; font-size: 20px;') Semnatura
         br
         #form-group 
-          label Numar de Matricol:
+          label Nr matricol / nume: 
           input.form-control(name='animal_id' type='text' value=animal.registration_nr disabled) 
         br
         input.btn.btn-primary(type='submit' value='Creati')
