@@ -68,9 +68,9 @@ block content
                         #form-group 
                           label Specia
                           select#animal_species_modal.form-control(name='species', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
-                            option(value=animal.species selected)
+                            option(value=animal.species selected hidden)=animal.species
                             option(value='' disabled) OPȚIUNI
-                            option(value='Canină' selected) Canină
+                            option(value='Canină') Canină
                             option(value='Felină') Felină
                             option(value='Bovină') Bovină
                             option(value='Cabalină') Cabalină
