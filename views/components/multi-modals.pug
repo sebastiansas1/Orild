@@ -1,0 +1,161 @@
+include number_form.pug
+    
+mixin proprietar_modal(ViewState)
+  .modal-body.proprietar-modal-body(style="font-size: 14px; display:"+ViewState+";")
+    hr(style="margin-top: 0px;")
+    .row 
+      .col-md-10.offset-md-1
+        form#proprietar-form(method='POST', action='/proprietari/')
+          .row
+            .col-md-7
+              #form-group
+                label Nume:
+                input#proprietar_name_modal.form-control(name='name', type='text') 
+            .col-md-5
+              #form-group 
+                label Nr Tel:
+                input#phone_num.form-control(name='phone', type='text' maxlength=14) 
+          br
+          #form-group 
+            label Adresa:
+            input#search_term.form-control(name='address' type='text' value="Marghita ") 
+          br
+          .modal-footer
+            button.btn.btn-light(type='button', data-dismiss='modal') Închide
+            input#next-modal-proprietar.btn.btn-primary(value="Următor" readonly disabled style="width: 120px;")
+    
+mixin proprietar_modal_filled(ViewState, proprietar)
+  .modal-body.proprietar-modal-body(style="font-size: 14px; display:"+ViewState+";")
+    hr(style="margin-top: 0px;")
+    .row 
+      .col-md-10.offset-md-1
+        form#proprietar-form(method='POST', action='/proprietari/')
+          .row
+            .col-md-7
+              #form-group
+                label Nume:
+                input#proprietar_name_modal.form-control(name='name' type='text' value=proprietar.name) 
+            .col-md-5
+              #form-group 
+                label Nr Tel:
+                input#phone_num.form-control(name='phone', type='text' maxlength=14 value=proprietar.phone) 
+          br
+          #form-group 
+            label Adresa:
+            input#search_term.form-control(name='address' type='text' value=proprietar.address) 
+          br
+          .modal-footer
+            button.btn.btn-light(type='button', data-dismiss='modal') Close
+            input#next-modal-proprietar.btn.btn-primary(value="Next" readonly disabled style="width: 80px;")
+
+
+mixin animal_modal(ViewState, BtnState, proprietar_id)
+  .modal-body.animal-modal-body(style="font-size: 14px; display:"+ViewState+";")
+    hr(style="margin-top: 0px;")
+    .row 
+      .col-md-10.offset-md-1
+        form#animal-form(method='POST', action='/animals/')
+          .row
+            .col-md-7
+              #form-group 
+                label Nr. Matricol / Nume
+                input#animal_name_modal.form-control(name='registration_nr', type='text' proprietar_id=proprietar_id) 
+            .col-md-5
+              #form-group 
+                label Specia
+                select#animal_species_modal.form-control(name='species', type='text') 
+                  option(value='' disabled) OPȚIUNI
+                  option(value='') Toate
+                  option(value='Canină' selected) Canină
+                  option(value='Felină') Felină
+                  option(value='Bovină') Bovină
+                  option(value='Cabalină') Cabalină
+                  option(value='Suină') Suină
+                  option(value='Ovină') Ovină
+                  option(value='Pasare') Pasare
+          br
+          .row
+            .col-md-4
+              #form-group 
+                label Animale tratate
+                +input_num('quantity')
+          br
+          hr
+          br
+          #form-group 
+            label(style="margin-right: 30px; font-size: 13px; color: #2D2F30; text-decoration: underline;") Clinic sănătos?
+            input#clinicSanatos.form-check-input(type='checkbox' style='margin: 0px;' data-group-cls="btn-group-sm")
+          br
+          .row
+            .col-md-6
+              #form-group 
+                label Simptomatologia
+                textarea#simptomatologie_modal.form-control(name='simptomatologie') 
+            .col-md-6
+              label Diagnosticul
+              textarea#diagnosticul_modal.form-control(name='diagnostic') 
+          br
+          .modal-footer
+            button.btn.btn-light(type='button', data-dismiss='modal') Închide
+            input#prev-modal-animal.btn.btn-secondary(value="Înapoi" readonly style="width: 90px; display:"+BtnState)
+            input#next-modal-animal.btn.btn-primary(value="Următor" readonly disabled style="width: 120px;")
+
+mixin tratament_modal(ViewState, SaveBtnID)
+  .modal-body.tratament-modal-body(style="font-size: 14px; display:"+ViewState+";")
+    hr(style="margin-top: 0px;")
+    .row 
+      .col-md-10.offset-md-1
+        form(method='POST' action='tratamente/add')
+          .row
+            .col-md-7
+              #form-group 
+                label Denumirea produsului:
+                input#tratament_name.form-control(name='name' type='text') 
+            .col-md-5
+              #form-group 
+                label Seria:
+                input#tratament_series.form-control(name='series' type='text' minlength='1' maxlength='40') 
+          br
+          .row   
+            .col-md-4  
+              #form-group 
+                label Doza:
+                +input_dose  
+            .col-md-4
+              #form-group 
+                label Valabilitatea:
+                input.form-control.text-center#expiry(name='expiry_date' type='text' autocomplete="off" value=moment().add(1, 'y').format("DD-MM-YYYY"))  
+            .col-md-4
+              #form-group 
+                label Data:
+                input.form-control.text-center#administration_date(name='administration_date' type='text' autocomplete="off" value=moment().format("DD-MM-YYYY")) 
+          br
+          hr
+          .row
+            .col-md-4
+              #form-group 
+                label Asteptare:
+                input#tratament_waiting_time.form-control(name='waiting_time' type='text') 
+            .col-md-4
+              #form-group 
+                label Durata:
+                input#tratament_duration.form-control(name='duration' type='text') 
+            .col-md-4
+              #form-group 
+                label Rezultatul:
+                select#tratament_result.form-control(name='result', type='text') 
+                  option(value='' disabled) Alegeti din acestea optiuni
+                  option(value='Vindecat' selected) Vindecat
+                  option(value='Mort') Mort
+                  option(value='Sacrificat') Sacrificat
+          br
+          .row
+            .col-md-12
+              #form-group 
+                label Observatii:
+                textarea#tratament_observations.form-control(name='observations') 
+          br
+          .modal-footer
+            button.btn.btn-light(type='button', data-dismiss='modal') Închide
+            input#prev-modal-tratament.btn.btn-secondary(value="Înapoi" readonly style="width: 90px;")
+            input.btn.btn-primary(value="Salveaza" readonly style="width: 120px;" id=SaveBtnID)

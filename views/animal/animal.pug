@@ -10,87 +10,102 @@ block content
 
     .padding-sm
       h4 Detalii
-        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 130px; height: 40px;') Modificati 
+        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 130px; height: 40px;') Modifica 
           i.far.fa-edit(style='margin-left: 5px;')
       hr
       br
-      p Proprietar: 
-        a(href='/proprietari/'+proprietar._id)
-          strong #{proprietar.name}
-      p Specia: 
-        strong= animal.species
-      p Cantitate: 
-        strong= animal.quantity
-      p Simptomatologie: 
-        strong= animal.simptomatologie
-      p Diagnosticul: 
-        strong= animal.diagnostic
-      
+      .row
+        .col-md-2
+          p.font-weight-bold.p-2.m-0 Proprietar: 
+        .col-md-3.offset-md-1
+          a.form-control.p-2.m-0.pl-2.text-center.proprietar_name.btn-light(style="border: 1px solid #ddd" href='/proprietari/'+proprietar._id)=proprietar.name
+      br
+      .row
+        .col-md-2
+          p.font-weight-bold.p-2.m-0 Specia: 
+        .col-md-3.offset-md-1
+          input#phone_num_from_db.form-control.p-2.m-0.pl-2.text-center(value=animal.species disabled)
+      br
+      .row
+        .col-md-2
+          p.font-weight-bold.p-2.m-0 Simptomatologia: 
+        .col-md-3.offset-md-1
+          input#phone_num_from_db.form-control.p-2.m-0.pl-2.text-center(value=animal.simptomatologie disabled)
+      br
+      .row
+        .col-md-2
+          p.font-weight-bold.p-2.m-0 Diagnosticul: 
+        .col-md-3.offset-md-1
+          input#phone_num_from_db.form-control.p-2.m-0.pl-2.text-center(value=animal.diagnostic disabled)
+
       br
       br
       br
       #dialog-confirm(title='Sunteti siguri?')
         p#dialog-message(style='display: none;')
           span.ui-icon.ui-icon-alert(style='float:left; margin:12px 12px 20px 0; z-index: 7;')
-          | Stergerea acestui proprietar este permanenta! Toate animalele si tratamentele asociate vor fi sterse.
+          | Ștergerea acestui animal este permanentă, și toate tratamentele asociate vor fii șterse în mod permanent. 
 
       #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
         .modal-dialog(role='document')
           .modal-content(style='border-radius: 8px;')
-            .modal-header.modal-header-dark
-              h5#animalModalLabel.modal-title= animal.registration_nr 
+            .modal-header.modal-header-primary
+              h5#animalModalLabel.modal-title(style="margin: auto; margin-left: 0;")
                 i.fab.fa-earlybirds(style='margin-left: 5px;')
               button.close(type='button', data-dismiss='modal', aria-label='Close')
                 span(aria-hidden='true' style='color: white;') ×
-            .modal-body
-              .row(style='font-size: 14px;') 
+            .modal-body.animal-modal-body(style="font-size: 14px; display:"+ViewState+";")
+              hr(style="margin-top: 0px;")
+              .row 
                 .col-md-10.offset-md-1
-                  form#animal-form(method='POST', action='/proprietari/'+proprietar._id+'/animals/edit/'+animal._id)
-                    #form-group 
-                      label Proprietar                       
-                      input.form-control(name='proprietar', type='text', value=proprietar.name, disabled)
-                    br
-                    .row(style='font-size: 14px;') 
+                  form#animal-form(method='POST', action='/animals/edit/'+animal._id)
+                    .row
                       .col-md-7
                         #form-group 
                           label Nr. Matricol / Nume
-                          input.form-control(name='registration_nr', type='text', value=animal.registration_nr required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
+                          input#animal_name_modal.form-control(name='registration_nr', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')" proprietar_id=proprietar_id value=animal.registration_nr)
                       .col-md-5
                         #form-group 
                           label Specia
-                          select.form-control(name='species', type='text', style='font-size: 14px;' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
-                            option(value=animal.species, selected hidden, style='font-size: 14px;')= animal.species
-                            option(value='Canina') Canina
-                            option(value='Felina') Felina
-                            option(value='Bovina') Bovina
-                            option(value='Cabalina') Cabalina
-                            option(value='Suina') Suina
-                            option(value='Ovina') Ovina
+                          select#animal_species_modal.form-control(name='species', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
+                            option(value=animal.species selected)
+                            option(value='' disabled) OPȚIUNI
+                            option(value='Canină' selected) Canină
+                            option(value='Felină') Felină
+                            option(value='Bovină') Bovină
+                            option(value='Cabalină') Cabalină
+                            option(value='Suină') Suină
+                            option(value='Ovină') Ovină
                             option(value='Pasare') Pasare
                     br
-                    .row(style='font-size: 14px;')
-                      .col-md-12
+                    .row
+                      .col-md-4
                         #form-group 
-                          label Animale Tratate
-                          //- input.form-control(name='quantity', type='number', value=animal.quantity, style='font-size: 14px;' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
-                          +input_num('quantity')
+                          label Animale tratate
+                          +input_num('quantity', animal.quantity)
+                    br
                     hr
                     br
                     #form-group 
-                      label Simptomatologie
-                      textarea.form-control(name='simptomatologie', style='font-size: 14px;')=animal.simptomatologie 
+                      label(style="margin-right: 30px; font-size: 13px; color: #2D2F30; text-decoration: underline;") Clinic sănătos?
+                      input#clinicSanatos.form-check-input(type='checkbox' style='margin: 0px;' data-group-cls="btn-group-sm")
                     br
-                    #form-group 
-                      label Diagnosticul
-                      textarea.form-control(name='diagnostic', style='font-size: 14px;')=animal.diagnostic
+                    .row
+                      .col-md-6
+                        #form-group 
+                          label Simptomatologia
+                          textarea#simptomatologie_modal.form-control(name='simptomatologie' value=animal.simptomatologie)=animal.simptomatologie
+                      .col-md-6
+                        label Diagnosticul
+                        textarea#diagnosticul_modal.form-control(name='diagnostic' value=animal.diagnostic)=animal.diagnostic
                     br
                     .modal-footer
-                      button#save-animal.btn.btn-primary(type='submit') Salveaza
-                      button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
-
-                  br
-                  hr
-                  a.btn.btn-outline-danger.delete-animal(href='#' style= 'margin-left: 25%;' data-animal-id=animal._id data-proprietar-id=proprietar._id) Stergeti acest animal
+                      a.btn.btn-outline-danger.delete-animal(href='#' data-animal-id=animal._id data-proprietar-id=proprietar._id style="margin-right: auto;")
+                        i.fas.fa-trash(data-animal-id=animal._id data-proprietar-id=proprietar._id)
+                      button.btn.btn-secondary(type='button', data-dismiss='modal') Închide
+                      button#save-animal.btn-cursor.btn.btn-primary(type='submit') Salveaza
+                      
+                    
 
       .row
         .col-md-3
@@ -101,8 +116,74 @@ block content
 
       br
 
-      a.btn.btn-outline-primary(href='/animals/'+animal._id+'/tratamente/add') Adauga tratament
+      button.btn.btn-warning.ml-3(type='button', data-toggle='modal', data-target='#tratamentModal' style='font-size:13px; width: 120px; height: 40px;') Adauga  
         i.fas.fa-syringe(style='margin-left: 5px;')
+
+      #tratamentModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='tratamentModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
+        .modal-dialog(role='document')
+          .modal-content(style='border-radius: 8px;')
+            .modal-header.modal-header-warning(style="color: black;")
+              h5#tratamentModalLabel.modal-title(style="margin: auto; margin-left: 33%;") Tratament Nou
+                i.fas.fa-syringe(style='margin-left: 5px;')
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true' style='color: black;') ×
+            .modal-body.tratament-modal-body(style="font-size: 14px;")
+              hr(style="margin-top: 0px;")
+              .row 
+                .col-md-10.offset-md-1
+                  form(method='POST' action=animal._id+'/tratamente/add')
+                    .row
+                      .col-md-7
+                        #form-group 
+                          label Denumirea produsului:
+                          input#tratament_name.form-control(name='name' type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
+                      .col-md-5
+                        #form-group 
+                          label Seria:
+                          input#tratament_series.form-control(name='series' type='text' minlength='1' maxlength='40') 
+                    br
+                    .row   
+                      .col-md-4  
+                        #form-group 
+                          label Doza:
+                          +input_dose  
+                      .col-md-4
+                        #form-group 
+                          label Valabilitatea:
+                          input.form-control.text-center#expiry(name='expiry_date' type='text' autocomplete="off" value=moment().add(1, 'y').format("DD-MM-YYYY"))  
+                      .col-md-4
+                        #form-group 
+                          label Data:
+                          input.form-control.text-center#administration_date(name='administration_date' type='text' autocomplete="off" value=moment().format("DD-MM-YYYY")) 
+                    br
+                    hr
+                    .row
+                      .col-md-4
+                        #form-group 
+                          label Asteptare:
+                          input#tratament_waiting_time.form-control(name='waiting_time' type='text') 
+                      .col-md-4
+                        #form-group 
+                          label Durata:
+                          input#tratament_duration.form-control(name='duration' type='text') 
+                      .col-md-4
+                        #form-group 
+                          label Rezultatul:
+                          select#tratament_result.form-control(name='result', type='text' required) 
+                            option(value='' disabled) Alegeti din acestea optiuni
+                            option(value='Vindecat' selected) Vindecat
+                            option(value='Mort') Mort
+                            option(value='Sacrificat') Sacrificat
+                    br
+                    .row
+                      .col-md-12
+                        #form-group 
+                          label Observatii:
+                          textarea#tratament_observations.form-control(name='observations') 
+                    br
+                    .modal-footer
+                      button.btn.btn-light(type='button', data-dismiss='modal') Închide
+                      input.btn.btn-primary(value="Salveaza" type="submit" style="width: 120px;")
       br
       br
       br

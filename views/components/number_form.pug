@@ -3,3 +3,9 @@ mixin input_num(field)
     #decrease.value-button(onclick='decreaseValue()', value='Decrease Value') -
     input#number(name=field type='number', value='1' readonly)
     #increase.value-button(onclick='increaseValue()', value='Increase Value') +
+
+mixin input_dose
+  .number_form(style="display:table;")
+    #decrease.value-button(onclick='decreaseDose()', value='Decrease Value') -
+    input#dose(name="dose" type='number', value='1' readonly)
+    #increase.value-button(onclick='increaseDose()', value='Increase Value') +

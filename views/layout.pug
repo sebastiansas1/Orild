@@ -35,10 +35,10 @@ html(lang="en")
                   .dropdown-menu.dropdown-menu-right.card-lg-light.card-header-dark(aria-labelledby='dropdownMenuButton' )
                     .row.dropdown-top-bar
                       .col-md-4(style="display: table; height: 62px;")
-                        .nav-icon-container.nav-icon(data-toggle='tooltip', title='Toate Notificarile')
+                        .nav-icon-container.nav-icon(data-toggle='tooltip', title='Toate Notificările')
                           i.fas.fa-calendar-alt.text-center.fa-2x
                       .col-md-4
-                        h5.text-center.font-weight-light.droptop Notificari
+                        h5.text-center.font-weight-light.droptop Notificări
                       .col-md-4
                     hr(style="margin: 0px;")
                     .table.reminders-table(style="color: black;")
@@ -79,20 +79,20 @@ html(lang="en")
                   .dropdown-menu.dropdown-menu-right.card-lg-light.card-header-dark(aria-labelledby='dropdownMenuButton')
                     .row.dropdown-top-bar
                       .col-md-4(style="display: table; height: 62px;")
-                        .nav-icon-container.nav-icon(data-toggle='tooltip', title='Toate Notificarile')
+                        .nav-icon-container.nav-icon(data-toggle='tooltip', title='Toate Notificările')
                           i.fas.fa-calendar-alt.text-center.fa-2x
                       .col-md-4
-                        h5.text-center.font-weight-light.droptop Notificari
+                        h5.text-center.font-weight-light.droptop Notificări
                       .col-md-4
                     hr(style="margin: 0px;")
-                    -if(moment().hour() < 12)
-                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna dimineata. Nu aveti notificari noi.
+                    -if(moment().hour() < 12 && moment().hour() > 5)
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna dimineata. Nu aveti notificări noi.
                     -if(moment().hour() >= 12 && moment().hour() < 17)
-                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna dupamasa. Nu aveti notificari noi.
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna dupamasa. Nu aveti notificări noi.
                     -if(moment().hour() >= 17 && moment().hour() <= 24)
-                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna seara. Nu aveti notificari noi.
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Buna seara. Nu aveti notificări noi.
                     -if(moment().hour() >= 0 && moment().hour() <= 5)
-                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Nu aveti notificari noi.
+                      p.text-center.text-muted(style="font-size: 13px; margin-top: 20px; font-weight: 100;") Nu aveti notificări noi.
             li.nav-item
               a.nav-link.primary-link(href='/users/logout') Logout
                 span.fa-stack
@@ -109,11 +109,6 @@ html(lang="en")
           div(class='alert alert-danger') #{error.msg}
       block content 
       br 
-    
-    //- footer
-    //-   .container.container-lg
-    //-     p Copyright 2018 
-    //-       span.float-right Sas Creations&trade; 
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
@@ -128,6 +123,28 @@ html(lang="en")
   script(src="/js/reminder.js")
   script(src="/js/number_form.js")
   script(src="/js/phone_formatter.js")
+  script(src="/js/multi-modal.js")
+  script.
+    function activatePlacesSearch(){
+      var defaultBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(47.373804, 22.281967),
+      new google.maps.LatLng(47.335660, 22.407568));
+
+      var input = document.getElementById('search_term');
+
+      var options = {
+        bounds: defaultBounds
+      };
+
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+      autocomplete.setComponentRestrictions(
+      {'country': ['ro']});
+      
+    }
+  script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBy5IHiEhHnxoJTnO3bcwRwSig49LdYgdY&libraries=places&callback=activatePlacesSearch')
+
+
   
   
   

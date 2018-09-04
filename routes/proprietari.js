@@ -122,6 +122,161 @@ router.post('/', ensureAuthenticated, function(req, res) {
   }
 });
 
+router.post('/addAll', ensureAuthenticated, function(req, res) {
+  // Create Proprietar
+  let proprietar = new Proprietar();
+  proprietar.name = req.body.proprietar_name;
+  proprietar.address = req.body.proprietar_address;
+  proprietar.phone = req.body.proprietar_phone;
+
+  proprietar.save(function(err, proprietar_object) {
+    if (err) {
+      console.log(err);
+    } else {
+      // Create Animal
+      let animal = new Animal();
+      animal.registration_nr = req.body.animal_name;
+      animal.species = req.body.animal_species;
+      animal.quantity = req.body.animal_quantity;
+      animal.simptomatologie = req.body.animal_simptomatologie;
+      animal.diagnostic = req.body.animal_diagnostic;
+      animal.proprietar_id = proprietar_object._id;
+
+      animal.save(function(err2, animal_object) {
+        if (err2) {
+          console.log(err2);
+        } else {
+          // Create Tratament
+          let tratament = new Tratament();
+          let reminder = new Reminder();
+
+          tratament.name = req.body.tratament_name;
+          tratament.series = req.body.tratament_series;
+          tratament.dose = req.body.tratament_dose;
+          tratament.expiry_date = moment(
+            req.body.tratament_expiry,
+            'DD-MM-YYYY'
+          ).toDate();
+          tratament.administration_date = moment(
+            req.body.tratament_date,
+            'DD-MM-YYYY'
+          ).toDate();
+          tratament.waiting_time = req.body.tratament_waiting_time;
+          tratament.duration = req.body.tratament_duration;
+          tratament.result = req.body.tratament_result;
+          tratament.observations = req.body.tratament_observations;
+          tratament.animal_id = animal_object._id;
+
+          tratament.save(function(err3, tratament_object) {
+            if (err3) {
+              console.log(err3);
+            } else {
+              if (tratament_object.result == 'Vindecat') {
+                reminder.animal_id = animal_object._id;
+                reminder.animal_name = animal_object.registration_nr;
+                reminder.proprietar_id = animal_object.proprietar_id;
+                reminder.tratament_id = tratament_object._id;
+                reminder.tratament_name = tratament_object.name;
+                reminder.date = moment(
+                  tratament_object.administration_date,
+                  'DD-MM-YYYY'
+                )
+                  .add(1, 'y')
+                  .toDate();
+
+                reminder.save(function(err4) {
+                  if (err4) {
+                    console.log(err4);
+                  } else {
+                    req.flash(
+                      'success',
+                      'Proprietar, Animal, Tratament adaugate!'
+                    );
+                    res.redirect('/proprietari/');
+                  }
+                });
+              } else {
+                req.flash('success', 'Proprietar, Animal, Tratament adaugate!');
+                res.redirect('/proprietari/');
+              }
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+router.post('/addAnimalAndTratament', ensureAuthenticated, function(req, res) {
+  // Create Animal
+  let animal = new Animal();
+  animal.registration_nr = req.body.animal_name;
+  animal.species = req.body.animal_species;
+  animal.quantity = req.body.animal_quantity;
+  animal.simptomatologie = req.body.animal_simptomatologie;
+  animal.diagnostic = req.body.animal_diagnostic;
+  animal.proprietar_id = req.body.proprietar_id;
+
+  animal.save(function(err2, animal_object) {
+    if (err2) {
+      console.log(err2);
+    } else {
+      // Create Tratament
+      let tratament = new Tratament();
+      let reminder = new Reminder();
+
+      tratament.name = req.body.tratament_name;
+      tratament.series = req.body.tratament_series;
+      tratament.dose = req.body.tratament_dose;
+      tratament.expiry_date = moment(
+        req.body.tratament_expiry,
+        'DD-MM-YYYY'
+      ).toDate();
+      tratament.administration_date = moment(
+        req.body.tratament_date,
+        'DD-MM-YYYY'
+      ).toDate();
+      tratament.waiting_time = req.body.tratament_waiting_time;
+      tratament.duration = req.body.tratament_duration;
+      tratament.result = req.body.tratament_result;
+      tratament.observations = req.body.tratament_observations;
+      tratament.animal_id = animal_object._id;
+
+      tratament.save(function(err3, tratament_object) {
+        if (err3) {
+          console.log(err3);
+        } else {
+          if (tratament_object.result == 'Vindecat') {
+            reminder.animal_id = animal_object._id;
+            reminder.animal_name = req.body.animal_name;
+            reminder.proprietar_id = req.body.proprietar_id;
+            reminder.tratament_id = tratament_object._id;
+            reminder.tratament_name = tratament_object.name;
+            reminder.date = moment(
+              tratament_object.administration_date,
+              'DD-MM-YYYY'
+            )
+              .add(1, 'y')
+              .toDate();
+
+            reminder.save(function(err4) {
+              if (err4) {
+                console.log(err4);
+              } else {
+                req.flash('success', 'Proprietar, Animal, Tratament adaugate!');
+                res.redirect('/proprietari/');
+              }
+            });
+          } else {
+            req.flash('success', 'Proprietar, Animal, Tratament adaugate!');
+            res.redirect('/proprietari/');
+          }
+        }
+      });
+    }
+  });
+});
+
 // Edit Proprietar Route
 router.get('/edit/:id', ensureAuthenticated, function(req, res) {
   Proprietar.findById(req.params.id, function(err, proprietar) {

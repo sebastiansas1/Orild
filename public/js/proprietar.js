@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $('#proprietar_name_modal').keyup(function() {
     var name = $(this).val();
-    var button = $('#save-proprietar');
+    var button = $('#next-modal-proprietar');
     if (name) {
       button.prop('disabled', false);
       button.css('cursor', 'pointer');
@@ -11,8 +11,21 @@ $(document).ready(function() {
     }
   });
 
+  if ($('#proprietar_name_modal').val() !== '') {
+    $('#next-modal-proprietar').prop('disabled', false);
+    $('#next-modal-proprietar').css('cursor', 'pointer');
+  }
+
   $('.proprietar_name').each(function() {
     $(this).text(toTitleCase($(this).text()));
+  });
+
+  $('#btnLogin').click(function() {
+    // Button Busy
+    $(this).toggleClass('btn-success');
+    $(this).prop('readonly', 'true');
+    $(this).val('Accesând...');
+    $(this).css('cursor', 'progress');
   });
 
   // Delete Method
@@ -57,7 +70,7 @@ $(document).ready(function() {
       .addClass('btn btn-danger');
     $('.ui-dialog-buttonpane')
       .find('button:contains("Inapoi")')
-      .addClass('btn btn-dark');
+      .addClass('btn btn-light');
   });
 
   // Custom Methods

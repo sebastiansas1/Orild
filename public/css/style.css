@@ -10,6 +10,10 @@
   border: #c2c2c2;
 }
 
+.modal-body {
+  padding-top: 0;
+}
+
 .modal-header-success {
   color: #fff;
   padding: 9px 15px;
@@ -581,6 +585,18 @@ th {
   box-shadow: none !important;
 }
 
+.progress-label {
+  display: table-cell;
+  vertical-align: middle;
+  width: 6%;
+}
+
+.progress {
+  height: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
 /* Number_form Stylings */
 
 .value-button {
@@ -646,8 +662,27 @@ input#number {
   display: table-cell;
 }
 
+input#dose {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  padding: 0px;
+  font-size: 15px;
+  width: 38px;
+  height: 33px;
+  display: table-cell;
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='dose']::-webkit-inner-spin-button,
+input[type='dose']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -671,6 +706,18 @@ select.form-control:not([size]):not([multiple]) {
   cursor: not-allowed;
 }
 
+.btn-cursor {
+  cursor: pointer !important;
+}
+
 #save-proprietar {
   cursor: not-allowed;
+}
+
+.table thead th {
+  border-top: 0px;
+}
+
+.pac-container {
+  z-index: 1051 !important;
 }

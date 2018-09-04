@@ -1,42 +1,42 @@
 let mongoose = require('mongoose');
 
 let tratamentSchema = mongoose.Schema({
-  name:{
+  name: {
     type: String,
     required: true
   },
-  series:{
+  series: {
     type: String
   },
-  dose:{
+  dose: {
     type: String,
     required: true
   },
-  expiry_date:{
+  expiry_date: {
     type: Date
   },
-  waiting_time:{
+  waiting_time: {
     type: String
   },
-  duration:{
+  duration: {
     type: String
   },
-  result:{
+  result: {
     type: String
   },
-  signature:{
+  signature: {
     type: String
   },
-  observations:{
+  observations: {
     type: String
   },
-  administration_date:{ 
-    type: Date, 
-    default: Date.now 
+  administration_date: {
+    type: Date,
+    default: Date.now
   },
-  animal_id:{
+  animal_id: {
     type: String
   }
 });
 
-let Tratament = module.exports = mongoose.model('Tratament', tratamentSchema);
+let Tratament = (module.exports = mongoose.model('Tratament', tratamentSchema));

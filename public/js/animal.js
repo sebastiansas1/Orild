@@ -13,24 +13,19 @@ $(document).ready(function() {
     $(this).toggleClass('checkedHealthy');
     if ($(this).hasClass('checkedHealthy')) {
       $('#simptomatologie_modal').val('');
-      $('#simptomatologie_modal').val('Clinic Sanatos');
-      $('#simptomatologie_modal').prop('readonly', true);
-      $('#diagnosticul_modal').val('Vaccinare hexavalenta');
-      $('#diagnosticul_modal').prop('readonly', true);
+      $('#simptomatologie_modal').val('Clinic sănătos');
+      $('#diagnosticul_modal').val('Vaccinare hexavalentă');
     } else {
       $('#simptomatologie_modal').val('');
-      $('#simptomatologie_modal').prop('readonly', false);
       $('#diagnosticul_modal').val('');
-      $('#diagnosticul_modal').prop('readonly', false);
     }
   });
 
   $('#animal_name_modal').keyup(function() {
-    var proprietar = $('#animal_proprietar_modal').val();
     var name = $(this).val();
     var species = $('#animal_species_modal').val();
-    var button = $('#save-animal');
-    if (proprietar && name && species) {
+    var button = $('#next-modal-animal');
+    if (name && species) {
       button.prop('disabled', false);
       button.css('cursor', 'pointer');
     } else {
@@ -40,25 +35,10 @@ $(document).ready(function() {
   });
 
   $('#animal_species_modal').change(function() {
-    var proprietar = $('#animal_proprietar_modal').val();
     var name = $('#animal_name_modal').val();
     var species = $(this).val();
     var button = $('#save-animal');
-    if (proprietar && name && species) {
-      button.prop('disabled', false);
-      button.css('cursor', 'pointer');
-    } else {
-      button.prop('disabled', true);
-      button.css('cursor', 'not-allowed');
-    }
-  });
-
-  $('#animal_proprietar_modal').change(function() {
-    var proprietar = $(this).val();
-    var name = $('#animal_name_modal').val();
-    var species = $('#animal_species_modal').val();
-    var button = $('#save-animal');
-    if (proprietar && name && species) {
+    if (name && species) {
       button.prop('disabled', false);
       button.css('cursor', 'pointer');
     } else {
@@ -106,6 +86,6 @@ $(document).ready(function() {
       .addClass('btn btn-danger');
     $('.ui-dialog-buttonpane')
       .find('button:contains("Inapoi")')
-      .addClass('btn btn-dark');
+      .addClass('btn btn-light');
   });
 });

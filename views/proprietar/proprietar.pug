@@ -1,5 +1,5 @@
 extends ../layout
-include ../components/number_form.pug
+include ../components/multi-modals.pug
 
 block content 
 
@@ -11,28 +11,28 @@ block content
 
     .padding-sm
       h4.align-middle Detalii
-        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:13px; width: 130px; height: 40px;') Modificati 
+        button.btn.btn-dark.float-right(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:13px; width: 130px; height: 40px;') Modifica 
           i.far.fa-edit(style='margin-left: 5px;')
       hr
       br
       .row
         .col-md-2
           p.font-weight-bold.p-2.m-0 Adresa: 
-        .col-md-3
-          input.form-control.p-2.m-0.pl-2(value=proprietar.address disabled)
+        .col-md-5
+          input.form-control.p-2.m-0.pl-2.text-center(value=proprietar.address disabled)
       br
       .row
         .col-md-2
           p.font-weight-bold.p-2.m-0 Nr Tel: 
-        .col-md-2
-          input#phone_num_from_db.form-control.p-2.m-0.pl-2(value=proprietar.phone disabled)
+        .col-md-3
+          input#phone_num_from_db.form-control.p-2.m-0.pl-2.text-center(value=proprietar.phone disabled)
 
       br
       br
-      #dialog-confirm(title='Sunteti siguri?')
+      #dialog-confirm(title='Sunteți siguri?')
         p#dialog-message(style='display: none;')
           span.ui-icon.ui-icon-alert(style='float:left; margin:12px 12px 20px 0; z-index: 7;')
-          | Stergerea acest proprietar este permanenta, si toate animalele si tratamentele asociate vor fii sterse in mod permanent.
+          | Ștergerea acestui proprietar este permanentă, și toate animalele și tratamentele asociate vor fii șterse în mod permanent. 
 
 
       h4 Animale
@@ -40,99 +40,61 @@ block content
 
       .row
         .col-md-10
-          button.btn.btn-dark.active(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:15px; width: 180px; height: 40px;') Adauga Animal 
+          button.btn.btn-warning.ml-3(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:13px; width: 130px; height: 40px;') Adauga  
             i.fab.fa-earlybirds(style='margin-left: 5px;')
 
           #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
             .modal-dialog(role='document')
               .modal-content(style='border-radius: 8px;')
-                .modal-header.modal-header-dark
-                  h5#animalModalLabel.modal-title Animal Nou 
+                .modal-header.modal-header-warning(style="color: black;")
+                  h5#animalModalLabel.modal-title(style="margin: auto; margin-left: 37%;") Animal Nou 
                     i.fab.fa-earlybirds(style='margin-left: 5px;')
                   button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true' style='color: black;') ×
+                .progress-container(style="display: table; height: 50px; margin:auto; width: 90%;")
+                  .progress-label
+                    p.progress-message.m-0(style="font-size: 13px;") 2/3
+                  .progress
+                    .progress-bar(role='progressbar', style='width: 66%;', aria-valuenow='66', aria-valuemin='0', aria-valuemax='100')
+                  button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true' style='color: white;') ×
-                .modal-body
-                  .row 
-                    .col-md-10.offset-md-1
-                      form#animal-form(method='POST', action='/proprietari/'+proprietar._id+'/animals/add')
-                        .row
-                          .col-md-5
-                            #form-group 
-                              label Proprietar
-                              input#animal_proprietar_modal.proprietar_name.form-control(name='proprietar', type='text' disabled value=proprietar.name)
-                          .col-md-7
-                            #form-group 
-                              label Nr. Matricol / Nume
-                              input#animal_name_modal.form-control(name='registration_nr', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
-                        br
-                        .row
-                          .col-md-5
-                            #form-group 
-                              label Specia
-                              select#animal_species_modal.form-control(name='species', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
-                                option(value='', selected='', disabled='') Alegeti
-                                option(value='Canina') Canina
-                                option(value='Felina') Felina
-                                option(value='Bovina') Bovina
-                                option(value='Cabalina') Cabalina
-                                option(value='Suina') Suina
-                                option(value='Ovina') Ovina
-                                option(value='Pasare') Pasare
-                          .col-md-7
-                            #form-group 
-                              label Animale Tratate
-                              +input_num('quantity')
-                        br
-                        hr
-                        br
-                        #form-group 
-                          label(style="margin-right: 30px; font-size: 13px; color: #2D2F30; text-decoration: underline;") Clinic Sanatos?
-                          input#clinicSanatos.form-check-input(type='checkbox' style='margin: 0px;' data-group-cls="btn-group-sm")
-                        br
-                        .row
-                          .col-md-6
-                            #form-group 
-                              label Simptomatologie
-                              textarea#simptomatologie_modal.form-control(name='simptomatologie') 
-                          .col-md-6
-                            label Diagnosticul
-                            textarea#diagnosticul_modal.form-control(name='diagnostic') 
-                        br
-                        .modal-footer
-                          button#save-animal.btn.btn-primary(type='submit' disabled) Salveaza
-                          button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
+                +proprietar_modal_filled('none', proprietar)
+                +animal_modal('initial', 'none', proprietar._id)
+                +tratament_modal('none', 'save-animal-tratament')
         
 
           #proprietarModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='proprietarModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
             .modal-dialog(role='document')
               .modal-content(style='border-radius: 8px;')
                 .modal-header.modal-header-primary
-                  h5#proprietarModalLabel.modal-title= proprietar.name
+                  h5#proprietarModalLabel.modal-title(style="margin: auto; margin-left: 37%;")= proprietar.name
                   button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') ×
-                .modal-body
+                .modal-body.proprietar-modal-body(style="font-size: 14px; display:"+ViewState+";")
+                  hr(style="margin-top: 0px;")
                   .row 
                     .col-md-10.offset-md-1
                       form#proprietar-form(method='POST', action='/proprietari/edit/'+proprietar._id)
-                        #form-group
-                          label Nume:
-                          input#name.form-control(name='name', type='text', value=proprietar.name required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
+                        .row
+                          .col-md-7
+                            #form-group
+                              label Nume:
+                              input#proprietar_name_modal.form-control(name='name', type='text' value=proprietar.name) 
+                          .col-md-5
+                            #form-group 
+                              label Nr Tel:
+                              input#phone_num.form-control(name='phone', type='text' maxlength=14 value=proprietar.phone) 
                         br
                         #form-group 
                           label Adresa:
-                          input.form-control(name='address', type='text', value=proprietar.address required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')")
-                        br
-                        #form-group 
-                          label Nr Tel:
-                          input#phone_num.form-control(name='phone', type='text', value=proprietar.phone)
+                          input#search_term.form-control(name='address' type='text' value=proprietar.address) 
                         br
                         .modal-footer
-                          button#save-proprietar.btn.btn-primary.float-right(type='submit') Salveaza
-                          button.btn.btn-secondary.float-right(type='button', data-dismiss='modal') Inchide
-
-                      br
-                      hr
-                      a.btn.btn-outline-danger.delete-proprietar(href='#' style= 'margin-left: 25%;' data-id=proprietar._id) Stergeti Acest Proprietar
+                          a.btn.btn-outline-danger.delete-proprietar(href='#' style= 'margin-right: auto;' data-id=proprietar._id)
+                            i.fas.fa-trash(data-id=proprietar._id)
+                          button.btn.btn-light(type='button', data-dismiss='modal') Închide
+                          input.btn.btn-primary(value="Salveaza" type="submit" style="width: 120px;")
+                      
 
 
       br
@@ -144,7 +106,7 @@ block content
               th Nr. Matricol / Nume
               th Specie
               th Cantitate
-              th Simptomatologie
+              th Simptomatologia
               th Diagnosticul
           each animal, i in animals
             tbody

@@ -1,6 +1,6 @@
 extends ../layout
 
-include ../components/number_form.pug
+include ../components/multi-modals.pug
 
 block content 
 
@@ -8,56 +8,41 @@ block content
     .card-header-primary 
       h2.text-center 
         i.fas.fa-bolt(style='margin-right: 15px;' )
-        | Dashboard
+        | Tabloul de bord
 
     .padding-sm
       .row
+        button.btn.btn-warning(type='button', data-toggle='modal', data-target='#multi-modal' style='font-size:14px; width: 200px; height: 46px; margin: auto;') Adăuga fişier 
+          i.fas.fa-file-contract(style='margin-left: 7px;')
+
+        #multi-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='multi-modal-lbl', aria-hidden= hidden, style='margin-top: 5%;')
+          .modal-dialog(role='document')
+            .modal-content(style='border-radius: 8px;')
+              .modal-header.modal-header-warning(style="color: black;")
+                h5#multi-modal-lbl.modal-title(style="margin: auto; margin-left: 37%;") Fişier nou 
+                  i.fas.fa-file-contract(style='margin-left: 5px;')
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true' style='color: black;') ×
+              .progress-container(style="display: table; height: 50px; margin:auto; width: 90%;")
+                .progress-label
+                  p.progress-message.m-0(style="font-size: 13px;") 1/3
+                .progress
+                  .progress-bar(role='progressbar', style='width: 33%;', aria-valuenow='33', aria-valuemin='0', aria-valuemax='100')
+              +proprietar_modal('initial')
+              +animal_modal('none')
+              +tratament_modal('none', 'save-everything')
+      
+      br
+      br
+      .row#database
         .col-md-5
           h4 Proprietarii
           br
           .row
             .col-md-8
               .input-form.form-search
-                input.form-control.search.search-proprietar(type='text', placeholder='Cauta proprietar ...')
+                input.form-control.search.search-proprietar(type='text', placeholder='Căutați proprietar ...')
           hr
-          br
-          .row
-            .col-md-10
-              button.btn.btn-primary(type='button', data-toggle='modal', data-target='#proprietarModal' style='font-size:14px; width: 200px; height: 46px;') Adauga Proprietar 
-                i.fa.fa-user(style='margin-left: 5px;')
-
-              #proprietarModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='proprietarModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
-                .modal-dialog(role='document')
-                  .modal-content(style='border-radius: 8px;')
-                    .modal-header.modal-header-primary
-                      h5#proprietarModalLabel.modal-title Proprietar Nou 
-                        i.fa.fa-user(style='margin-left: 5px;')
-                      button.close(type='button', data-dismiss='modal', aria-label='Close')
-                        span(aria-hidden='true') ×
-                    .modal-body(style="font-size: 14px;")
-                      br
-                      .row 
-                        .col-md-10.offset-md-1
-                          form#proprietar-form(method='POST', action='/proprietari/')
-                            .row
-                              .col-md-7
-                                #form-group
-                                  label Nume:
-                                  input#proprietar_name_modal.form-control(name='name', type='text') 
-                              .col-md-5
-                                #form-group 
-                                  label Nr Tel:
-                                  input#phone_num.form-control(name='phone', type='text' maxlength=14) 
-                            br
-                            #form-group 
-                              label Adresa:
-                              input.form-control(name='address', type='text') 
-                            br
-                            .modal-footer
-                              button#save-proprietar.btn.btn-primary(type='submit' disabled) Salveaza
-                              button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
-          
-          br
           .col-md-10
             ul.list-group
               br
@@ -74,90 +59,19 @@ block content
           .row
             .col-md-8
               .input-form.form-search
-                input.form-control.search#search-animal(type='text', placeholder='Cauta animal ...')
+                input.form-control.search#search-animal(type='text', placeholder='Căutați animale ...')
             .col-md-4.responsive-margin-top
               #form-group 
                 select.form-control.filter-animal.search(name='species', type='text') 
                   option(value='') Toate
-                  option(value='Canina') Canina
-                  option(value='Felina') Felina
-                  option(value='Bovina') Bovina
-                  option(value='Cabalina') Cabalina
-                  option(value='Suina') Suina
-                  option(value='Ovina') Ovina
+                  option(value='Canină' selected) Canină
+                  option(value='Felină') Felină
+                  option(value='Bovină') Bovină
+                  option(value='Cabalină') Cabalină
+                  option(value='Suină') Suină
+                  option(value='Ovină') Ovină
                   option(value='Pasare') Pasare
           hr
-          br
-          .row
-            .col-md-10
-              button.btn.btn-dark(type='button', data-toggle='modal', data-target='#animalModal' style='font-size:14px; width: 170px; height: 46px;') Adauga Animal
-                i.fab.fa-earlybirds(style='margin-left: 5px;')
-
-              #animalModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='animalModalLabel', aria-hidden= hidden, style='margin-top: 5%;')
-                .modal-dialog(role='document')
-                  .modal-content(style='border-radius: 8px;')
-                    .modal-header.modal-header-dark
-                      h5#animalModalLabel.modal-title Animal Nou 
-                        i.fab.fa-earlybirds(style='margin-left: 5px;')
-                      button.close(type='button', data-dismiss='modal', aria-label='Close')
-                        span(aria-hidden='true' style='color: white;') ×
-                    .modal-body(style="font-size: 14px;")
-                      br
-                      .row 
-                        .col-md-10.offset-md-1
-                          form#animal-form(method='POST', action='/animals/')
-                            .row
-                              .col-md-5
-                                #form-group 
-                                  label Proprietar
-                                  select#animal_proprietar_modal.form-control(name='proprietar', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')")
-                                    option(value='', selected='', disabled='') Alegeti
-                                    each proprietar, i in proprietari                               
-                                      option.proprietar_name(value=proprietar._id)= proprietar.name
-                              .col-md-7
-                                #form-group 
-                                  label Nr. Matricol / Nume
-                                  input#animal_name_modal.form-control(name='registration_nr', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
-                            br
-                            .row
-                              .col-md-5
-                                #form-group 
-                                  label Specia
-                                  select#animal_species_modal.form-control(name='species', type='text' required oninvalid="this.setCustomValidity('Acest camp este obligatoriu')" oninput="setCustomValidity('')") 
-                                    option(value='', selected='', disabled='') Alegeti
-                                    option(value='Canina') Canina
-                                    option(value='Felina') Felina
-                                    option(value='Bovina') Bovina
-                                    option(value='Cabalina') Cabalina
-                                    option(value='Suina') Suina
-                                    option(value='Ovina') Ovina
-                                    option(value='Pasare') Pasare
-                              .col-md-7
-                                #form-group 
-                                  label Animale Tratate
-                                  +input_num('quantity')
-                            br
-                            hr
-                            br
-                            #form-group 
-                              label(style="margin-right: 30px; font-size: 13px; color: #2D2F30; text-decoration: underline;") Clinic Sanatos?
-                              input#clinicSanatos.form-check-input(type='checkbox' style='margin: 0px;' data-group-cls="btn-group-sm")
-                            br
-                            .row
-                              .col-md-6
-                                #form-group 
-                                  label Simptomatologie
-                                  textarea#simptomatologie_modal.form-control(name='simptomatologie') 
-                              .col-md-6
-                                label Diagnosticul
-                                textarea#diagnosticul_modal.form-control(name='diagnostic') 
-                            br
-                            .modal-footer
-                              button#save-animal.btn.btn-primary(type='submit' disabled) Salveaza
-                              button.btn.btn-secondary(type='button', data-dismiss='modal') Inchide
-
-          br
-          br
           .col-md-12.list-group
             table.table
               thead
