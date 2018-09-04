@@ -83,6 +83,6 @@ block content
                 tbody.containerItems.animal-item-list(animal-name=animal.registration_nr animal-species=animal.species style='font-size: 14px;')
                   tr.item.inbox-list
                     td.align-middle
-                      a(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
+                      a.proprietar_name(href='/proprietari/'+animal.proprietar_id+'/animals/' + animal._id)= animal.registration_nr
                     td.text-center.align-middle= animal.species
                     td.text-center.align-middle= animal.quantity
