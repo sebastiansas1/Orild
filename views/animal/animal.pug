@@ -150,11 +150,11 @@ block content
                       .col-md-4
                         #form-group 
                           label Valabilitatea:
-                          input.form-control.text-center#expiry(name='expiry_date' type='text' autocomplete="off" value=moment().add(1, 'y').format("DD-MM-YYYY"))  
+                          input.form-control.text-center#expiry(name='expiry_date' type='text' autocomplete="nope" value=moment().add(1, 'y').format("DD-MM-YYYY"))  
                       .col-md-4
                         #form-group 
                           label Data:
-                          input.form-control.text-center#administration_date(name='administration_date' type='text' autocomplete="off" value=moment().format("DD-MM-YYYY")) 
+                          input.form-control.text-center#administration_date(name='administration_date' type='text' autocomplete="nope" value=moment().format("DD-MM-YYYY")) 
                     br
                     hr
                     .row

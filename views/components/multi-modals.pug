@@ -10,11 +10,11 @@ mixin proprietar_modal(ViewState)
             .col-md-7
               #form-group
                 label Nume:
-                input#proprietar_name_modal.form-control(name='name', type='text') 
+                input#proprietar_name_modal.form-control(name='name', type='text' autocomplete="nope") 
             .col-md-5
               #form-group 
                 label Nr Tel:
-                input#phone_num.form-control(name='phone', type='text' maxlength=14) 
+                input#phone_num.form-control(name='phone', type='text' maxlength=14 autocomplete="nope") 
           br
           #form-group 
             label Adresa:
@@ -59,7 +59,7 @@ mixin animal_modal(ViewState, BtnState, proprietar_id)
             .col-md-7
               #form-group 
                 label Nr. Matricol / Nume
-                input#animal_name_modal.form-control(name='registration_nr', type='text' proprietar_id=proprietar_id) 
+                input#animal_name_modal.form-control(name='registration_nr', type='text' proprietar_id=proprietar_id autocomplete="off") 
             .col-md-5
               #form-group 
                 label Specia
@@ -124,11 +124,11 @@ mixin tratament_modal(ViewState, SaveBtnID)
             .col-md-4
               #form-group 
                 label Valabilitatea:
-                input.form-control.text-center#expiry(name='expiry_date' type='text' autocomplete="off" value=moment().add(1, 'y').format("DD-MM-YYYY"))  
+                input.form-control.text-center#expiry(name='expiry_date' type='text' autocomplete="nope" value=moment().add(1, 'y').format("DD-MM-YYYY"))  
             .col-md-4
               #form-group 
                 label Data:
-                input.form-control.text-center#administration_date(name='administration_date' type='text' autocomplete="off" value=moment().format("DD-MM-YYYY")) 
+                input.form-control.text-center#administration_date(name='administration_date' type='text' autocomplete="nope" value=moment().format("DD-MM-YYYY")) 
           br
           hr
           .row
